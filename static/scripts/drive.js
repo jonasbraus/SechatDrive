@@ -1,7 +1,6 @@
 window.addEventListener("load", function (ev) {
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
-    document.querySelector("body").style.height = window.client.height + "vh"
 })
 
 function on_click_folder(request_folder, folder_name) {
