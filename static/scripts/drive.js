@@ -1,17 +1,21 @@
 window.addEventListener("load", function (ev) {
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
+    // if(!window.location.hash) {
+    //     window.location = window.location + "#loaded"
+    //     window.location.reload()
+    // }
 })
 
 function on_click_folder(request_folder, folder_name) {
     if(document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none") {
-        window.location.href = window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name
+        window.location = window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name
     }
 }
 
 function on_click_file(request_folder, file_name) {
     if(document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none") {
-        window.location.href = window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name
+        window.location = window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name
     }
 }
 
