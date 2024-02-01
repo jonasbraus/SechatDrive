@@ -9,6 +9,11 @@ import login_handler
 app = Flask(__name__)
 
 
+@app.route('/')
+def home():
+    return redirect('/drive')
+
+
 @app.route("/login", methods=["GET"])
 def page_login():
     token = request.cookies.get("token")
