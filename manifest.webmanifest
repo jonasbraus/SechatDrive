@@ -1,0 +1,19 @@
+{
+    "name": "Sechat",
+    "short_name": "Sechat",
+    "description": "The Cloud Suite",
+    "start_url": "/",
+    "dir": "auto",
+    "lang": "en-US",
+    "display": "standalone",
+    "theme_color": "#17171e",
+    "background_color": "#17171e",
+    "icons": [
+        {
+            "src": "/static/Logo.png",
+            "sizes": "500x500",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}
