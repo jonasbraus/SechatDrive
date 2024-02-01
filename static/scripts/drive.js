@@ -3,16 +3,6 @@ window.addEventListener("load", function (ev) {
     document.querySelector(".editMenu").style.display = "none"
 })
 
-function adjustHeight() {
-    const actualViewportHeight = window.innerHeight;
-    document.documentElement.style.setProperty('--vh', `${actualViewportHeight}px`);
-}
-
-window.addEventListener('resize', adjustHeight);
-window.addEventListener('orientationchange', adjustHeight);
-
-adjustHeight();
-
 function on_click_folder(request_folder, folder_name) {
     if(document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none") {
         window.location.href = window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name
