@@ -1,17 +1,49 @@
 import os
 import shutil
 
-from flask import Flask, render_template, send_file, request
+from flask import Flask, render_template, send_file, request, redirect, Response
+
+import database
+import login_handler
 
 app = Flask(__name__)
 
+
 @app.route("/login", methods=["GET"])
 def page_login():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is not None:
+        return redirect("/drive")
+
     return render_template("login.html")
+
+
+@app.route("/login/credentials", methods=["POST"])
+def page_login_credentials():
+    js = request.json
+    mail = js["mail"].lower()
+    password = js["password"]
+
+    user = database.get_user_by_mail_and_password(mail, password)
+    print(user)
+    token = login_handler.login_user(user)
+
+    resp = Response()
+    resp.set_cookie("token", token)
+    return resp
+
 
 @app.route("/drive", methods=["GET"])
 def page_drive():
-    user_id = 1
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return redirect("/login")
+    user_id = user.user_id
+
+    if not os.path.isdir(f"./drive/{user_id}"):
+        os.mkdir(f"./drive/{user_id}")
 
     request_folder = request.args.get("folder") if request.args.get("folder") is not None else ""
     path = f"./drive/{user_id}/{request_folder}"
@@ -24,7 +56,11 @@ def page_drive():
 
 @app.route("/drive/getfile", methods=["GET"])
 def drive_get_file():
-    user_id = 1
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return redirect("/login")
+    user_id = user.user_id
 
     request_file = request.args.get("file")
     path = f"./drive/{user_id}/{request_file}"
@@ -34,7 +70,11 @@ def drive_get_file():
 
 @app.route("/drive/newfolder", methods=["POST"])
 def drive_newfolder():
-    user_id = 1
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return redirect("/login")
+    user_id = user.user_id
 
     js = request.json
     new_folder = js["new_folder"]
@@ -47,7 +87,11 @@ def drive_newfolder():
 
 @app.route("/drive/newfile", methods=["POST"])
 def drive_newfile():
-    user_id = 1
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return redirect("/login")
+    user_id = user.user_id
 
     path_folder = request.form["path_folder"]
     print(path_folder)
@@ -68,14 +112,18 @@ def drive_newfile():
 
 @app.route("/drive/delete", methods=["POST"])
 def drive_delete():
-    user_id = 1
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return redirect("/login")
+    user_id = user.user_id
 
     js = request.json
     path_element = js["path_element"]
 
     path = f"./drive/{user_id}/{path_element}"
 
-    if "." in path_element.split("/")[len(path_element.split("/"))-1]:
+    if "." in path_element.split("/")[len(path_element.split("/")) - 1]:
         os.remove(path)
     else:
         shutil.rmtree(path)
