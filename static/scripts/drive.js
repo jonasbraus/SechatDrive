@@ -9,13 +9,14 @@ window.addEventListener("load", function (ev) {
 
 function on_click_folder(request_folder, folder_name) {
     if(document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none") {
-        window.location = window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name
+        window.location.replace(window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name)
+
     }
 }
 
 function on_click_file(request_folder, file_name) {
     if(document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none") {
-        window.location = window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name
+        window.location.replace(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name)
     }
 }
 
