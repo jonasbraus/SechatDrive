@@ -1,6 +1,8 @@
 window.addEventListener("load", function (ev) {
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
+    let actualViewPortHeight = window.innerHeight
+    document.documentElement.style.setProperty("--vh", `${actualViewPortHeight}`)
 })
 
 function on_click_folder(request_folder, folder_name) {
