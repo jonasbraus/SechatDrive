@@ -1,10 +1,14 @@
+html {
+     background-color: #1b1a22;
+}
+
 body {
     width: 100vw;
     height: 100vh;
     max-height: 100vh;
     margin: 0;
     padding: 0;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     font-family: sans-serif;

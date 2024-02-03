@@ -1,4 +1,8 @@
 window.addEventListener("load", function (ev) {
+    setTimeout(function () {
+        document.querySelector("body").style.display = "flex"
+    }, 200)
+
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
     // if(!window.location.hash) {
