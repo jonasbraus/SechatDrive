@@ -6,8 +6,8 @@
     "dir": "auto",
     "lang": "en-US",
     "display": "standalone",
-    "theme_color": "#17171e",
-    "background_color": "#17171e",
+    "theme_color": "#1b1a22",
+    "background_color": "#1b1a22",
     "icons": [
         {
             "src": "/static/Logo.png",
