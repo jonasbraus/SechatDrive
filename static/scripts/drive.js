@@ -8,7 +8,7 @@ window.addEventListener("load", function (ev) {
 })
 
 function on_click_folder(request_folder, folder_name) {
-    if(document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none") {
+    if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none") {
         history.pushState({path: window.location.href}, "", window.location.href)
         window.location.replace(window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name)
 
@@ -16,7 +16,7 @@ function on_click_folder(request_folder, folder_name) {
 }
 
 function on_click_file(request_folder, file_name) {
-    if(document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none") {
+    if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none") {
         history.pushState({path: window.location.href}, "", window.location.href)
         window.location.replace(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name)
     }
@@ -34,8 +34,7 @@ function on_click_edit(request_folder, element_name) {
                 <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2z"/>
             </svg>
         `
-    }
-    else {
+    } else {
         inner += `
         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="#18a8ff" class="bi bi-folder-fill"
                  viewBox="0 0 16 16">
@@ -54,7 +53,7 @@ function on_click_edit(request_folder, element_name) {
         <span style="color: white; font-size: 40px;">Move</span>
     </div>
     
-    <div style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
+    <div onclick="on_click_rename_element_in_edit_menu('${request_folder}', '${element_name}')" style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
         <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="white" class="bi bi-pencil-square" viewBox="0 0 16 16">
             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
@@ -124,6 +123,37 @@ function on_click_new_folder_in_add_menu(request_folder) {
     <div style="width: 100%; margin-right: 0; display: flex; justify-content: flex-end; align-items: center; gap: 40px; margin-top: 40px;">
         <button onclick="on_click_cancel_in_folder_naming_menu()" style="background-color: transparent; border: 0; font-size: 40px; color: #6752d1;">Cancel</button>
         <button onclick="on_click_save_in_folder_naming_menu('${request_folder}')" style="background-color: transparent; border: 0; font-size: 40px; color: #6752d1;">Save</button>
+    </div>
+    `
+}
+
+async function rename_element(request_folder, old_name) {
+    let input_rename = document.querySelector("#input_rename").value
+    await fetch(window.location.origin + "/drive/rename", {
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "request_folder": request_folder,
+            "old_name": old_name,
+            "new_name": input_rename
+        })
+    })
+
+    window.location.reload()
+}
+
+function on_click_rename_element_in_edit_menu(request_folder, element_name) {
+    let modal = document.querySelector(".modal")
+    modal.style.display = "flex"
+    let modal_content = document.querySelector(".modalContent")
+    modal_content.innerHTML = `
+    <h1 style="color: white; font-size: 40px;">Rename</h1>
+    <input id="input_rename" type="text" value="${element_name}" style="border: 1px solid #8992B0; border-radius: 30px; width: 90%; font-size: 40px; color: white; background-color: transparent; padding: 40px;"/>
+    <div style="width: 100%; margin-right: 0; display: flex; justify-content: flex-end; align-items: center; gap: 40px; margin-top: 40px;">
+        <button onclick="on_click_cancel_in_folder_naming_menu()" style="background-color: transparent; border: 0; font-size: 40px; color: #6752d1;">Cancel</button>
+        <button onclick="rename_element('${request_folder}', '${element_name}')" style="background-color: transparent; border: 0; font-size: 40px; color: #6752d1;">Save</button>
     </div>
     `
 }

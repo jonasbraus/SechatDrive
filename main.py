@@ -136,10 +136,30 @@ def drive_delete():
     return "success"
 
 
+@app.route("/drive/rename", methods=["POST"])
+def drive_rename():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return redirect("/login")
+    user_id = user.user_id
+
+    js = request.json
+
+    request_folder = js["request_folder"]
+    old_name = js["old_name"]
+    new_name = js["new_name"]
+
+    base_path = f"./drive/{user_id}"
+    os.rename(f"{base_path}/{request_folder}/{old_name}", f"{base_path}/{request_folder}/{new_name}")
+    return "success"
+
+
 @app.route("/manifest.webmanifest", methods=["GET"])
 def get_manifest():
     return send_file("manifest.webmanifest", mimetype="application/manifest+json")
 
 
 if __name__ == "__main__":
+    #app.run(host="0.0.0.0", debug=True)
     app.run()
