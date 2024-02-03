@@ -151,6 +151,13 @@ def drive_rename():
     new_name = js["new_name"]
 
     base_path = f"./drive/{user_id}"
+
+    while os.path.exists(f"{base_path}/{request_folder}/{new_name}"):
+        if "." in new_name:
+            new_name = new_name.split(".")[0] + "1." + new_name.split(".")[1]
+        else:
+            new_name += "1"
+
     os.rename(f"{base_path}/{request_folder}/{old_name}", f"{base_path}/{request_folder}/{new_name}")
     return "success"
 
