@@ -38,7 +38,7 @@
     </div>
 </div>
 
-<div onclick="click_in_center(event)" class="center">
+<div onclick="click_in_center(event)" ondrop="on_drop(event, '{{request_folder}}')" class="center">
     {% for element in directory %}
     {% if "." in element %}
     {% if "png" in element.lower() or "jpg" in element.lower() or "jpeg" in element.lower() or "heic" in element.lower() %}

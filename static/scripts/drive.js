@@ -261,3 +261,35 @@ async function logout() {
 function on_click_open_sidebar() {
     document.querySelector(".sideBar").style.display = "flex"
 }
+
+window.addEventListener("dragenter", e => e.preventDefault())
+window.addEventListener("dragstart", e => e.preventDefault())
+window.addEventListener("dragend", e => e.preventDefault())
+window.addEventListener("dragleave", e => e.preventDefault())
+window.addEventListener("dragover", e => e.preventDefault())
+window.addEventListener("drag", e => e.preventDefault())
+window.addEventListener("drop", e => e.preventDefault())
+
+async function on_drop(e, request_folder) {
+    e.preventDefault()
+
+    let form_data = new FormData()
+
+    if (e.dataTransfer.items) {
+        [...e.dataTransfer.items].forEach((item, i) => {
+            if (item.kind === "file") {
+                let file = item.getAsFile()
+                form_data.append("file" + i, file)
+            }
+        })
+        form_data.append("path_folder", request_folder)
+
+        document.querySelector("body").innerHTML = "<h1 style='font-size: 40px; color: white;'>Uploading...</h1>"
+
+        await fetch(window.location.origin + "/drive/newfile", {
+            method: "POST",
+            body: form_data
+        })
+        window.location.reload()
+    }
+}
