@@ -3,6 +3,20 @@ window.addEventListener("load", function (ev) {
         document.querySelector("body").style.display = "flex"
     }, 200)
 
+    if (localStorage["move_origin"] !== "undefined") {
+        let bottom_nav = document.querySelector(".bottomNav")
+        let split = localStorage["move_origin"].split("/")
+        let element_name = split[split.length - 1]
+        bottom_nav.innerHTML = `
+        <button onclick="on_click_move_here('${element_name}')" style="background-color: transparent; display: flex; justify-content: center; align-items: center; border: 0; gap: 40px;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-arrows-move editMenuSVG" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10M.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8"/>
+            </svg>
+            <span style="color: white;" class="folderPathFont">Move Here</span>
+        </button>
+        `
+    }
+
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
     document.querySelector(".sideBar").style.display = "none"
@@ -29,6 +43,39 @@ function on_click_file(request_folder, file_name) {
     }
 }
 
+async function on_click_move_here(element_name) {
+    let target_location = (window.location.href.split("folder=")[1] + "/" + element_name).replace("undefined", "")
+    let original_location = localStorage["move_origin"].replace("undefined", "")
+    localStorage["move_origin"] = undefined
+
+    await fetch(window.location.origin + "/drive/move", {
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "original_location": original_location,
+            "target_location": target_location
+        })
+    })
+
+    window.location.replace(window.location.origin + "/drive")
+}
+
+function on_click_move_element_in_edit_menu(request_folder, element_name) {
+    localStorage["move_origin"] = request_folder + "/" + element_name
+    let bottom_nav = document.querySelector(".bottomNav")
+    document.querySelector(".editMenu").style.display = "none"
+    bottom_nav.innerHTML = `
+    <button onclick="on_click_move_here('${element_name}')" style="background-color: transparent; display: flex; justify-content: center; align-items: center; border: 0; gap: 40px;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-arrows-move editMenuSVG" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10M.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8"/>
+        </svg>
+        <span style="color: white;" class="folderPathFont">Move Here</span>
+    </button>
+    `
+}
+
 function on_click_edit(request_folder, element_name) {
 
     let edit_menu = document.querySelector(".editMenu")
@@ -53,7 +100,7 @@ function on_click_edit(request_folder, element_name) {
     <span style="color: white;" class="folderPathFont">${element_name}</span>
     </div>
     
-    <div style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
+    <div onclick="on_click_move_element_in_edit_menu('${request_folder}', '${element_name}')" style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-arrows-move editMenuSVG" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10M.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8"/>
         </svg>
@@ -87,7 +134,6 @@ function on_click_edit(request_folder, element_name) {
     `
 
     edit_menu.innerHTML = inner
-    console.log(edit_menu)
 }
 
 async function delete_element(request_folder, element_name) {
@@ -109,7 +155,7 @@ function click_in_center(e) {
     if (e.target.id !== "edit_x") {
         document.querySelector(".editMenu").style.display = "none"
     }
-    if(e.target.id !== "sideBar") {
+    if (e.target.id !== "sideBar") {
         document.querySelector(".sideBar").style.display = "none"
     }
 }

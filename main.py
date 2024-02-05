@@ -104,9 +104,8 @@ def drive_newfile():
         return redirect("/login")
     user_id = user.user_id
 
-
-
     files = request.files
+    path_folder = request.form.get("path_folder")
 
     for name in files:
         file = files[name]
@@ -164,6 +163,25 @@ def drive_rename():
             new_name += "1"
 
     os.rename(f"{base_path}/{request_folder}/{old_name}", f"{base_path}/{request_folder}/{new_name}")
+    return "success"
+
+
+@app.route("/drive/move", methods=["POST"])
+def drive_move():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return redirect("/login")
+    user_id = user.user_id
+
+    js = request.json
+
+    original_location = js["original_location"]
+    target_location = js["target_location"]
+
+    base = f"./drive/{user_id}"
+
+    shutil.move(f"{base}/{original_location}", f"{base}/{target_location}")
     return "success"
 
 
