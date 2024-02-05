@@ -54,7 +54,7 @@
                 </svg>
 
                 {% if "png" in element.lower() or "jpg" in element.lower() or "jpeg" in element.lower() %}
-                <img src="/drive/getfile?file={{request_folder}}/{{element}}&scale_down=true">
+                <img loading="lazy" src="/drive/getfile?file={{request_folder}}/{{element}}&scale_down=true">
                 {% endif %}
                 <span style="max-width: 60%; overflow: hidden; white-space: nowrap">{{element}}</span>
             </div>
