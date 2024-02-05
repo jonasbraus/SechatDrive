@@ -195,10 +195,34 @@ body {
     padding: 40px;
 }
 
+.element img {
+    max-width: 170px;
+    max-height: 170px;
+    min-width: 170px;
+    min-height: 170px;
+    border-radius: 30px;
+}
+
+.higherElement {
+    height: 150px;
+}
+
 
 @media (min-device-width: 12cm) {
     body::-webkit-scrollbar {
         display: none;
+    }
+
+    .higherElement {
+        min-height: 80px;
+    }
+
+    .element img {
+        max-width: 70px;
+        max-height: 70px;
+        min-width: 70px;
+        min-height: 70px;
+        border-radius: 10px;
     }
 
     .modalContentInput {

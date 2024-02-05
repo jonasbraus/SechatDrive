@@ -40,7 +40,11 @@
 <div onclick="click_in_center(event)" class="center">
     {% for element in directory %}
     {% if "." in element %}
-    <div class="element">
+        {% if "png" in element.lower() or "jpg" in element.lower() or "jpeg" in element.lower() %}
+        <div class="element higherElement">
+        {% else %}
+        <div class="element">
+        {% endif %}
         <div onclick="on_click_file('{{request_folder}}', '{{element}}')"
              style="display: flex; justify-content: flex-start; align-items: center; gap: 20px; margin-left: 20px; max-width: 80%; width: 80%">
             <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
@@ -48,6 +52,9 @@
                 <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2z"/>
             </svg>
             <span style="max-width: 70%; overflow: hidden; white-space: nowrap">{{element}}</span>
+            {% if "png" in element.lower() or "jpg" in element.lower() or "jpeg" in element.lower() %}
+            <img src="/drive/getfile?file={{request_folder}}/{{element}}&scale_down=true">
+            {% endif %}
         </div>
         <div onclick="on_click_edit('{{request_folder}}', '{{element}}')" style="padding-right: 40px;">
             <svg onclick="on_click_edit('{{request_folder}}', '{{element}}')" id="edit_x" xmlns="http://www.w3.org/2000/svg" fill="white"

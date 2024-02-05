@@ -20,10 +20,6 @@ window.addEventListener("load", function (ev) {
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
     document.querySelector(".sideBar").style.display = "none"
-    // if(!window.location.hash) {
-    //     window.location = window.location + "#loaded"
-    //     window.location.reload()
-    // }
 })
 
 function on_click_folder(request_folder, folder_name) {
