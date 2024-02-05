@@ -3,7 +3,7 @@ window.addEventListener("load", function (ev) {
         document.querySelector("body").style.display = "flex"
     }, 200)
 
-    if (localStorage["move_origin"] !== "undefined") {
+    if (localStorage["move_origin"] !== "undefined" && localStorage["move_origin"] !== undefined) {
         let bottom_nav = document.querySelector(".bottomNav")
         let split = localStorage["move_origin"].split("/")
         let element_name = split[split.length - 1]
