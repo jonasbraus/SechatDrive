@@ -31,7 +31,7 @@ def page_login_credentials():
     password = js["password"]
 
     user = database.get_user_by_mail_and_password(mail, password)
-    print(user)
+
     token = login_handler.login_user(user)
 
     resp = Response()
@@ -104,8 +104,7 @@ def drive_newfile():
         return redirect("/login")
     user_id = user.user_id
 
-    path_folder = request.form["path_folder"]
-    print(path_folder)
+
 
     files = request.files
 
