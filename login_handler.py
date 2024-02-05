@@ -15,6 +15,10 @@ def login_user(user):
     return token
 
 
+def logout_user(token):
+    del tokens[token]
+
+
 def get_user_by_token(token):
     if not token in tokens:
         return None

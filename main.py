@@ -35,8 +35,14 @@ def page_login_credentials():
     token = login_handler.login_user(user)
 
     resp = Response()
-    resp.set_cookie("token", token, max_age=365*24*60*60)
+    resp.set_cookie("token", token, max_age=365 * 24 * 60 * 60)
     return resp
+
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    login_handler.logout_user(request.cookies.get("token"))
+    return "success"
 
 
 @app.route("/drive", methods=["GET"])

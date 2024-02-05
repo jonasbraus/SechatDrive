@@ -5,6 +5,7 @@ window.addEventListener("load", function (ev) {
 
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
+    document.querySelector(".sideBar").style.display = "none"
     // if(!window.location.hash) {
     //     window.location = window.location + "#loaded"
     //     window.location.reload()
@@ -12,7 +13,8 @@ window.addEventListener("load", function (ev) {
 })
 
 function on_click_folder(request_folder, folder_name) {
-    if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none") {
+    if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none" &&
+        document.querySelector(".sideBar").style.display === "none") {
         history.pushState({path: window.location.href}, "", window.location.href)
         window.location.replace(window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name)
 
@@ -20,7 +22,8 @@ function on_click_folder(request_folder, folder_name) {
 }
 
 function on_click_file(request_folder, file_name) {
-    if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none") {
+    if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none" &&
+        document.querySelector(".sideBar").style.display === "none") {
         history.pushState({path: window.location.href}, "", window.location.href)
         window.location.replace(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name)
     }
@@ -105,6 +108,9 @@ function click_in_center(e) {
     document.querySelector(".addMenu").style.display = "none"
     if (e.target.id !== "edit_x") {
         document.querySelector(".editMenu").style.display = "none"
+    }
+    if(e.target.id !== "sideBar") {
+        document.querySelector(".sideBar").style.display = "none"
     }
 }
 
@@ -197,4 +203,16 @@ async function on_change_upload_file(request_folder) {
     })
 
     window.location.reload()
+}
+
+async function logout() {
+    await fetch(window.location.origin + "/logout", {
+        method: "POST"
+    })
+
+    window.location.reload()
+}
+
+function on_click_open_sidebar() {
+    document.querySelector(".sideBar").style.display = "flex"
 }
