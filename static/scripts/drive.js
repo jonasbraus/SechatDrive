@@ -171,6 +171,7 @@ function on_click_rename_element_in_edit_menu(request_folder, element_name) {
 function on_click_cancel_in_folder_naming_menu() {
     document.querySelector(".modal").style.display = "none"
     document.querySelector(".addMenu").style.display = "none"
+    document.querySelector(".editMenu").style.display = "none"
 }
 
 async function on_click_save_in_folder_naming_menu(request_folder) {
