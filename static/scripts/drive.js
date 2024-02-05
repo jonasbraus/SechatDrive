@@ -128,7 +128,7 @@ function on_click_new_folder_in_add_menu(request_folder) {
     modal.style.display = "flex"
     let modal_content = document.querySelector(".modalContent")
     modal_content.innerHTML = `
-    <h1 style="color: white;" class="folderPathFont">New Folder</h1>
+    <h1 style="color: white; margin-bottom: 40px" class="folderPathFont">New Folder</h1>
     <input id="input_folder_name" type="text" placeholder="folder name" class="folderPathFont modalContentInput"/>
     <div style="width: 100%; margin-right: 0; display: flex; justify-content: flex-end; align-items: center; gap: 40px; margin-top: 40px;">
         <button onclick="on_click_cancel_in_folder_naming_menu()" class="folderPathFont" style="background-color: transparent; border: 0; color: #6752d1;">Cancel</button>
@@ -159,7 +159,7 @@ function on_click_rename_element_in_edit_menu(request_folder, element_name) {
     modal.style.display = "flex"
     let modal_content = document.querySelector(".modalContent")
     modal_content.innerHTML = `
-    <h1 style="color: white;" class="folderPathFont">Rename</h1>
+    <h1 style="color: white; margin-bottom: 40px" class="folderPathFont">Rename</h1>
     <input id="input_rename" type="text" value="${element_name}" class="folderPathFont modalContentInput"/>
     <div style="width: 100%; margin-right: 0; display: flex; justify-content: flex-end; align-items: center; gap: 40px; margin-top: 40px;">
         <button onclick="on_click_cancel_in_folder_naming_menu()" class="folderPathFont" style="background-color: transparent; border: 0; color: #6752d1;">Cancel</button>
