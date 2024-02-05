@@ -240,7 +240,7 @@ async function on_change_upload_file(request_folder) {
     }
     form_data.append("path_folder", request_folder)
 
-    document.querySelector("body").innerHTML = "<h1 style='font-size: 40px'>Uploading...</h1>"
+    document.querySelector("body").innerHTML = "<h1 style='font-size: 40px; color: white;'>Uploading...</h1>"
 
     await fetch(window.location.origin + "/drive/newfile", {
         method: "POST",
