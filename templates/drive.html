@@ -41,7 +41,7 @@
 <div onclick="click_in_center(event)" class="center">
     {% for element in directory %}
     {% if "." in element %}
-    {% if "png" in element.lower() or "jpg" in element.lower() or "jpeg" in element.lower() %}
+    {% if "png" in element.lower() or "jpg" in element.lower() or "jpeg" in element.lower() or "heic" in element.lower() %}
     <div class="element higherElement">
         {% else %}
         <div class="element">
