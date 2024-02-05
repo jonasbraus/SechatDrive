@@ -55,7 +55,7 @@ async function on_click_move_here(element_name) {
         })
     })
 
-    window.location.replace(window.location.origin + "/drive")
+    window.location.reload()
 }
 
 function on_click_move_element_in_edit_menu(request_folder, element_name) {
