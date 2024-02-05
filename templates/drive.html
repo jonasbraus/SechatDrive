@@ -55,9 +55,7 @@
 
                 {% if "png" in element.lower() or "jpg" in element.lower() or "jpeg" in element.lower() %}
                 <img src="/drive/getfile?file={{request_folder}}/{{element}}&scale_down=true">
-                {% else %}
-                <span style="max-width: 70%; overflow: hidden; white-space: nowrap">{{element}}</span>
-                {% endif %}
+                <span style="max-width: 60%; overflow: hidden; white-space: nowrap">{{element}}</span>
             </div>
             <div onclick="on_click_edit('{{request_folder}}', '{{element}}')" style="padding-right: 40px;">
                 <svg onclick="on_click_edit('{{request_folder}}', '{{element}}')" id="edit_x"
