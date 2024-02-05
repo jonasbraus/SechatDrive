@@ -197,8 +197,8 @@ body {
 
 
 @media (min-device-width: 12cm) {
-    body {
-        overflow: hidden;
+    body::-webkit-scrollbar {
+        display: none;
     }
 
     .modalContentInput {
