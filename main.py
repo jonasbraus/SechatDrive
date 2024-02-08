@@ -221,10 +221,10 @@ def drive_move():
     original_location = js["original_location"]
     target_location = js["target_location"]
 
+    base = f"./drive/{user_id}"
+
     database.update_share_element(
         f"{base}/{original_location}", f"{base}/{target_location}")
-
-    base = f"./drive/{user_id}"
 
     shutil.move(f"{base}/{original_location}", f"{base}/{target_location}")
     return "success"
@@ -247,7 +247,7 @@ def drive_share():
         token = login_handler.generate_token()
         database.add_share_element(token, base + "/" + element, user_id)
 
-    if "." not in element.split("/")[len(element.split("/"))-2]:
+    if "." not in element.split("/")[len(element.split("/")) - 2]:
         zip_file = f"./drive/{token}"
         shutil.make_archive(zip_file, "zip", base + "/" + element)
 
