@@ -99,7 +99,7 @@ def page_shares():
     for row in rows:
         result.append(row[2].replace(f"./drive/{user_id}/", ""))
 
-    return render_template("share.html", directory=result)
+    return render_template("share.html", directory=result, token=token)
 
 
 @app.route("/drive/getfile", methods=["GET"])
