@@ -24,7 +24,7 @@ function on_click_edit_share(element, token) {
     inner += `
     <span style="color: white;" class="folderPathFont">${element}</span>
     </div>
-    <input id="input_rename" type="text" value="${window.location.origin}/drive/share?token=${token}" class="folderPathFont modalContentInput" style="margin-left: 40px; width: 60%;"/>
+    <input id="input_rename" type="text" value="${window.location.origin}/drive/share?token=${token}" readonly="readonly" class="folderPathFont modalContentInput" style="margin-left: 40px; width: 60%;"/>
         
     <div onclick="stop_share('${element}')" style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
             <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-link-45deg editMenuSVG" viewBox="0 0 16 16">

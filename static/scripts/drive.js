@@ -265,7 +265,7 @@ function on_click_share_element_in_edit_menu(request_folder, element_name)
     let modal_content = document.querySelector(".modalContent")
     modal_content.innerHTML = `
     <h1 style="color: white; margin-bottom: 40px" class="folderPathFont">Link</h1>
-    <input id="input_rename" type="text" value="${window.location.origin}/drive/share?token=${js['token']}" class="folderPathFont modalContentInput"/>
+    <input id="input_rename" type="text" readonly="readonly" value="${window.location.origin}/drive/share?token=${js['token']}" class="folderPathFont modalContentInput"/>
     <div style="width: 100%; margin-right: 0; display: flex; justify-content: flex-end; align-items: center; gap: 40px; margin-top: 40px;">
         <button onclick="on_click_cancel_in_folder_naming_menu()" class="folderPathFont" style="background-color: transparent; border: 0; color: #6752d1;">Ok</button>
     </div>
