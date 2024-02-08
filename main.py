@@ -2,6 +2,7 @@ import io
 import json
 import os
 import shutil
+import re
 
 from PIL import Image
 from flask import Flask, render_template, send_file, request, redirect, Response
@@ -81,7 +82,8 @@ def page_shares():
 
     result = []
     for row in rows:
-        result.append(row[2])
+        pattern = r"./drive/.*/"
+        result.append(re.sub(pattern, "", row[2]))
 
     return render_template("share.html", directory=result)
 
