@@ -29,11 +29,9 @@
 <div onclick="click_in_center(event)" class="center">
     {% for element in directory %}
     {% if "." in element %}
-    {% if "png" in element.lower() or "jpg" in element.lower() or "jpeg" in element.lower() or "heic" in element.lower() %}
-    <div class="element higherElement">
-        {% else %}
+
         <div class="element">
-            {% endif %}
+
             <div
                  style="display: flex; justify-content: flex-start; align-items: center; gap: 20px; margin-left: 20px; max-width: 80%; width: 80%">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
