@@ -77,9 +77,8 @@ def page_sharefolder():
     request_folder = request.args.get(
         "folder") if request.args.get("folder") is not None else ""
 
-    path = f"{base}/{request_folder}"
+    path = f"{base}/{request_folder}".replace("//", "/")
 
-    print(path)
     directory = os.listdir(path)
     directory = sorted(directory)
 
