@@ -38,13 +38,13 @@ def add_share_element(token, element):
 def get_element_by_token(token):
     try:
         rows = execute_database_command(f"select * from shares where token = '{token}'")
-        return rows[0][1]
+        return rows[0][2]
     except:
         return None
     
 def get_token_by_element(element):
     try:
         rows = execute_database_command(f"select * from shares where element = '{element}'")
-        return rows[0][2]
+        return rows[0][1]
     except:
         return None
