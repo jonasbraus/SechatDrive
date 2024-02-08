@@ -260,8 +260,19 @@ function on_click_share_element_in_edit_menu(request_folder, element_name)
             "element": request_folder + "/" + element_name
         })
     }).then(r => r.json()).then(js => {
-        console.log(js["token"])
+        let modal = document.querySelector(".modal")
+    modal.style.display = "flex"
+    let modal_content = document.querySelector(".modalContent")
+    modal_content.innerHTML = `
+    <h1 style="color: white; margin-bottom: 40px" class="folderPathFont">Link</h1>
+    <input id="input_rename" type="text" value="${js['token']}" class="folderPathFont modalContentInput"/>
+    <div style="width: 100%; margin-right: 0; display: flex; justify-content: flex-end; align-items: center; gap: 40px; margin-top: 40px;">
+        <button onclick="on_click_cancel_in_folder_naming_menu()" class="folderPathFont" style="background-color: transparent; border: 0; color: #6752d1;">Ok</button>
+    </div>
+    `
     })
+
+    
 }
 
 async function on_click_save_in_folder_naming_menu(request_folder)
