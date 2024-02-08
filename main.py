@@ -3,6 +3,7 @@ import json
 import os
 import shutil
 import re
+from threading import Timer
 
 from PIL import Image
 from flask import Flask, render_template, send_file, request, redirect, Response
@@ -309,6 +310,10 @@ def drive_get_share_file():
     return send_file(path)
 
 
+def delete_temp_zip(location):
+    os.rmdir(location)
+
+
 @app.route("/drive/sharefolder/download", methods=["GET"])
 def drive_get_share_folder_download():
     token = request.args.get("token")
@@ -316,6 +321,7 @@ def drive_get_share_folder_download():
 
     zip_file = f"./drive/{token}"
     shutil.make_archive(zip_file, "zip", f"{element}")
+    Timer(1200, delete_temp_zip, f"./drive/{token}.zip").start()
     return send_file(f"./drive/{token}.zip")
 
 
