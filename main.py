@@ -96,10 +96,12 @@ def page_shares():
     rows = database.get_shares_for_user(user_id)
 
     result = []
+    tokens = []
     for row in rows:
         result.append(row[2].replace(f"./drive/{user_id}/", ""))
+        tokens.append(database.get_token_by_element(row[2]))
 
-    return render_template("share.html", directory=result, token=token)
+    return render_template("share.html", directory=result, tokens=tokens)
 
 
 @app.route("/drive/getfile", methods=["GET"])
