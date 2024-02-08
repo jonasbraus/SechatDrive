@@ -74,5 +74,5 @@ async function on_click_download(token) {
     window.location.replace(window.location.origin + "/drive/sharefolder/download?token=" + token)
     setTimeout(function () {
         window.location.reload()
-    }, 5000)
+    }, 10000)
 }
