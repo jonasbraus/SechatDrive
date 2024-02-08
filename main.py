@@ -346,7 +346,7 @@ def drive_get_share_folder_download():
         element = database.get_element_by_token(token)
 
         zip_file = f"./drive/{token}"
-        if not os.path.exists(zip_file):
+        if not os.path.exists(zip_file + ".zip"):
             shutil.make_archive(zip_file, "zip", f"{element}")
         return send_file(f"./drive/{token}.zip")
     except:
