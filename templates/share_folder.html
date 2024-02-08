@@ -45,7 +45,7 @@
                 </svg>
 
                 {% if "png" in element.lower() or "jpg" in element.lower() or "jpeg" in element.lower() %}
-                <img loading="lazy" src="/drive/getfile?file={{request_folder}}/{{element}}&scale_down=true">
+                <img loading="lazy" src="/drive/sharefolder/file?file={{request_folder}}/{{element}}&scale_down=true&token={{token}}">
                 {% endif %}
                 <span style="max-width: 60%; overflow: hidden; white-space: nowrap">{{element}}</span>
             </div>
