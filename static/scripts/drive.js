@@ -3,6 +3,15 @@ window.addEventListener("load", function (ev)
     setTimeout(function ()
     {
         document.querySelector("body").style.display = "flex"
+        console.log(localStorage["last_scroll"])
+
+        let elem = document.querySelector(".center")
+        if (!elem)
+        {
+            console.log("elem nicht gefunden")
+        }
+
+        elem.scrollTo({ top: localStorage["last_scroll"] })
     }, 200)
 
     if (localStorage["move_origin"] !== "undefined" && localStorage["move_origin"] !== undefined)
@@ -25,14 +34,7 @@ window.addEventListener("load", function (ev)
     document.querySelector(".editMenu").style.display = "none"
     document.querySelector(".sideBar").style.display = "none"
 
-    console.log(localStorage["last_scroll"])
-    
-    let elem = document.querySelector(".center")
-    if(!elem) {
-        console.log("elem nicht gefunden")
-    }
 
-    elem.scrollTo({top: localStorage["last_scroll"]})
 })
 
 function on_click_folder(request_folder, folder_name)
