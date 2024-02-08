@@ -1,4 +1,5 @@
 import io
+import json
 import os
 import shutil
 
@@ -58,7 +59,8 @@ def page_drive():
     if not os.path.isdir(f"./drive/{user_id}"):
         os.mkdir(f"./drive/{user_id}")
 
-    request_folder = request.args.get("folder") if request.args.get("folder") is not None else ""
+    request_folder = request.args.get(
+        "folder") if request.args.get("folder") is not None else ""
     path = f"./drive/{user_id}/{request_folder}"
 
     directory = os.listdir(path)
@@ -128,7 +130,8 @@ def drive_newfile():
         file_name = file.filename
 
         while os.path.exists(f"./drive/{user_id}{path_folder}/{file_name}"):
-            file_name = file_name.split(".")[0] + "1." + file_name.split(".")[1]
+            file_name = file_name.split(
+                ".")[0] + "1." + file_name.split(".")[1]
 
         file.save(f"./drive/{user_id}{path_folder}/{file_name}")
 
@@ -178,7 +181,8 @@ def drive_rename():
         else:
             new_name += "1"
 
-    os.rename(f"{base_path}/{request_folder}/{old_name}", f"{base_path}/{request_folder}/{new_name}")
+    os.rename(f"{base_path}/{request_folder}/{old_name}",
+              f"{base_path}/{request_folder}/{new_name}")
     return "success"
 
 
@@ -199,6 +203,28 @@ def drive_move():
 
     shutil.move(f"{base}/{original_location}", f"{base}/{target_location}")
     return "success"
+
+
+@app.route("/drive/share", methods=["POST"])
+def drive_share():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return redirect("/login")
+    user_id = user.user_id
+
+    js = request.json
+    element = js["element"]
+    base = f"./drive/{user_id}"
+
+    token = database.get_token_by_element(base + "/" + element)
+    if token is None:
+        token = login_handler.generate_token()
+        database.add_share_element(token, base + "/" + element)
+
+    return Response(response=json.dumps({
+        "token": token
+    }))
 
 
 @app.route("/manifest.webmanifest", methods=["GET"])

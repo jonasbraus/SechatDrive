@@ -249,7 +249,17 @@ function on_click_cancel_in_folder_naming_menu()
 
 function on_click_share_element_in_edit_menu(request_folder, element_name)
 {
-    console.log(request_folder, element_name)
+    fetch(window.location.origin + "/drive/share", {
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "element": request_folder + "/" + element_name
+        })
+    }).then(r => r.json()).then(js => {
+        console.log(js["token"])
+    })
 }
 
 async function on_click_save_in_folder_naming_menu(request_folder)
