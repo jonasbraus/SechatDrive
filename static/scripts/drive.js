@@ -24,6 +24,9 @@ window.addEventListener("load", function (ev)
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
     document.querySelector(".sideBar").style.display = "none"
+
+    console.log(localStorage["last_scroll"])
+    this.document.querySelector(".center").scrollTo({top: localStorage["last_scroll"]})
 })
 
 function on_click_folder(request_folder, folder_name)
@@ -33,6 +36,7 @@ function on_click_folder(request_folder, folder_name)
     {
         history.pushState({ path: window.location.pathname }, "", window.location.pathname)
         window.location.replace(window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name)
+        localStorage["last_scroll"] = 0
     }
 }
 
@@ -43,6 +47,7 @@ function on_click_file(request_folder, file_name)
     {
         history.pushState({ path: window.location.pathname }, "", window.location.pathname)
         window.location.replace(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name)
+        localStorage["last_scroll"] = document.querySelector(".center").scrollTop
     }
 }
 
