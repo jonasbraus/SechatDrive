@@ -1,9 +1,12 @@
-window.addEventListener("load", function (ev) {
-    setTimeout(function () {
+window.addEventListener("load", function (ev)
+{
+    setTimeout(function ()
+    {
         document.querySelector("body").style.display = "flex"
     }, 200)
 
-    if (localStorage["move_origin"] !== "undefined" && localStorage["move_origin"] !== undefined) {
+    if (localStorage["move_origin"] !== "undefined" && localStorage["move_origin"] !== undefined)
+    {
         let bottom_nav = document.querySelector(".bottomNav")
         let split = localStorage["move_origin"].split("/")
         let element_name = split[split.length - 1]
@@ -17,29 +20,44 @@ window.addEventListener("load", function (ev) {
         `
     }
 
+    try
+    {
+        document.querySelector(".center").scrollTop = localStorage["last_scroll"]
+    } catch (error)
+    {
+        document.querySelector(".center").scrollTop = 0
+    }
+
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
     document.querySelector(".sideBar").style.display = "none"
 })
 
-function on_click_folder(request_folder, folder_name) {
+function on_click_folder(request_folder, folder_name)
+{
     if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none" &&
-        document.querySelector(".sideBar").style.display === "none") {
-        history.pushState({path: window.location.href}, "", window.location.href)
+        document.querySelector(".sideBar").style.display === "none")
+    {
+        history.pushState({ path: window.location.href }, "", window.location.href)
         window.location.replace(window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name)
+        localStorage["last_scroll"] = 0
 
     }
 }
 
-function on_click_file(request_folder, file_name) {
+function on_click_file(request_folder, file_name)
+{
     if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none" &&
-        document.querySelector(".sideBar").style.display === "none") {
-        history.pushState({path: window.location.href}, "", window.location.href)
+        document.querySelector(".sideBar").style.display === "none")
+    {
+        history.pushState({ path: window.location.href }, "", window.location.href)
         window.location.replace(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name)
+        localStorage["last_scroll"] = document.querySelector(".center").scrollTop
     }
 }
 
-async function on_click_move_here(element_name) {
+async function on_click_move_here(element_name)
+{
     let target_location = (window.location.href.split("folder=")[1] + "/" + element_name).replace("undefined", "")
     let original_location = localStorage["move_origin"].replace("undefined", "")
     localStorage["move_origin"] = undefined
@@ -58,7 +76,8 @@ async function on_click_move_here(element_name) {
     window.location.reload()
 }
 
-function on_click_move_element_in_edit_menu(request_folder, element_name) {
+function on_click_move_element_in_edit_menu(request_folder, element_name)
+{
     localStorage["move_origin"] = request_folder + "/" + element_name
     let bottom_nav = document.querySelector(".bottomNav")
     document.querySelector(".editMenu").style.display = "none"
@@ -72,19 +91,22 @@ function on_click_move_element_in_edit_menu(request_folder, element_name) {
     `
 }
 
-function on_click_edit(request_folder, element_name) {
+function on_click_edit(request_folder, element_name)
+{
 
     let edit_menu = document.querySelector(".editMenu")
     edit_menu.style.display = "flex"
     let inner = `<div style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">`
-    if (element_name.split(".").length > 1) {
+    if (element_name.split(".").length > 1)
+    {
         inner += `
         <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
                  class="bi bi-file-earmark-fill folderIconSVG" viewBox="0 0 16 16">
                 <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2z"/>
             </svg>
         `
-    } else {
+    } else
+    {
         inner += `
         <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff" class="bi bi-folder-fill folderIconSVG"
                  viewBox="0 0 16 16">
@@ -132,7 +154,8 @@ function on_click_edit(request_folder, element_name) {
     edit_menu.innerHTML = inner
 }
 
-async function delete_element(request_folder, element_name) {
+async function delete_element(request_folder, element_name)
+{
     await fetch(window.location.origin + "/drive/delete", {
         method: "POST",
         headers: {
@@ -146,26 +169,33 @@ async function delete_element(request_folder, element_name) {
     window.location.reload()
 }
 
-function click_in_center(e) {
+function click_in_center(e)
+{
     document.querySelector(".addMenu").style.display = "none"
-    if (e.target.id !== "edit_x") {
+    if (e.target.id !== "edit_x")
+    {
         document.querySelector(".editMenu").style.display = "none"
     }
-    if (e.target.id !== "sideBar") {
+    if (e.target.id !== "sideBar")
+    {
         document.querySelector(".sideBar").style.display = "none"
     }
 }
 
-function on_click_add_button() {
+function on_click_add_button()
+{
     let add_menu = document.querySelector(".addMenu")
-    if (add_menu.style.display === "none") {
+    if (add_menu.style.display === "none")
+    {
         add_menu.style.display = "flex"
-    } else {
+    } else
+    {
         add_menu.style.display = "none"
     }
 }
 
-function on_click_new_folder_in_add_menu(request_folder) {
+function on_click_new_folder_in_add_menu(request_folder)
+{
     let modal = document.querySelector(".modal")
     modal.style.display = "flex"
     let modal_content = document.querySelector(".modalContent")
@@ -179,7 +209,8 @@ function on_click_new_folder_in_add_menu(request_folder) {
     `
 }
 
-async function rename_element(request_folder, old_name) {
+async function rename_element(request_folder, old_name)
+{
     let input_rename = document.querySelector("#input_rename").value
     await fetch(window.location.origin + "/drive/rename", {
         method: "POST",
@@ -196,7 +227,8 @@ async function rename_element(request_folder, old_name) {
     window.location.reload()
 }
 
-function on_click_rename_element_in_edit_menu(request_folder, element_name) {
+function on_click_rename_element_in_edit_menu(request_folder, element_name)
+{
     let modal = document.querySelector(".modal")
     modal.style.display = "flex"
     let modal_content = document.querySelector(".modalContent")
@@ -210,13 +242,15 @@ function on_click_rename_element_in_edit_menu(request_folder, element_name) {
     `
 }
 
-function on_click_cancel_in_folder_naming_menu() {
+function on_click_cancel_in_folder_naming_menu()
+{
     document.querySelector(".modal").style.display = "none"
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
 }
 
-async function on_click_save_in_folder_naming_menu(request_folder) {
+async function on_click_save_in_folder_naming_menu(request_folder)
+{
     await fetch(window.location.origin + "/drive/newfolder", {
         method: "POST",
         headers: {
@@ -230,12 +264,14 @@ async function on_click_save_in_folder_naming_menu(request_folder) {
     window.location.reload()
 }
 
-async function on_change_upload_file(request_folder) {
+async function on_change_upload_file(request_folder)
+{
     let input_files = document.querySelector("#input_file").files
     document.querySelector(".addMenu").style.display = "none"
 
     let form_data = new FormData()
-    for (let i = 0; i < input_files.length; i++) {
+    for (let i = 0; i < input_files.length; i++)
+    {
         form_data.append("file" + i, input_files[i])
     }
     form_data.append("path_folder", request_folder)
@@ -250,7 +286,8 @@ async function on_change_upload_file(request_folder) {
     window.location.reload()
 }
 
-async function logout() {
+async function logout()
+{
     await fetch(window.location.origin + "/logout", {
         method: "POST"
     })
@@ -258,7 +295,8 @@ async function logout() {
     window.location.reload()
 }
 
-function on_click_open_sidebar() {
+function on_click_open_sidebar()
+{
     document.querySelector(".sideBar").style.display = "flex"
 }
 
@@ -270,14 +308,18 @@ window.addEventListener("dragover", e => e.preventDefault())
 window.addEventListener("drag", e => e.preventDefault())
 window.addEventListener("drop", e => e.preventDefault())
 
-async function on_drop(e, request_folder) {
+async function on_drop(e, request_folder)
+{
     e.preventDefault()
 
     let form_data = new FormData()
 
-    if (e.dataTransfer.items) {
-        [...e.dataTransfer.items].forEach((item, i) => {
-            if (item.kind === "file") {
+    if (e.dataTransfer.items)
+    {
+        [...e.dataTransfer.items].forEach((item, i) =>
+        {
+            if (item.kind === "file")
+            {
                 let file = item.getAsFile()
                 form_data.append("file" + i, file)
             }
