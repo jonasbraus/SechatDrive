@@ -1,4 +1,4 @@
-function on_click_edit_share(element) {
+function on_click_edit_share(element, token) {
     let edit_menu = document.querySelector(".editMenu")
     edit_menu.style.display = "flex"
     let inner = `
@@ -24,6 +24,7 @@ function on_click_edit_share(element) {
     inner += `
     <span style="color: white;" class="folderPathFont">${element}</span>
     </div>
+    <input id="input_rename" type="text" value="${window.location.origin}/drive/share?token=${token}" class="folderPathFont modalContentInput"/>
         
     <div onclick="stop_share('${element}')" style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
             <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-link-45deg editMenuSVG" viewBox="0 0 16 16">
