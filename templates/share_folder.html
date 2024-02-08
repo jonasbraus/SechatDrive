@@ -7,28 +7,6 @@
     <link rel="manifest" href="/manifest.webmanifest">
 </head>
 
-<div class="topNav">
-    <div style="display: flex; justify-content: flex-start; align-items: center; gap: 80px; margin-left: 40px;">
-        <svg onclick="on_click_open_sidebar()" xmlns="http://www.w3.org/2000/svg" fill="white"
-             class="bi bi-list addButtonSVG"
-             viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                  d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-        </svg>
-        {% if request_folder == "" %}
-        <span class="folderPathFont" style="color: white;">/</span>
-        {% else %}
-        <span class="folderPathFont" style="color: white;">{{request_folder}}</span>
-        {% endif %}
-    </div>
-    <div id="add_button" onclick="on_click_add_button()" style="margin-right: 40px; color: white">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-plus addButtonSVG"
-             viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-        </svg>
-    </div>
-</div>
 
 <body>
 
