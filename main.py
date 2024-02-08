@@ -282,9 +282,10 @@ def drive_get_share():
     if "." in element[2:]:
         return send_file(element)
 
-    zip_file = f"./drive/{token}"
-    shutil.make_archive(zip_file, "zip", element)
-    return send_file(f"./drive/{token}.zip")
+    # zip_file = f"./drive/{token}"
+    # shutil.make_archive(zip_file, "zip", element)
+    # return send_file(f"./drive/{token}.zip")
+    return redirect(f"/drive/sharefolder?token={token}")
 
 
 @app.route("/manifest.webmanifest", methods=["GET"])
