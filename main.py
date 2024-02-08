@@ -70,6 +70,21 @@ def page_drive():
     return render_template("drive.html", directory=directory, request_folder=request_folder)
 
 
+@app.route("/sharefolder", methods=["GET"])
+def page_sharefolder():
+    token = request.args.get("token")
+    base = database.get_element_by_token(token)
+    request_folder = request.args.get(
+        "folder") if request.args.get("folder") is not None else ""
+
+    path = f"{base}/{request_folder}"
+
+    directory = os.listdir(path)
+    directory = sorted(directory)
+
+    return render_template("sharefolder.html", directory=directory, request_folder=request_folder, token=token)
+
+
 @app.route("/share", methods=["GET"])
 def page_shares():
     token = request.cookies.get("token")
@@ -285,7 +300,7 @@ def drive_get_share():
     # zip_file = f"./drive/{token}"
     # shutil.make_archive(zip_file, "zip", element)
     # return send_file(f"./drive/{token}.zip")
-    return redirect(f"/drive/sharefolder?token={token}")
+    return redirect(f"/sharefolder?token={token}")
 
 
 @app.route("/manifest.webmanifest", methods=["GET"])
