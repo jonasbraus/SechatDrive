@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Drive</title>
+    <title>Share</title>
     <link rel="stylesheet" href="/static/styles/drive.css">
     <link rel="manifest" href="/manifest.webmanifest">
 </head>
@@ -15,18 +15,6 @@
             <path fill-rule="evenodd"
                   d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
         </svg>
-        {% if request_folder == "" %}
-        <span class="folderPathFont" style="color: white;">/</span>
-        {% else %}
-        <span class="folderPathFont" style="color: white;">{{request_folder}}</span>
-        {% endif %}
-    </div>
-    <div id="add_button" onclick="on_click_add_button()" style="margin-right: 40px; color: white">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-plus addButtonSVG"
-             viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-        </svg>
     </div>
 </div>
 
@@ -38,7 +26,7 @@
     </div>
 </div>
 
-<div onclick="click_in_center(event)" ondrop="on_drop(event, '{{request_folder}}')" class="center">
+<div onclick="click_in_center(event)" class="center">
     {% for element in directory %}
     {% if "." in element %}
     {% if "png" in element.lower() or "jpg" in element.lower() or "jpeg" in element.lower() or "heic" in element.lower() %}
@@ -46,20 +34,16 @@
         {% else %}
         <div class="element">
             {% endif %}
-            <div onclick="on_click_file('{{request_folder}}', '{{element}}')"
+            <div
                  style="display: flex; justify-content: flex-start; align-items: center; gap: 20px; margin-left: 20px; max-width: 80%; width: 80%">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
                      class="bi bi-file-earmark-fill folderIconSVG" viewBox="0 0 16 16">
                     <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2z"/>
                 </svg>
-
-                {% if "png" in element.lower() or "jpg" in element.lower() or "jpeg" in element.lower() %}
-                <img loading="lazy" src="/drive/getfile?file={{request_folder}}/{{element}}&scale_down=true">
-                {% endif %}
                 <span style="max-width: 60%; overflow: hidden; white-space: nowrap">{{element}}</span>
             </div>
-            <div onclick="on_click_edit('{{request_folder}}', '{{element}}')" style="padding-right: 40px;">
-                <svg onclick="on_click_edit('{{request_folder}}', '{{element}}')" id="edit_x"
+            <div style="padding-right: 40px;">
+                <svg id="edit_x"
                      xmlns="http://www.w3.org/2000/svg" fill="white"
                      class="bi bi-three-dots-vertical editButtonSVG" viewBox="0 0 16 16">
                     <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
@@ -68,7 +52,7 @@
         </div>
         {% else %}
         <div class="element">
-            <div onclick="on_click_folder('{{request_folder}}', '{{element}}')"
+            <div
                  style="display: flex; justify-content: flex-start; align-items: center; gap: 20px; padding: 20px; max-width: 80%; width: 80%">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff" class="bi bi-folder-fill folderIconSVG"
                      viewBox="0 0 16 16">
@@ -76,8 +60,8 @@
                 </svg>
                 <span style="max-width: 70%; overflow: hidden; white-space: nowrap">{{element}}</span>
             </div>
-            <div onclick="on_click_edit('{{request_folder}}', '{{element}}')" style="padding-right: 40px;">
-                <svg onclick="on_click_edit('{{request_folder}}', '{{element}}')" id="edit_x"
+            <div style="padding-right: 40px;">
+                <svg id="edit_x"
                      xmlns="http://www.w3.org/2000/svg" fill="white"
                      class="bi bi-three-dots-vertical editButtonSVG" viewBox="0 0 16 16">
                     <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
@@ -91,20 +75,20 @@
 </body>
 
 <div class="bottomNav">
-    <button class="bottomNavButton">
-        <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-folder" fill="#6752d1"
+    <button onclick="on_click_drive_in_bottom_nav()" class="bottomNavButton">
+        <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-folder" fill="white"
              viewBox="0 0 16 16">
             <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139q.323-.119.684-.12h5.396z"/>
         </svg>
-        <span style="color: #6752d1">Files</span>
+        <span style="color: white">Files</span>
     </button>
-    <button onclick="on_click_share_in_bottom_nav()" class="bottomNavButton">
+    <button class="bottomNavButton">
         <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-link-45deg" viewBox="0 0 16 16"
-             fill="white">
+             fill="#6752d1">
             <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>
             <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/>
         </svg>
-        <span style="color: white;">Shared</span>
+        <span style="color: #6752d1;">Shared</span>
     </button>
 </div>
 
@@ -112,13 +96,11 @@
 <div class="addMenu">
     <div style="width: 90%;  display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
         <span style="color: white;" class="folderPathFont">In</span>
-        {% if request_folder == "" %}
+
         <span style="color: white;" class="folderPathFont">"/"</span>
-        {% else %}
-        <span style="color: white;" class="folderPathFont">"{{request_folder}}"</span>
-        {% endif %}
+
     </div>
-    <div onclick="on_click_new_folder_in_add_menu('{{request_folder}}')"
+    <div
          style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-folder-plus editMenuSVG"
              viewBox="0 0 16 16">
@@ -136,7 +118,7 @@
 
         <label style="color: white;" class="folderPathFont">
             Upload File
-            <input onchange="on_change_upload_file('{{request_folder}}')" id="input_file" type="file"
+            <input id="input_file" type="file"
                    style="display: none" multiple/>
         </label>
     </div>

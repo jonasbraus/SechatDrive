@@ -361,3 +361,11 @@ async function on_drop(e, request_folder)
         window.location.reload()
     }
 }
+
+function on_click_drive_in_bottom_nav() {
+    window.location.replace(window.location.origin + "/drive")
+}
+
+function on_click_share_in_bottom_nav() {
+    window.location.replace(window.location.origin + "/share")
+}

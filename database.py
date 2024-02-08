@@ -31,9 +31,9 @@ def get_user_by_mail_and_password(mail, password):
     return User(user_row[0], user_row[1], user_row[2], user_row[3], user_row[4])
 
 
-def add_share_element(token, element):
+def add_share_element(token, element, user_id):
     execute_database_command(
-        f"insert into shares (token, element) values ('{token}', '{element}')")
+        f"insert into shares (token, element, user_id) values ('{token}', '{element}', {user_id})")
     
 def get_element_by_token(token):
     try:
@@ -51,3 +51,7 @@ def get_token_by_element(element):
     
 def update_share_element(old_element, new_element):
     execute_database_command(f"update shares set element = '{new_element}' where element = '{old_element}'")
+    
+def get_shares_for_user(user_id):
+    rows = execute_database_command(f"select * from shares where user_id = {user_id}")
+    return rows

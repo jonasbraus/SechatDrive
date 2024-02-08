@@ -69,6 +69,23 @@ def page_drive():
     return render_template("drive.html", directory=directory, request_folder=request_folder)
 
 
+@app.route("/share", methods=["GET"])
+def page_shares():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return redirect("/login")
+    user_id = user.user_id
+
+    rows = database.get_shares_for_user(user_id)
+
+    result = []
+    for row in rows:
+        result.append(row[2])
+
+    return render_template("share.html", directory=result)
+
+
 @app.route("/drive/getfile", methods=["GET"])
 def drive_get_file():
     token = request.cookies.get("token")
@@ -175,7 +192,8 @@ def drive_rename():
 
     base_path = f"./drive/{user_id}"
 
-    database.update_share_element(f"{base_path}/{request_folder}/{old_name}", f"{base_path}/{request_folder}/{new_name}")
+    database.update_share_element(
+        f"{base_path}/{request_folder}/{old_name}", f"{base_path}/{request_folder}/{new_name}")
 
     while os.path.exists(f"{base_path}/{request_folder}/{new_name}"):
         if "." in new_name:
@@ -200,8 +218,9 @@ def drive_move():
 
     original_location = js["original_location"]
     target_location = js["target_location"]
-    
-    database.update_share_element(f"{base}/{original_location}", f"{base}/{target_location}")
+
+    database.update_share_element(
+        f"{base}/{original_location}", f"{base}/{target_location}")
 
     base = f"./drive/{user_id}"
 
@@ -224,22 +243,23 @@ def drive_share():
     token = database.get_token_by_element(base + "/" + element)
     if token is None:
         token = login_handler.generate_token()
-        database.add_share_element(token, base + "/" + element)
+        database.add_share_element(token, base + "/" + element, user_id)
 
     if "." not in element.split("/")[len(element.split("/"))-2]:
         zip_file = f"./drive/{token}"
         shutil.make_archive(zip_file, "zip", base + "/" + element)
-        
+
     return Response(response=json.dumps({
         "token": token
     }))
 
+
 @app.route("/drive/share", methods=["GET"])
 def drive_get_share():
     token = request.args.get("token")
-    
+
     element = database.get_element_by_token(token)
-    
+
     if "." in element[2:]:
         return send_file(element)
 
