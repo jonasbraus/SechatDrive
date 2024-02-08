@@ -66,3 +66,7 @@ function on_click_file(request_folder, file_name, token) {
     localStorage["last_scroll"] = document.querySelector(".center").scrollTop
 
 }
+
+function on_click_download(token) {
+    window.location.replace(window.location.origin + "/drive/sharefolder/download?token=" + token)
+}

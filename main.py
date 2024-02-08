@@ -296,9 +296,6 @@ def drive_get_share():
     if "." in element[2:]:
         return send_file(element)
 
-    # zip_file = f"./drive/{token}"
-    # shutil.make_archive(zip_file, "zip", element)
-    # return send_file(f"./drive/{token}.zip")
     return redirect(f"/sharefolder?token={token}")
 
 
@@ -311,6 +308,16 @@ def drive_get_share_file():
     path = f"{base}/{file}".replace("//", "/")
 
     return send_file(path)
+
+
+@app.route("/drive/sharefolder/download", methods=["GET"])
+def drive_get_share_folder_download():
+    token = request.args.get("token")
+    element = database.get_element_by_token(token)
+
+    zip_file = f"./drive/{token}"
+    shutil.make_archive(zip_file, "zip", f"{element}")
+    return send_file(f"./drive/{token}.zip")
 
 
 @app.route("/manifest.webmanifest", methods=["GET"])
