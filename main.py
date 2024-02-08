@@ -321,7 +321,7 @@ def drive_get_share_folder_download():
 
     zip_file = f"./drive/{token}"
     shutil.make_archive(zip_file, "zip", f"{element}")
-    Timer(1200, delete_temp_zip, f"./drive/{token}.zip").start()
+    Timer(20, delete_temp_zip, f"./drive/{token}.zip").start()
     return send_file(f"./drive/{token}.zip")
 
 
