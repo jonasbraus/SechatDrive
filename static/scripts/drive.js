@@ -5,7 +5,7 @@ window.addEventListener("load", function (ev)
         document.querySelector("body").style.display = "flex"
         console.log(localStorage["last_scroll"])
 
-        document.querySelector(".center").scrollTo({ top: localStorage["last_scroll"], behavior: "smooth" })
+        document.querySelector(".center").scrollTo({ top: localStorage["last_scroll"], behavior: "instant" })
         localStorage["last_scroll"] = 0
     }, 200)
 
