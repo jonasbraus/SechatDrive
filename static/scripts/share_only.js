@@ -72,5 +72,4 @@ async function on_click_download(token) {
     document.querySelector("body").innerHTML = "<h1 style='font-size: 40px; color: white;'>Creating Zip...</h1>"
     await fetch(window.location.origin + "/drive/sharefolder/download?token=" + token)
     window.location.replace(window.location.origin + "/drive/sharefolder/download?token=" + token)
-    window.location.reload()
 }
