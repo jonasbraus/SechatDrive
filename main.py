@@ -337,6 +337,7 @@ def drive_get_share_file():
 
 
 def delete_temp_zip(arg1, *kwa):
+    print(arg1)
     os.remove(arg1)
 
 
