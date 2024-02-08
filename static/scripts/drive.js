@@ -35,7 +35,7 @@ function on_click_file(request_folder, file_name) {
     if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none" &&
         document.querySelector(".sideBar").style.display === "none") {
         history.pushState({path: window.location.href}, "", window.location.href)
-        window.location.href = (window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name)
+        window.location.assign(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name)
     }
 }
 
