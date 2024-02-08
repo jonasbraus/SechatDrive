@@ -82,8 +82,7 @@ def page_shares():
 
     result = []
     for row in rows:
-        pattern = r"./drive/.*/"
-        result.append(re.sub(pattern, "", row[2]))
+        result.append(row[2].replace(f"./drive/{user_id}/", ""))
 
     return render_template("share.html", directory=result)
 
