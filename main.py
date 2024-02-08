@@ -246,9 +246,9 @@ def drive_share():
         token = login_handler.generate_token()
         database.add_share_element(token, f"{base}/{element}", user_id)
 
-    if "." not in element.split("/")[len(element.split("/")) - 2]:
-        zip_file = f"./drive/{token}"
-        shutil.make_archive(zip_file, "zip", base + "/" + element)
+    # if "." not in element.split("/")[len(element.split("/")) - 2]:
+    #     zip_file = f"./drive/{token}"
+    #     shutil.make_archive(zip_file, "zip", base + "/" + element)
 
     return Response(response=json.dumps({
         "token": token
@@ -282,6 +282,8 @@ def drive_get_share():
     if "." in element[2:]:
         return send_file(element)
 
+    zip_file = f"./drive/{token}"
+    shutil.make_archive(zip_file, "zip", element)
     return send_file(f"./drive/{token}.zip")
 
 
