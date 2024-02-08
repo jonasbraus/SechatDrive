@@ -239,7 +239,7 @@ def drive_get_share():
     if "." in element.split("/")[len(element.split("/"))-2]:
         return send_file(element)
 
-    return f"./drive/{token}.zip"
+    return send_file(f"./drive/{token}.zip")
 
 
 @app.route("/manifest.webmanifest", methods=["GET"])
