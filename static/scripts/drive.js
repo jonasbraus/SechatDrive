@@ -131,7 +131,7 @@ function on_click_edit(request_folder, element_name)
         <span style="color: white;" class="folderPathFont">Rename</span>
     </div>
     
-    <div style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
+    <div onclick="on_click_share_element_in_edit_menu('${request_folder}', '${element_name}')" style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-link-45deg editMenuSVG" viewBox="0 0 16 16">
             <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>
             <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/>
@@ -245,6 +245,11 @@ function on_click_cancel_in_folder_naming_menu()
     document.querySelector(".modal").style.display = "none"
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
+}
+
+function on_click_share_element_in_edit_menu(request_folder, element_name)
+{
+    console.log(request_folder, element_name)
 }
 
 async function on_click_save_in_folder_naming_menu(request_folder)
