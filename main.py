@@ -238,7 +238,7 @@ def drive_get_share():
     
     element = database.get_element_by_token(token)
     
-    if "." in element.split("/")[len(element.split("/"))-2]:
+    if "." in element[2:]:
         return send_file(element)
 
     return send_file(f"./drive/{token}.zip")
