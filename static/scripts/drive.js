@@ -20,13 +20,6 @@ window.addEventListener("load", function (ev)
         `
     }
 
-    try
-    {
-        document.querySelector(".center").scrollTo(0, localStorage["last_scroll"])
-    } catch (error)
-    {
-        document.querySelector(".center").scrollTop = 0
-    }
 
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
@@ -39,9 +32,7 @@ function on_click_folder(request_folder, folder_name)
         document.querySelector(".sideBar").style.display === "none")
     {
         history.pushState({ path: window.location.href }, "", window.location.href)
-        window.location.assign(window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name)
-        localStorage["last_scroll"] = 0
-
+        window.location.replace(window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name)
     }
 }
 
@@ -51,15 +42,14 @@ function on_click_file(request_folder, file_name)
         document.querySelector(".sideBar").style.display === "none")
     {
         history.pushState({ path: window.location.href }, "", window.location.href)
-        window.location.assign(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name)
-        localStorage["last_scroll"] = document.querySelector(".center").scrollTop
+        window.location.replace(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name)
     }
 }
 
 async function on_click_move_here(element_name)
 {
-    let target_location = (window.location.href.split("folder=")[1] + "/" + element_name).assign("undefined", "")
-    let original_location = localStorage["move_origin"].assign("undefined", "")
+    let target_location = (window.location.href.split("folder=")[1] + "/" + element_name).replace("undefined", "")
+    let original_location = localStorage["move_origin"].replace("undefined", "")
     localStorage["move_origin"] = undefined
 
     await fetch(window.location.origin + "/drive/move", {
