@@ -79,6 +79,7 @@ def page_sharefolder():
 
     path = f"{base}/{request_folder}"
 
+    print(path)
     directory = os.listdir(path)
     directory = sorted(directory)
 
@@ -283,7 +284,6 @@ def drive_stopshare():
     base = f"./drive/{user_id}"
 
     database.stop_share(f"{base}/{element}")
-    print(f"{base}/{element}")
 
     return "success"
 
