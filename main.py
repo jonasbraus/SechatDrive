@@ -302,6 +302,17 @@ def drive_get_share():
     return redirect(f"/sharefolder?token={token}")
 
 
+@app.route("/drive/sharefolder/file", methods=["GET"])
+def drive_get_share_file():
+    token = request.args.get("token")
+    file = request.args.get("file")
+    base = database.get_element_by_token(token)
+
+    path = f"{base}/{file}".replace("//", "/")
+
+    return send_file(path)
+
+
 @app.route("/manifest.webmanifest", methods=["GET"])
 def get_manifest():
     return send_file("manifest.webmanifest", mimetype="application/manifest+json")

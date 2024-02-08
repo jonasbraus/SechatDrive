@@ -62,7 +62,7 @@ function on_click_folder(request_folder, folder_name, token) {
 function on_click_file(request_folder, file_name, token) {
 
     history.pushState({path: window.location.pathname}, "", window.location.pathname)
-    window.location.replace(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name + "&token=" + token)
+    window.location.replace(window.location.origin + "/drive/sharefolder/file?file=" + request_folder + "/" + file_name + "&token=" + token)
     localStorage["last_scroll"] = document.querySelector(".center").scrollTop
 
 }
