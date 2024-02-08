@@ -175,6 +175,8 @@ def drive_rename():
 
     base_path = f"./drive/{user_id}"
 
+    database.update_share_element(f"{base_path}/{request_folder}/{old_name}", f"{base_path}/{request_folder}/{new_name}")
+
     while os.path.exists(f"{base_path}/{request_folder}/{new_name}"):
         if "." in new_name:
             new_name = new_name.split(".")[0] + "1." + new_name.split(".")[1]
