@@ -73,16 +73,19 @@ def page_drive():
 
 @app.route("/sharefolder", methods=["GET"])
 def page_sharefolder():
-    token = request.args.get("token")
-    base = database.get_element_by_token(token)
-    request_folder = request.args.get(
-        "folder") if request.args.get("folder") is not None else ""
+    try:
+        token = request.args.get("token")
+        base = database.get_element_by_token(token)
+        request_folder = request.args.get(
+            "folder") if request.args.get("folder") is not None else ""
 
-    path = f"{base}/{request_folder}".replace("//", "/")
+        path = f"{base}/{request_folder}".replace("//", "/")
 
-    directory = os.listdir(path)
-    directory = sorted(directory)
-    return render_template("share_folder.html", directory=directory, request_folder=request_folder, token=token)
+        directory = os.listdir(path)
+        directory = sorted(directory)
+        return render_template("share_folder.html", directory=directory, request_folder=request_folder, token=token)
+    except:
+        return "not valid"
 
 
 @app.route("/share", methods=["GET"])
@@ -291,25 +294,31 @@ def drive_stopshare():
 
 @app.route("/drive/share", methods=["GET"])
 def drive_get_share():
-    token = request.args.get("token")
+    try:
+        token = request.args.get("token")
 
-    element = database.get_element_by_token(token)
+        element = database.get_element_by_token(token)
 
-    if "." in element[2:]:
-        return send_file(element)
+        if "." in element[2:]:
+            return send_file(element)
 
-    return redirect(f"/sharefolder?token={token}")
+        return redirect(f"/sharefolder?token={token}")
+    except:
+        return "not valid"
 
 
 @app.route("/drive/sharefolder/file", methods=["GET"])
 def drive_get_share_file():
-    token = request.args.get("token")
-    file = request.args.get("file")
-    base = database.get_element_by_token(token)
+    try:
+        token = request.args.get("token")
+        file = request.args.get("file")
+        base = database.get_element_by_token(token)
 
-    path = f"{base}/{file}".replace("//", "/")
+        path = f"{base}/{file}".replace("//", "/")
 
-    return send_file(path)
+        return send_file(path)
+    except:
+        return "not valid"
 
 
 def delete_temp_zip(location):
@@ -318,12 +327,15 @@ def delete_temp_zip(location):
 
 @app.route("/drive/sharefolder/download", methods=["GET"])
 def drive_get_share_folder_download():
-    token = request.args.get("token")
-    element = database.get_element_by_token(token)
+    try:
+        token = request.args.get("token")
+        element = database.get_element_by_token(token)
 
-    zip_file = f"./drive/{token}"
-    shutil.make_archive(zip_file, "zip", f"{element}")
-    return send_file(f"./drive/{token}.zip")
+        zip_file = f"./drive/{token}"
+        shutil.make_archive(zip_file, "zip", f"{element}")
+        return send_file(f"./drive/{token}.zip")
+    except:
+        return "not valid"
 
 
 @app.route("/manifest.webmanifest", methods=["GET"])
