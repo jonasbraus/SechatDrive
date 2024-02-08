@@ -245,7 +245,7 @@ def drive_share():
     token = database.get_token_by_element(base + "/" + element)
     if token is None:
         token = login_handler.generate_token()
-        database.add_share_element(token, base + "/" + element, user_id)
+        database.add_share_element(token, f"{base}/{element}", user_id)
 
     if "." not in element.split("/")[len(element.split("/")) - 2]:
         zip_file = f"./drive/{token}"
@@ -254,6 +254,23 @@ def drive_share():
     return Response(response=json.dumps({
         "token": token
     }))
+
+
+@app.route("/drive/stopshare", methods=["POST"])
+def drive_stopshare():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return redirect("/login")
+    user_id = user.user_id
+
+    js = request.json
+    element = js["element"]
+    base = f"./drive/{user_id}"
+
+    database.stop_share(f"{base}/{element}")
+
+    return "success"
 
 
 @app.route("/drive/share", methods=["GET"])
