@@ -269,6 +269,7 @@ def drive_stopshare():
     base = f"./drive/{user_id}"
 
     database.stop_share(f"{base}/{element}")
+    print(f"{base}/{element}")
 
     return "success"
 
