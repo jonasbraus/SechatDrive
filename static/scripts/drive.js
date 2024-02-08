@@ -5,13 +5,7 @@ window.addEventListener("load", function (ev)
         document.querySelector("body").style.display = "flex"
         console.log(localStorage["last_scroll"])
 
-        let elem = document.querySelector(".center")
-        if (!elem)
-        {
-            console.log("elem nicht gefunden")
-        }
-
-        elem.scrollTo({ top: localStorage["last_scroll"] })
+        document.querySelector(".center").scrollTo({ top: localStorage["last_scroll"], behavior: "smooth" })
     }, 200)
 
     if (localStorage["move_origin"] !== "undefined" && localStorage["move_origin"] !== undefined)
