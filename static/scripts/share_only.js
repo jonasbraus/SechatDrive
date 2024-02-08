@@ -1,3 +1,7 @@
+document.querySelector("button.save, button.cancel").addEventListener("click", function () {
+    window.location.reload()
+})
+
 function on_click_edit_share(element, token) {
     let edit_menu = document.querySelector(".editMenu")
     edit_menu.style.display = "flex"
