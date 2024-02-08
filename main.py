@@ -66,7 +66,7 @@ def page_drive():
 
     directory = os.listdir(path)
     directory = sorted(directory)
-    print(directory)
+
     return render_template("drive.html", directory=directory, request_folder=request_folder)
 
 
@@ -81,7 +81,7 @@ def page_sharefolder():
 
     directory = os.listdir(path)
     directory = sorted(directory)
-
+    print(directory)
     return render_template("share_folder.html", directory=directory, request_folder=request_folder, token=token)
 
 
