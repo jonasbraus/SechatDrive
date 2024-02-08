@@ -249,6 +249,8 @@ function on_click_cancel_in_folder_naming_menu()
 
 function on_click_share_element_in_edit_menu(request_folder, element_name)
 {
+    on_click_cancel_in_folder_naming_menu()
+
     fetch(window.location.origin + "/drive/share", {
         method: "POST",
         headers: {
