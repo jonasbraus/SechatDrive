@@ -198,6 +198,8 @@ def drive_move():
 
     original_location = js["original_location"]
     target_location = js["target_location"]
+    
+    database.update_share_element(f"{base}/{original_location}", f"{base}/{target_location}")
 
     base = f"./drive/{user_id}"
 

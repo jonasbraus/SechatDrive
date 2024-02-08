@@ -48,3 +48,6 @@ def get_token_by_element(element):
         return rows[0][1]
     except:
         return None
+    
+def update_share_element(old_element, new_element):
+    execute_database_command(f"update shares set element = '{new_element}' where element = '{old_element}'")
