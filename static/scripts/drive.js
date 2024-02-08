@@ -38,7 +38,7 @@ function on_click_folder(request_folder, folder_name)
     {
         history.pushState({ path: window.location.pathname }, "", window.location.pathname)
         window.location.replace(window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name)
-        localStorage["last_scroll"] = 0
+        localStorage["last_scroll"] = document.querySelector(".center").scrollTop
     }
 }
 
