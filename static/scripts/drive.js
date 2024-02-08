@@ -26,7 +26,13 @@ window.addEventListener("load", function (ev)
     document.querySelector(".sideBar").style.display = "none"
 
     console.log(localStorage["last_scroll"])
-    window.scrollTo({top: localStorage["last_scroll"]})
+    
+    let elem = document.querySelector(".center")
+    if(!elem) {
+        console.log("elem nicht gefunden")
+    }
+
+    elem.scrollTo({top: localStorage["last_scroll"]})
 })
 
 function on_click_folder(request_folder, folder_name)
