@@ -226,6 +226,14 @@ def drive_share():
         "token": token
     }))
 
+@app.route("/drive/share", methods=["GET"])
+def drive_get_share():
+    token = request.args.get("token")
+    
+    element = database.get_element_by_token(token)
+    
+    return send_file(element)
+
 
 @app.route("/manifest.webmanifest", methods=["GET"])
 def get_manifest():
