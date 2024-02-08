@@ -22,7 +22,7 @@ window.addEventListener("load", function (ev)
 
     try
     {
-        document.querySelector(".center").scrollTop = localStorage["last_scroll"]
+        document.querySelector(".center").scrollTo(0, localStorage["last_scroll"])
     } catch (error)
     {
         document.querySelector(".center").scrollTop = 0
