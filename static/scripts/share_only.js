@@ -69,5 +69,6 @@ function on_click_file(request_folder, file_name, token) {
 }
 
 function on_click_download(token) {
+    document.querySelector("body").innerHTML = "<h1 style='font-size: 40px; color: white;'>Creating Zip...</h1>"
     window.location.replace(window.location.origin + "/drive/sharefolder/download?token=" + token)
 }
