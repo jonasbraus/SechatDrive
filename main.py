@@ -222,6 +222,10 @@ def drive_share():
         token = login_handler.generate_token()
         database.add_share_element(token, base + "/" + element)
 
+    if "." not in element.split("/")[len(element.split("/"))-2]:
+        zip_file = f"./drive/{token}"
+        shutil.make_archive(zip_file, "zip", base + "/" + element)
+        
     return Response(response=json.dumps({
         "token": token
     }))
@@ -232,7 +236,10 @@ def drive_get_share():
     
     element = database.get_element_by_token(token)
     
-    return send_file(element)
+    if "." in element.split("/")[len(element.split("/"))-2]:
+        return send_file(element)
+
+    return f"./drive/{token}.zip"
 
 
 @app.route("/manifest.webmanifest", methods=["GET"])
