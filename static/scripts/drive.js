@@ -6,6 +6,7 @@ window.addEventListener("load", function (ev)
         console.log(localStorage["last_scroll"])
 
         document.querySelector(".center").scrollTo({ top: localStorage["last_scroll"], behavior: "smooth" })
+        localStorage["last_scroll"] = 0
     }, 200)
 
     if (localStorage["move_origin"] !== "undefined" && localStorage["move_origin"] !== undefined)
