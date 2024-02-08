@@ -1,7 +1,3 @@
-document.querySelector("button.save, button.cancel").addEventListener("click", function () {
-    window.location.reload()
-})
-
 function on_click_edit_share(element, token) {
     let edit_menu = document.querySelector(".editMenu")
     edit_menu.style.display = "flex"
@@ -76,4 +72,7 @@ async function on_click_download(token) {
     document.querySelector("body").innerHTML = "<h1 style='font-size: 40px; color: white;'>Creating Zip...</h1>"
     await fetch(window.location.origin + "/drive/sharefolder/download?token=" + token)
     window.location.replace(window.location.origin + "/drive/sharefolder/download?token=" + token)
+    setTimeout(function () {
+        window.location.reload()
+    }, 5000)
 }
