@@ -337,7 +337,6 @@ def drive_get_share_file():
 
 
 def delete_temp_zip(arg1, *kwa):
-    print(arg1)
     os.remove(arg1)
 
 
@@ -350,7 +349,7 @@ def drive_get_share_folder_download():
         zip_file = f"./drive/{token}"
         if not os.path.exists(zip_file + ".zip"):
             shutil.make_archive(zip_file, "zip", f"{element}")
-            threading.Timer(5, delete_temp_zip, args=(zip_file + ".zip",)).start()
+            threading.Timer(1600, delete_temp_zip, args=(zip_file + ".zip",)).start()
         return send_file(f"./drive/{token}.zip", as_attachment=True)
     except:
         return "not valid"
