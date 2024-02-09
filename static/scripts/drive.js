@@ -51,15 +51,28 @@ function on_click_file(request_folder, file_name)
         history.pushState({ path: window.location.pathname }, "", window.location.pathname)
         
         localStorage["last_scroll"] = document.querySelector(".center").scrollTop
-        let file_window = window.open(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name, "_blank")
-        let file_body = file_window.querySelector("body")
-        file_body.style.height = file_body.style.maxHeight = "100vh"
-        file_body.style.width = file_body.style.maxWidth = "100vw"
-        let file_img = file_window.querySelector("img")
-        if (file_img) {
-            file_img.style.width = file_img.style.maxWidth = "100%"
-            file_img.style.height = file_img.style.maxHeight = "100%"
+        let url = window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name
+
+        let html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+        </head>
+        <body style="height: 100vh; max-height: 100vh; width: 100vw; max-width: 100vw;">
+            <img src='${url}' max-width="100%" max-height="100%" style="display:block; margin:auto;">
+        </body>
+        </html>
+    `
+        if(".png" in file_name.toLowerCase() || ".jpg" in file_name.toLowerCase() || ".jpeg" in file_name.toLowerCase())
+        {
+            let blob = new Blob([html], { type: 'text/html' });
+            let urlWithSize = URL.createObjectURL(blob);
+            window.open(urlWithSize, '_blank');
         }
+        else {
+            window.open(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name, "_blank")
+        }
+        
     }
 }
 
