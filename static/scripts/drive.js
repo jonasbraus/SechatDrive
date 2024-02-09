@@ -62,7 +62,7 @@ function on_click_file(request_folder, file_name)
         {
             document.querySelector(".modal").style.display = "flex"
             document.querySelector(".modalContent").innerHTML = `
-            <img src='${url}' style="display:block; margin:auto; max-width: 100%; max-height: 100%;">
+            <img src='${url}' style="display:block; margin:auto; max-width: 100%; max-height: 80%;">
             `
         }
         else {
