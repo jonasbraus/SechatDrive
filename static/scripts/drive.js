@@ -196,6 +196,9 @@ function click_in_center(e)
     {
         document.querySelector(".sideBar").style.display = "none"
     }
+    if(e.target.id !== "modalContent") {
+        document.querySelector(".modal").style.display = "none"
+    }
 }
 
 function on_click_add_button()
