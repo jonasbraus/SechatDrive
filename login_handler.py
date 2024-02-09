@@ -13,7 +13,7 @@ def generate_token():
 def login_user(user):
     token = generate_token()
     database.add_login(token, user.user_id)
-
+    return token
 
 def logout_user(token):
     database.remove_login(token)
