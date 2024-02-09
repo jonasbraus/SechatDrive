@@ -49,8 +49,9 @@ function on_click_file(request_folder, file_name)
         document.querySelector(".sideBar").style.display === "none")
     {
         history.pushState({ path: window.location.pathname }, "", window.location.pathname)
-        window.location.replace(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name)
+        
         localStorage["last_scroll"] = document.querySelector(".center").scrollTop
+        window.open(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name, "_blank")
     }
 }
 
