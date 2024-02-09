@@ -27,7 +27,6 @@ window.addEventListener("load", function (ev)
 
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
-    document.querySelector(".editMenu").style.height = "0"
     document.querySelector(".sideBar").style.display = "none"
 
 
@@ -80,7 +79,6 @@ function on_click_move_element_in_edit_menu(request_folder, element_name)
     localStorage["move_origin"] = request_folder + "/" + element_name
     let bottom_nav = document.querySelector(".bottomNav")
     document.querySelector(".editMenu").style.display = "none"
-    document.querySelector(".editMenu").style.height = "0"
     bottom_nav.innerHTML = `
     <button onclick="on_click_move_here('${element_name}')" style="background-color: transparent; display: flex; justify-content: center; align-items: center; border: 0; gap: 40px;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-arrows-move editMenuSVG" viewBox="0 0 16 16">
@@ -96,7 +94,6 @@ function on_click_edit(request_folder, element_name)
 
     let edit_menu = document.querySelector(".editMenu")
     edit_menu.style.display = "flex"
-    edit_menu.style.height = "40%"
     let inner = `<div style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">`
     if (element_name.split(".").length > 1)
     {
@@ -176,7 +173,6 @@ function click_in_center(e)
     if (e.target.id !== "edit_x")
     {
         document.querySelector(".editMenu").style.display = "none"
-        document.querySelector(".editMenu").style.height = "0"
     }
     if (e.target.id !== "sideBar")
     {
@@ -249,7 +245,6 @@ function on_click_cancel_in_folder_naming_menu()
     document.querySelector(".modal").style.display = "none"
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
-    document.querySelector(".editMenu").style.height = "0"
 }
 
 function on_click_share_element_in_edit_menu(request_folder, element_name)
