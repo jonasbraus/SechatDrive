@@ -170,10 +170,10 @@ async function delete_element(request_folder, element_name)
 function click_in_center(e)
 {
     document.querySelector(".addMenu").style.display = "none"
-    // if (e.target.id !== "edit_x")
-    // {
-    //     document.querySelector(".editMenu").style.display = "none"
-    // }
+    if (e.target.className !== "press-hover")
+    {
+        document.querySelector(".editMenu").style.display = "none"
+    }
     if (e.target.id !== "sideBar")
     {
         document.querySelector(".sideBar").style.display = "none"
