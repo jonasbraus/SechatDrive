@@ -1,5 +1,6 @@
 import string
 import random
+import database
 
 tokens = {}
 
@@ -11,15 +12,16 @@ def generate_token():
 
 def login_user(user):
     token = generate_token()
-    tokens[token] = user
-    return token
+    database.add_login(token, user.user_id)
 
 
 def logout_user(token):
-    del tokens[token]
+    database.remove_login(token)
 
 
 def get_user_by_token(token):
-    if not token in tokens:
+    user_id = database.get_login_user_id_for_token(token)
+    if user_id == None:
         return None
-    return tokens[token]
+    user = database.get_user_by_id(user_id)
+    return user
