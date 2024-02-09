@@ -1,5 +1,10 @@
 window.addEventListener("load", function (ev)
 {
+    if(this.window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+
     setTimeout(function ()
     {
         document.querySelector("body").style.display = "flex"
