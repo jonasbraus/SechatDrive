@@ -1,18 +1,19 @@
 window.addEventListener("load", function (ev)
 {
-    if(this.window.location.hash) {
-        window.location = window.location + '#loaded';
-        window.location.reload();
-    }
 
     setTimeout(function ()
     {
+        if(this.window.location.hash) {
+            window.location = window.location + '#loaded';
+            window.location.reload();
+        }
+
         document.querySelector("body").style.display = "flex"
         console.log(localStorage["last_scroll"])
 
         document.querySelector(".center").scrollTo({ top: localStorage["last_scroll"], behavior: "instant" })
         localStorage["last_scroll"] = 0
-    }, 1)
+    }, 20)
 
     if (localStorage["move_origin"] !== "undefined" && localStorage["move_origin"] !== undefined)
     {
