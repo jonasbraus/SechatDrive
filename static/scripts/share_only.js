@@ -1,18 +1,21 @@
-function on_click_edit_share(element, token) {
+function on_click_edit_share(element, token)
+{
     let edit_menu = document.querySelector(".editMenu")
     edit_menu.style.display = "flex"
     let inner = `
     <div style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
     `
 
-    if (element.split(".").length > 1) {
+    if (element.split(".").length > 1)
+    {
         inner += `
         <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
                  class="bi bi-file-earmark-fill folderIconSVG" viewBox="0 0 16 16">
                 <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2z"/>
             </svg>
         `
-    } else {
+    } else
+    {
         inner += `
         <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff" class="bi bi-folder-fill folderIconSVG"
                  viewBox="0 0 16 16">
@@ -38,7 +41,8 @@ function on_click_edit_share(element, token) {
     edit_menu.innerHTML = inner
 }
 
-async function stop_share(element) {
+async function stop_share(element)
+{
     await fetch(window.location.origin + "/drive/stopshare", {
         method: "POST",
         headers: {
@@ -52,47 +56,37 @@ async function stop_share(element) {
     window.location.reload()
 }
 
-function on_click_folder(request_folder, folder_name, token) {
+function on_click_folder(request_folder, folder_name, token)
+{
 
-    history.pushState({path: window.location.pathname}, "", window.location.pathname)
+    history.pushState({ path: window.location.pathname }, "", window.location.pathname)
     window.location.replace(window.location.origin + "/sharefolder?folder=" + request_folder + "/" + folder_name + "&token=" + token)
     localStorage["last_scroll"] = document.querySelector(".center").scrollTop
 
 }
 
-function on_click_file(request_folder, file_name, token) {
+function on_click_file(request_folder, file_name, token)
+{
 
-    history.pushState({path: window.location.pathname}, "", window.location.pathname)
+    history.pushState({ path: window.location.pathname }, "", window.location.pathname)
     // window.location.replace(window.location.origin + "/drive/sharefolder/file?file=" + request_folder + "/" + file_name + "&token=" + token)
     localStorage["last_scroll"] = document.querySelector(".center").scrollTop
 
     let url = window.location.origin + "/drive/sharefolder/file?file=" + request_folder + "/" + file_name + "&token=" + token
-    if(file_name.toLowerCase().includes(".png") || file_name.toLowerCase().includes(".jpg") ||file_name.toLowerCase().includes(".jpeg") )
-    {
-        document.querySelector(".modal").style.display = "flex"
-        document.querySelector(".modalContent").innerHTML = `
-        <img src='${url}' style="display:block; margin:auto; max-width: 100%; max-height: 80%; border-radius: 30px;">
-        `
-    }
-    else if(file_name.toLowerCase().includes(".mp4") || file_name.toLowerCase().includes(".mpeg-4") || file_name.toLowerCase().includes(".avi") || file_name.toLowerCase().includes(".mov")) {
-        document.querySelector(".modal").style.display = "flex"
-        document.querySelector(".modalContent").innerHTML = `
-        <iframe src='${url}' style="display:block; margin:auto; max-width: 100%; max-height: 80vh; width: 100%; height: 80vh;">
-        `
-    }
 
-    else {
-        window.open(url, "_blank")
-    }
+    window.open(url, "_blank")
+
 
 }
 
-async function on_click_download(token) {
+async function on_click_download(token)
+{
     document.querySelector("body").innerHTML = "<h1 style='font-size: 40px; color: white;'>Creating Zip...</h1>"
     await fetch(window.location.origin + "/drive/sharefolder/download?token=" + token)
     window.location.replace(window.location.origin + "/drive/sharefolder/download?token=" + token)
     document.querySelector("body").innerHTML = "<h1 style='font-size: 40px; color: white;'>Redirecting to shared folder...</h1>"
-    setTimeout(function () {
+    setTimeout(function ()
+    {
         window.location.reload()
     }, 10000)
 }
