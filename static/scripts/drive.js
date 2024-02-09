@@ -58,7 +58,7 @@ function on_click_file(request_folder, file_name)
         <html>
         <head>
         </head>
-        <body style="height: 100vh; max-height: 100vh; width: 100vw; max-width: 100vw;">
+        <body style="height: 100vh; max-height: 100vh; width: 100vw; max-width: 100vw; background-color: #1b1a22;">
             <img src='${url}' style="display:block; margin:auto; max-width: 100vw; max-height: 100vh;">
         </body>
         </html>
