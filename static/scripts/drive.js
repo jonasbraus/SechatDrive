@@ -70,7 +70,7 @@ function on_click_file(request_folder, file_name)
             window.open(urlWithSize, '_blank');
         }
         else {
-            window.open(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name, "_blank")
+            window.open(url, "_blank")
         }
         
     }
