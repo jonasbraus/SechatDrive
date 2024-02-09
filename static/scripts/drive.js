@@ -126,8 +126,8 @@ function on_click_edit(request_folder, element_name)
     {
         inner += `
         <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
-                 class="bi bi-file-earmark-fill folderIconSVG" viewBox="0 0 16 16">
-                <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2z"/>
+                 class="bi bi-file-earmark-fill folderIconSVG" viewBox="0 0 512 512">
+                <path d="M64 480H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H288c-10.1 0-19.6-4.7-25.6-12.8L243.2 57.6C231.1 41.5 212.1 32 192 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64z"/>
             </svg>
         `
     } else
