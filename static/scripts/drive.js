@@ -63,7 +63,7 @@ function on_click_file(request_folder, file_name)
         </body>
         </html>
     `
-        if(".png" in file_name.toLowerCase() || ".jpg" in file_name.toLowerCase() || ".jpeg" in file_name.toLowerCase())
+        if(file_name.toLowerCase().includes(".png") || file_name.toLowerCase().includes(".jpg") ||file_name.toLowerCase().includes(".jpeg") )
         {
             let blob = new Blob([html], { type: 'text/html' });
             let urlWithSize = URL.createObjectURL(blob);
