@@ -196,7 +196,10 @@ function click_in_center(e)
     {
         document.querySelector(".sideBar").style.display = "none"
     }
-    if(e.target.id !== "modalContent") {
+}
+
+function on_modal_click(e) {
+    if(e.target == e.currentTarget) {
         document.querySelector(".modal").style.display = "none"
     }
 }
