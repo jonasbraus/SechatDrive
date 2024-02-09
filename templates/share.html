@@ -20,11 +20,12 @@
 
 <body>
 
-<div class="modal">
-    <div class="modalContent">
-
+    <div class="modal" onclick="on_modal_click(event)">
+        <div class="modalContent" id="modalContent">
+    
+        </div>
     </div>
-</div>
+    
 
 <div onclick="click_in_center(event)" class="center">
     {% for element in directory %}
