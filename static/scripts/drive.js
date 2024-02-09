@@ -171,7 +171,7 @@ async function delete_element(request_folder, element_name)
 function click_in_center(e)
 {
     document.querySelector(".addMenu").style.display = "none"
-    if (e.target.className !== "editMenu" && document.querySelector(".editMenu").style.display !== "none")
+    if (e.target.className !== "editMenu" && document.querySelector(".editMenu").style.display != "none")
     {
         document.querySelector(".editMenu").style.display = "none"
     }
