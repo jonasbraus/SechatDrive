@@ -207,6 +207,11 @@ body {
     height: 150px;
 }
 
+.press-hover:hover {
+    border-radius: 30px;
+    background-color: #8992B0;
+}
+
 
 @media (min-device-width: 12cm) {
     body::-webkit-scrollbar {
