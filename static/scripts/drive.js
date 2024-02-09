@@ -60,7 +60,7 @@ function on_click_file(request_folder, file_name)
         let url = window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name
         if(file_name.toLowerCase().includes(".png") || file_name.toLowerCase().includes(".jpg") ||file_name.toLowerCase().includes(".jpeg") )
         {
-            document.querySelector(".modal").style.display = "none"
+            document.querySelector(".modal").style.display = "flex"
             document.querySelector(".modalContent").innerHTML = `
             <img src='${url}' style="display:block; margin:auto; max-width: 100vw; max-height: 80vh;">
             `
