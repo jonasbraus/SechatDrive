@@ -207,6 +207,10 @@ body {
     height: 150px;
 }
 
+.press-hover {
+    transition: 0.3s;
+}
+
 .press-hover:hover {
     border-radius: 30px;
     background-color: #8992B0;
