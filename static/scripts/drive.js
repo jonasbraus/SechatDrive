@@ -68,7 +68,7 @@ function on_click_file(request_folder, file_name)
         else if(file_name.toLowerCase().includes(".mp4") || file_name.toLowerCase().includes(".mpeg-4") || file_name.toLowerCase().includes(".avi") || file_name.toLowerCase().includes(".mov")) {
             document.querySelector(".modal").style.display = "flex"
             document.querySelector(".modalContent").innerHTML = `
-            <iframe src='${url}' style="display:block; margin:auto; max-width: 100%; max-height: 80%; width: 100%; height: 80%;">
+            <iframe src='${url}' style="display:block; margin:auto; max-width: 100%; max-height: 80vh; width: 100%; height: 80vh;">
             `
         }
         else {
