@@ -13,7 +13,7 @@ window.addEventListener("load", function (ev)
 
         document.querySelector(".center").scrollTo({ top: localStorage["last_scroll"], behavior: "instant" })
         localStorage["last_scroll"] = 0
-    }, 20)
+    }, 1)
 
     if (localStorage["move_origin"] !== "undefined" && localStorage["move_origin"] !== undefined)
     {
