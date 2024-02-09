@@ -122,15 +122,62 @@ function on_click_edit(request_folder, element_name)
     let edit_menu = document.querySelector(".editMenu")
     edit_menu.style.display = "flex"
     let inner = `<div style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">`
-    if (element_name.split(".").length > 1)
+    if (element_name.toLowerCase().includes(".zip"))
     {
         inner += `
         <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
                  class="bi bi-file-earmark-fill folderIconSVG" viewBox="0 0 384 512">
-                <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/>
+                 <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM96 48c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16zm-6.3 71.8c3.7-14 16.4-23.8 30.9-23.8h14.8c14.5 0 27.2 9.7 30.9 23.8l23.5 88.2c1.4 5.4 2.1 10.9 2.1 16.4c0 35.2-28.8 63.7-64 63.7s-64-28.5-64-63.7c0-5.5 .7-11.1 2.1-16.4l23.5-88.2zM112 336c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H112z"/>
             </svg>
         `
-    } else
+    }
+    else if (element_name.toLowerCase().includes(".png") || element_name.toLowerCase().includes(".jpg") || element_name.toLowerCase().includes(".jpeg"))
+    {
+        inner += `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
+                 class="bi bi-file-earmark-fill folderIconSVG" viewBox="0 0 384 512">
+                 <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM64 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm152 32c5.3 0 10.2 2.6 13.2 6.9l88 128c3.4 4.9 3.7 11.3 1 16.5s-8.2 8.6-14.2 8.6H216 176 128 80c-5.8 0-11.1-3.1-13.9-8.1s-2.8-11.2 .2-16.1l48-80c2.9-4.8 8.1-7.8 13.7-7.8s10.8 2.9 13.7 7.8l12.8 21.4 48.3-70.2c3-4.3 7.9-6.9 13.2-6.9z"/>
+            </svg>
+        `
+    }
+    else if(element_name.toLowerCase().includes(".txt") || element_name.toLowerCase().includes(".py") || element_name.toLowerCase().includes(".java") || element_name.toLowerCase().includes(".class") || element_name.toLowerCase().includes(".c") || element_name.toLowerCase().includes(".cpp") || element_name.toLowerCase().includes(".json"))
+    {
+        inner += `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
+                 class="bi bi-file-earmark-fill folderIconSVG" viewBox="0 0 384 512">
+                 <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM153 289l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L71 337c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM265 255l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z"/>
+            </svg>
+        `
+    }
+    else if(element_name.toLowerCase().includes(".mp3") || element_name.toLowerCase().includes(".flac") || element_name.toLowerCase().includes(".wav"))
+    {
+        inner += `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
+                 class="bi bi-file-earmark-fill folderIconSVG" viewBox="0 0 384 512">
+                 <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM153 289l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L71 337c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM265 255l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z"/>
+        </svg>
+        `
+    }
+    else if(element_name.toLowerCase().includes(".mp4") || element_name.toLowerCase().includes(".mov") || element_name.toLowerCase().includes(".mpeg4"))
+    {
+        inner += `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
+                 class="bi bi-file-earmark-fill folderIconSVG" viewBox="0 0 384 512">
+                 <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM64 288c0-17.7 14.3-32 32-32h96c17.7 0 32 14.3 32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V288zM300.9 397.9L256 368V304l44.9-29.9c2-1.3 4.4-2.1 6.8-2.1c6.8 0 12.3 5.5 12.3 12.3V387.7c0 6.8-5.5 12.3-12.3 12.3c-2.4 0-4.8-.7-6.8-2.1z"/>
+        </svg>
+        `
+    }
+    else if(element_name.split(".").length > 1) 
+    {
+        inner += `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
+                 class="bi bi-file-earmark-fill folderIconSVG" viewBox="0 0 384 512">
+                 <path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z"/>
+            </svg>
+        `
+    }
+    
+    else
     {
         inner += `
         <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff" class="bi bi-folder-fill folderIconSVG"
