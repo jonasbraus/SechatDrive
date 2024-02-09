@@ -51,7 +51,15 @@ function on_click_file(request_folder, file_name)
         history.pushState({ path: window.location.pathname }, "", window.location.pathname)
         
         localStorage["last_scroll"] = document.querySelector(".center").scrollTop
-        window.open(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name, "_blank")
+        let file_window = window.open(window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name, "_blank")
+        let file_body = file_window.querySelector("body")
+        file_body.style.height = file_body.style.maxHeight = "100vh"
+        file_body.style.width = file_body.style.maxWidth = "100vw"
+        let file_img = file_window.querySelector("img")
+        if (file_img) {
+            file_img.style.width = file_img.style.maxWidth = "100%"
+            file_img.style.height = file_img.style.maxHeight = "100%"
+        }
     }
 }
 
