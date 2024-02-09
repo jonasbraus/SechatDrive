@@ -3,7 +3,8 @@ window.addEventListener("load", function (ev)
 
     setTimeout(function ()
     {
-        if(this.window.location.hash) {
+        if (this.window.location.hash)
+        {
             window.location = window.location + '#loaded';
             window.location.reload();
         }
@@ -55,26 +56,35 @@ function on_click_file(request_folder, file_name)
         document.querySelector(".sideBar").style.display === "none")
     {
         // history.pushState({ path: window.location.pathname }, "", window.location.pathname)
-        
+
         localStorage["last_scroll"] = document.querySelector(".center").scrollTop
         let url = window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name
-        if(file_name.toLowerCase().includes(".png") || file_name.toLowerCase().includes(".jpg") ||file_name.toLowerCase().includes(".jpeg") )
+        if (file_name.toLowerCase().includes(".png") || file_name.toLowerCase().includes(".jpg") || file_name.toLowerCase().includes(".jpeg"))
         {
             document.querySelector(".modal").style.display = "flex"
             document.querySelector(".modalContent").innerHTML = `
             <img src='${url}' style="display:block; margin:auto; max-width: 100%; max-height: 80%; border-radius: 30px;">
             `
         }
-        else if(file_name.toLowerCase().includes(".mp4") || file_name.toLowerCase().includes(".mpeg-4") || file_name.toLowerCase().includes(".avi") || file_name.toLowerCase().includes(".mov")) {
+        else if (file_name.toLowerCase().includes(".mp4") || file_name.toLowerCase().includes(".mpeg-4") || file_name.toLowerCase().includes(".avi") || file_name.toLowerCase().includes(".mov"))
+        {
             document.querySelector(".modal").style.display = "flex"
             document.querySelector(".modalContent").innerHTML = `
             <iframe src='${url}' style="display:block; margin:auto; max-width: 100%; max-height: 80vh; width: 100%; height: 80vh;">
             `
         }
-        else {
+        else if (file_name.toLowerCase().includes(".pdf"))
+        {
+            document.querySelector(".modal").style.display = "flex"
+            document.querySelector(".modalContent").innerHTML = `
+        <embed src='${url}' style="display:block; margin:auto; max-width: 100%; max-height: 80vh; width: 100%; height: 80vh;">
+        `
+        }
+        else
+        {
             window.open(url, "_blank")
         }
-        
+
     }
 }
 
@@ -204,8 +214,10 @@ function click_in_center(e)
     }
 }
 
-function on_modal_click(e) {
-    if(e.target == e.currentTarget) {
+function on_modal_click(e)
+{
+    if (e.target == e.currentTarget)
+    {
         document.querySelector(".modal").style.display = "none"
     }
 }
@@ -289,11 +301,12 @@ function on_click_share_element_in_edit_menu(request_folder, element_name)
         body: JSON.stringify({
             "element": request_folder + "/" + element_name
         })
-    }).then(r => r.json()).then(js => {
+    }).then(r => r.json()).then(js =>
+    {
         let modal = document.querySelector(".modal")
-    modal.style.display = "flex"
-    let modal_content = document.querySelector(".modalContent")
-    modal_content.innerHTML = `
+        modal.style.display = "flex"
+        let modal_content = document.querySelector(".modalContent")
+        modal_content.innerHTML = `
     <h1 style="color: white; margin-bottom: 40px" class="folderPathFont">Link</h1>
     <input id="input_rename" type="text" readonly="readonly" value="${window.location.origin}/drive/share?token=${js['token']}" class="folderPathFont modalContentInput"/>
     <div style="width: 100%; margin-right: 0; display: flex; justify-content: flex-end; align-items: center; gap: 40px; margin-top: 40px;">
@@ -302,7 +315,7 @@ function on_click_share_element_in_edit_menu(request_folder, element_name)
     `
     })
 
-    
+
 }
 
 async function on_click_save_in_folder_naming_menu(request_folder)
@@ -392,10 +405,12 @@ async function on_drop(e, request_folder)
     }
 }
 
-function on_click_drive_in_bottom_nav() {
+function on_click_drive_in_bottom_nav()
+{
     window.location.replace(window.location.origin + "/drive")
 }
 
-function on_click_share_in_bottom_nav() {
+function on_click_share_in_bottom_nav()
+{
     window.location.replace(window.location.origin + "/share")
 }
