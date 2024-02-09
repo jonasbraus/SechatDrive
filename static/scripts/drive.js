@@ -48,7 +48,7 @@ function on_click_file(request_folder, file_name)
     if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none" &&
         document.querySelector(".sideBar").style.display === "none")
     {
-        history.pushState({ path: window.location.pathname }, "", window.location.pathname)
+        // history.pushState({ path: window.location.pathname }, "", window.location.pathname)
         
         localStorage["last_scroll"] = document.querySelector(".center").scrollTop
         let url = window.location.origin + "/drive/getfile?file=" + request_folder + "/" + file_name
@@ -59,7 +59,7 @@ function on_click_file(request_folder, file_name)
         <head>
         </head>
         <body style="height: 100vh; max-height: 100vh; width: 100vw; max-width: 100vw;">
-            <img src='${url}' width=100vw; height=100vw; object-fit: cover; style="display:block; margin:auto;">
+            <img src='${url}' width=100vw; height=100vw; style="display:block; margin:auto;">
         </body>
         </html>
     `
