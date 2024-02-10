@@ -217,9 +217,7 @@ def drive_deleteperm():
     if "." in element:
         os.remove(f"{base_path}/{element}")
     else:
-        os.rmdir(f"{base_path}/{element}")
-
-    return "success"
+        shutil.rmtree(f"{base_path}/{element}")
 
 
 @app.route("/drive/restore", methods=["POST"])
