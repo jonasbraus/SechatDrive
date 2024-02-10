@@ -38,9 +38,11 @@ window.addEventListener("load", function (ev) {
 function on_click_folder(request_folder, folder_name) {
     if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none" &&
         document.querySelector(".sideBar").style.display === "none" && document.querySelector(".editMenu2").style.display === "none") {
-        history.pushState({path: window.location.pathname}, "", window.location.pathname)
-        window.location.replace(window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name)
-        localStorage["last_scroll"] = document.querySelector(".center").scrollTop
+        if (!request_folder.includes("~trash")) {
+            history.pushState({path: window.location.pathname}, "", window.location.pathname)
+            window.location.replace(window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name)
+            localStorage["last_scroll"] = document.querySelector(".center").scrollTop
+        }
     }
 }
 
