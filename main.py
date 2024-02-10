@@ -219,6 +219,8 @@ def drive_deleteperm():
     else:
         shutil.rmtree(f"{base_path}/{element}")
 
+    return "success"
+
 
 @app.route("/drive/restore", methods=["POST"])
 def drive_restore():
