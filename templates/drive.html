@@ -17,7 +17,7 @@
         {% if request_folder == "" %}
         <span class="folderPathFont" style="color: white;">/</span>
         {% else %}
-        <span class="folderPathFont" style="color: white; max-width: 70%; overflow: hidden">{{request_folder}}</span>
+        <span class="folderPathFont" style="color: white; max-width: 70%; overflow-x: hidden; white-space: nowrap">{{request_folder}}</span>
         {% endif %}
     </div>
     <div class="press-hover" id="add_button" onclick="on_click_add_button()"
