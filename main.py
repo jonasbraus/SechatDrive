@@ -168,9 +168,9 @@ def drive_newfile():
         file = files[name]
         file_name = file.filename
 
-        while os.path.exists(f"./drive/{user_id}{path_folder}/{file_name}"):
-            file_name = file_name.split(
-                ".")[0] + "1." + file_name.split(".")[1]
+        # while os.path.exists(f"./drive/{user_id}{path_folder}/{file_name}"):
+        #     file_name = file_name.split(
+        #         ".")[0] + "1." + file_name.split(".")[1]
 
         file.save(f"./drive/{user_id}{path_folder}/{file_name}")
 
