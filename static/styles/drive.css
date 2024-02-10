@@ -250,6 +250,10 @@ body {
         display: none;
     }
 
+    .editButtonDesktop {
+        max-width: 50px;
+    }
+
     .higherElement {
         min-height: 80px;
     }
