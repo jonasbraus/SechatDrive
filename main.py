@@ -214,7 +214,10 @@ def drive_deleteperm():
 
     base_path = f"./drive/{user_id}/~trash"
 
-    os.remove(f"{base_path}/{element}")
+    if "." in element:
+        os.remove(f"{base_path}/{element}")
+    else:
+        os.rmdir(f"{base_path}/{element}")
 
     return "success"
 
