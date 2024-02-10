@@ -245,12 +245,17 @@ body {
     display: none;
 }
 
+.editButtonDesktop {
+    min-width: 10%;
+}
+
 @media (min-device-width: 12cm) {
     body::-webkit-scrollbar {
         display: none;
     }
 
     .editButtonDesktop {
+        min-width: 0;
         max-width: 50px;
     }
 
