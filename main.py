@@ -198,6 +198,7 @@ def drive_delete():
     test = path_element.replace("/", "-")
 
     if not os.path.isdir(f"./drive/{user_id}/trash"):
+        os.mkdir(f"./drive/{user_id}/trash")
 
     shutil.move(path, f"./drive/{user_id}/trash/{test}")
 
