@@ -200,6 +200,25 @@ def drive_delete():
     return "success"
 
 
+@app.route("/drive/deleteperm", methods=["POST"])
+def drive_deleteperm():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return redirect("/login")
+    user_id = user.user_id
+
+    js = request.json
+
+    element = js["element"]
+
+    base_path = f"./drive/{user_id}/~trash"
+
+    os.remove(f"{base_path}/{element}")
+
+    return "success"
+
+
 @app.route("/drive/restore", methods=["POST"])
 def drive_restore():
     token = request.cookies.get("token")

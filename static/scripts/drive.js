@@ -202,7 +202,7 @@ function on_click_edit(request_folder, element_name) {
                 </svg>
                 <span style="color: white;" class="folderPathFont">Restore</span>
             </div>
-            <div onclick="" style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
+            <div onclick="on_click_delete_perm('${element_name}')" style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="white" class="bi bi-arrows-move editMenuSVG" viewBox="0 0 512 512">
                     <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>    
                 </svg>
@@ -422,6 +422,20 @@ function on_click_share_in_bottom_nav() {
 
 async function on_click_restore(element) {
     await fetch(window.location.origin + "/drive/restore", {
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "element": element
+        })
+    })
+
+    window.location.reload()
+}
+
+async function on_click_delete_perm(element) {
+    await fetch(window.location.origin + "/drive/deleteperm", {
         method: "POST",
         headers: {
             "content-type": "application/json"
