@@ -188,7 +188,7 @@ def drive_delete():
     js = request.json
     path_element = js["path_element"]
 
-    path = f"./drive/{user_id}/{path_element}"
+    path = f"./drive/{user_id}{path_element}"
 
     shutil.move(path, f"./drive/{user_id}/trash{path_element}")
 
