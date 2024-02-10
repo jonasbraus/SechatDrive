@@ -200,6 +200,11 @@ def drive_delete():
     return "success"
 
 
+@app.route("/drive/restore", methods=["POST"])
+def drive_restore():
+    pass
+
+
 @app.route("/drive/rename", methods=["POST"])
 def drive_rename():
     token = request.cookies.get("token")

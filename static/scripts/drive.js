@@ -186,7 +186,8 @@ function on_click_edit(request_folder, element_name)
             </svg>
         `
     }
-    inner += `
+    if (!element_name.includes("trash")) {
+        inner += `
     <span style="color: white;" class="folderPathFont">${element_name}</span>
     </div>
     
@@ -219,6 +220,7 @@ function on_click_edit(request_folder, element_name)
     </div>
     
     `
+    }
 
     edit_menu.innerHTML = inner
 }
