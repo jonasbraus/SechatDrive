@@ -69,7 +69,6 @@ def page_drive():
     directory = os.listdir(path)
     directory = sorted(directory)
 
-
     return render_template("drive.html", directory=directory, request_folder=request_folder)
 
 
