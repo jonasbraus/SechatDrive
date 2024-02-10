@@ -192,7 +192,7 @@ def drive_delete():
 
     split_trash = f"trash{path_element}".split("/")
     for i, sp in enumerate(split_trash):
-        merge = ""
+        merge = f"./drive/{user_id}/"
         for f in range(0, i):
             merge += split_trash[f] + "/"
         print(merge)
