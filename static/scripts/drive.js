@@ -210,7 +210,7 @@ function on_click_edit(request_folder, element_name) {
             </div>
 
         `
-        let edit_menu = document.querySelector(".editMenu")
+        let edit_menu = document.querySelector(".editMenu2")
         edit_menu.style.display = "flex"
         edit_menu.innerHTML = inner
 
