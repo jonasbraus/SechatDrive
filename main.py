@@ -202,7 +202,22 @@ def drive_delete():
 
 @app.route("/drive/restore", methods=["POST"])
 def drive_restore():
-    pass
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return redirect("/login")
+    user_id = user.user_id
+
+    js = request.json
+    element = js["element"]
+    base = f"./drive/{user_id}/~trash"
+    path = f"{base}/{element}"
+
+    restore_path = f"{base}{element.replace('-', '/')}"
+
+    shutil.move(path, restore_path)
+
+    return "success"
 
 
 @app.route("/drive/rename", methods=["POST"])
