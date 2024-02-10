@@ -190,7 +190,7 @@ def drive_delete():
 
     path = f"./drive/{user_id}{path_element}"
 
-    test = path_element.replace("/", "-")
+    test = path_element.replace("/", "|")
 
     if not os.path.isdir(f"./drive/{user_id}/~trash"):
         os.mkdir(f"./drive/{user_id}/~trash")
@@ -235,7 +235,7 @@ def drive_restore():
     base = f"./drive/{user_id}/~trash"
     path = f"{base}/{element}"
 
-    restore_path = f"./drive/{user_id}{element.replace('-', '/')}"
+    restore_path = f"./drive/{user_id}{element.replace('|', '/')}"
 
     shutil.move(path, restore_path)
 
