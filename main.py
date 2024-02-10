@@ -190,7 +190,7 @@ def drive_delete():
 
     path = f"./drive/{user_id}/{path_element}"
 
-    shutil.move(path, f"./drive/{user_id}/trash/{path_element}")
+    shutil.move(path, f"./drive/{user_id}/trash{path_element}")
 
     return "success"
 
