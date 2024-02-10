@@ -69,7 +69,12 @@ def page_drive():
     directory = os.listdir(path)
     directory = sorted(directory)
 
-    return render_template("drive.html", directory=directory, request_folder=request_folder)
+    result_directory = []
+    for d in directory:
+        if "trash" not in d:
+            result_directory.append(d)
+
+    return render_template("drive.html", directory=result_directory, request_folder=request_folder)
 
 
 @app.route("/sharefolder", methods=["GET"])
