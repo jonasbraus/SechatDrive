@@ -188,13 +188,13 @@ def drive_delete():
     js = request.json
     path_element = js["path_element"]
 
-    path = f"./drive/{user_id}/{path_element}"
+    path = f"./drive/{user_id}{path_element}"
 
     split_trash = f"trash{path_element}".split("/")
-    if not os.path.exists(split_trash[len(split_trash) - 2]):
-        os.mkdir(str(split_trash[:len(split_trash) - 2]))
+    # if not os.path.exists(split_trash[len(split_trash) - 2]):
+    #     os.mkdir(str(split_trash[:len(split_trash) - 2]))
 
-    shutil.move(path, f"./drive/{user_id}/trash/{path_element}")
+    shutil.move(path, f"./drive/{user_id}/trash{path_element}")
 
     return "success"
 
