@@ -69,12 +69,7 @@ def page_drive():
     directory = os.listdir(path)
     directory = sorted(directory)
 
-    result_directory = []
-    for d in directory:
-        if "trash" not in d:
-            result_directory.append(d)
-
-    return render_template("drive.html", directory=result_directory, request_folder=request_folder)
+    return render_template("drive.html", directory=directory, request_folder=request_folder)
 
 
 @app.route("/sharefolder", methods=["GET"])
@@ -197,10 +192,10 @@ def drive_delete():
 
     test = path_element.replace("/", "-")
 
-    if not os.path.isdir(f"./drive/{user_id}/trash"):
-        os.mkdir(f"./drive/{user_id}/trash")
+    if not os.path.isdir(f"./drive/{user_id}/~trash"):
+        os.mkdir(f"./drive/{user_id}/~trash")
 
-    shutil.move(path, f"./drive/{user_id}/trash/{test}")
+    shutil.move(path, f"./drive/{user_id}/~trash/{test}")
 
     return "success"
 
