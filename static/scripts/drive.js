@@ -31,13 +31,13 @@ window.addEventListener("load", function (ev) {
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
     document.querySelector(".sideBar").style.display = "none"
-
+    document.querySelector(".editMenu2").style.display = "none"
 
 })
 
 function on_click_folder(request_folder, folder_name) {
     if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none" &&
-        document.querySelector(".sideBar").style.display === "none") {
+        document.querySelector(".sideBar").style.display === "none" && document.querySelector(".editMenu2").style.display === "none") {
         history.pushState({path: window.location.pathname}, "", window.location.pathname)
         window.location.replace(window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name)
         localStorage["last_scroll"] = document.querySelector(".center").scrollTop
@@ -46,7 +46,7 @@ function on_click_folder(request_folder, folder_name) {
 
 function on_click_file(request_folder, file_name) {
     if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none" &&
-        document.querySelector(".sideBar").style.display === "none") {
+        document.querySelector(".sideBar").style.display === "none" && document.querySelector(".editMenu2").style.display === "none") {
         // history.pushState({ path: window.location.pathname }, "", window.location.pathname)
 
         localStorage["last_scroll"] = document.querySelector(".center").scrollTop
@@ -235,6 +235,7 @@ function click_in_center(e) {
     document.querySelector(".addMenu").style.display = "none"
     if (e.target.id !== "edit_x" && e.currentTarget.id !== "edit_x") {
         document.querySelector(".editMenu").style.display = "none"
+        document.querySelector(".editMenu2").style.display = "none"
     }
     if (e.target.id !== "sideBar") {
         document.querySelector(".sideBar").style.display = "none"
@@ -305,6 +306,7 @@ function on_click_cancel_in_folder_naming_menu() {
     document.querySelector(".modal").style.display = "none"
     document.querySelector(".addMenu").style.display = "none"
     document.querySelector(".editMenu").style.display = "none"
+    document.querySelector(".editMenu2").style.display = "none"
 }
 
 function on_click_share_element_in_edit_menu(request_folder, element_name) {
