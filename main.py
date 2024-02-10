@@ -213,7 +213,7 @@ def drive_restore():
     base = f"./drive/{user_id}/~trash"
     path = f"{base}/{element}"
 
-    restore_path = f"{base}{element.replace('-', '/')}"
+    restore_path = f"./drive/{user_id}{element.replace('-', '/')}"
 
     shutil.move(path, restore_path)
 
