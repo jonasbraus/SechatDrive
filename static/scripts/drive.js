@@ -217,7 +217,7 @@ function on_click_edit(request_folder, element_name)
     
     `
 
-    if(!element_name.includes("trash")) {
+    if(!element_name.includes("trash") && !request_folder.includes("trash")) {
         let edit_menu = document.querySelector(".editMenu")
         edit_menu.style.display = "flex"
         edit_menu.innerHTML = inner
