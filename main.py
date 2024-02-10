@@ -195,15 +195,9 @@ def drive_delete():
 
     path = f"./drive/{user_id}{path_element}"
 
-    split_trash = f"trash{path_element}".split("/")
-    for i, sp in enumerate(split_trash):
-        merge = f"./drive/{user_id}/"
-        for f in range(0, i):
-            merge += split_trash[f] + "/"
-        if not os.path.exists(merge):
-            os.mkdir(merge)
+    test = path_element.replace("/", "-")
 
-    shutil.move(path, f"./drive/{user_id}/trash{path_element}")
+    shutil.move(path, f"./drive/{user_id}/trash/{test}")
 
     return "success"
 
