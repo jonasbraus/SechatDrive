@@ -69,6 +69,9 @@ def page_drive():
     directory = os.listdir(path)
     directory = sorted(directory)
 
+    if len(os.listdir(f"./drive/{user_id}/~trash")) <= 0:
+        del directory[directory.index("~trash")]
+
     return render_template("drive.html", directory=directory, request_folder=request_folder)
 
 
