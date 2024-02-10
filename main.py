@@ -190,10 +190,7 @@ def drive_delete():
 
     path = f"./drive/{user_id}/{path_element}"
 
-    if "." in path_element.split("/")[len(path_element.split("/")) - 1]:
-        os.remove(path)
-    else:
-        shutil.rmtree(path)
+    shutil.move(path, f"./drive/{user_id}/trash/{path_element}")
 
     return "success"
 
