@@ -118,9 +118,6 @@ function on_click_move_element_in_edit_menu(request_folder, element_name)
 
 function on_click_edit(request_folder, element_name)
 {
-
-    let edit_menu = document.querySelector(".editMenu")
-    edit_menu.style.display = "flex"
     let inner = `<div style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">`
     if (element_name.toLowerCase().includes(".zip"))
     {
@@ -221,6 +218,8 @@ function on_click_edit(request_folder, element_name)
     `
 
     if(!element_name.includes("trash")) {
+        let edit_menu = document.querySelector(".editMenu")
+        edit_menu.style.display = "flex"
         edit_menu.innerHTML = inner
     }
 }
