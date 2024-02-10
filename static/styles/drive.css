@@ -284,7 +284,6 @@ body {
 
     .modalContentInput {
         padding: 10px;
-        border-radius: 10px;
     }
 
     .bottomNavButton svg {
@@ -359,7 +358,6 @@ body {
     .modalContent {
         width: 50%;
         padding: 20px;
-        border-radius: 10px;
     }
 
     .sideBar {
