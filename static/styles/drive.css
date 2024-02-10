@@ -249,6 +249,8 @@ body {
     min-width: 10%;
 }
 
+
+
 @media (min-device-width: 12cm) {
     body::-webkit-scrollbar {
         display: none;
@@ -257,6 +259,11 @@ body {
     .editButtonDesktop {
         min-width: 50px;
         max-width: 50px;
+    }
+
+    .addButtonDesktop {
+        max-width: 50px;
+        max-height: 50px;
     }
 
     .higherElement {
