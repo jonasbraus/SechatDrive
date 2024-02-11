@@ -2,10 +2,6 @@ html {
     background-color: #1b1a22;
 }
 
-img {
-    image-orientation: unset;
-}
-
 body {
     width: 100vw;
     height: 100vh;
@@ -242,6 +238,8 @@ body {
     min-width: 170px;
     min-height: 170px;
     border-radius: 30px;
+    image-rendering: auto;
+    image-orientation: from-image;
 }
 
 .higherElement {
