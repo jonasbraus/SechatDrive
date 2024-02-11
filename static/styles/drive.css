@@ -330,8 +330,8 @@ body {
     }
 
     .element {
-        min-height: 10px;
-        margin-top: 2px;
+        height: 50px;
+        margin-top: 10px;
     }
 
     .element span {
