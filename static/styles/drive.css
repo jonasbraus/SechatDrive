@@ -239,7 +239,7 @@ body {
     min-height: 170px;
     border-radius: 30px;
     image-rendering: auto;
-    image-orientation: inherit;
+    image-orientation: 90deg;
 }
 
 .higherElement {
