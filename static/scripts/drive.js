@@ -9,7 +9,7 @@ window.addEventListener("load", function (ev) {
         document.querySelector("body").style.display = "flex"
         console.log(localStorage["last_scroll"])
 
-        document.querySelector(".center").scrollTo({top: localStorage["last_scroll"], behavior: "instant"})
+        document.querySelector(".center").scrollTo({ top: localStorage["last_scroll"], behavior: "instant" })
         localStorage["last_scroll"] = 0
     }, 1)
 
@@ -39,7 +39,7 @@ function on_click_folder(request_folder, folder_name) {
     if (document.querySelector(".addMenu").style.display === "none" && document.querySelector(".editMenu").style.display === "none" &&
         document.querySelector(".sideBar").style.display === "none" && document.querySelector(".editMenu2").style.display === "none") {
         if (!request_folder.includes("~trash")) {
-            history.pushState({path: window.location.pathname}, "", window.location.pathname)
+            history.pushState({ path: window.location.pathname }, "", window.location.pathname)
             window.location.replace(window.location.origin + "/drive?folder=" + request_folder + "/" + folder_name)
             localStorage["last_scroll"] = document.querySelector(".center").scrollTop
         }
@@ -64,7 +64,15 @@ function on_click_file(request_folder, file_name) {
             <iframe src='${url}' style="display:block; margin:auto; max-width: 100%; max-height: 80vh; width: 100%; height: 80vh;">
             `
         } else {
-            window.open(url, "_blank")
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)) {
+                window.open(url, "_blank")
+            }
+            else {
+                history.pushState({ path: window.location.pathname }, "", window.location.pathname)
+                localStorage["last_scroll"] = document.querySelector(".center").scrollTop
+                window.location.replace(url)
+
+            }
         }
 
     }
@@ -140,14 +148,14 @@ function on_click_edit(request_folder, element_name) {
                  <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM64 288c0-17.7 14.3-32 32-32h96c17.7 0 32 14.3 32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V288zM300.9 397.9L256 368V304l44.9-29.9c2-1.3 4.4-2.1 6.8-2.1c6.8 0 12.3 5.5 12.3 12.3V387.7c0 6.8-5.5 12.3-12.3 12.3c-2.4 0-4.8-.7-6.8-2.1z"/>
         </svg>
         `
-    }else if(element_name.toLowerCase().includes(".pdf")) {
+    } else if (element_name.toLowerCase().includes(".pdf")) {
         inner += `
         <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
                  class="bi bi-file-earmark-fill folderIconSVG" viewBox="0 0 512 512">
                  <path d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 144-208 0c-35.3 0-64 28.7-64 64l0 144-48 0c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zM176 352l32 0c30.9 0 56 25.1 56 56s-25.1 56-56 56l-16 0 0 32c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48 0-80c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24l-16 0 0 48 16 0zm96-80l32 0c26.5 0 48 21.5 48 48l0 64c0 26.5-21.5 48-48 48l-32 0c-8.8 0-16-7.2-16-16l0-128c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16l0-64c0-8.8-7.2-16-16-16l-16 0 0 96 16 0zm80-112c0-8.8 7.2-16 16-16l48 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64 0-64z"/>
         </svg>
         `
-    } 
+    }
     else if (element_name.split(".").length > 1) {
         inner += `
         <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
