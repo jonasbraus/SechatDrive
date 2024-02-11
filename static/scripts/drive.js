@@ -64,15 +64,19 @@ function on_click_file(request_folder, file_name) {
             <iframe src='${url}' style="display:block; margin:auto; max-width: 100%; max-height: 80vh; width: 100%; height: 80vh;">
             `
         } else {
-            let userAgent = navigator.userAgent;
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)) {
-                window.open(url, "_blank")
-            }
-            else {
+            let dpi = 96; // Standard-Bildschirmdichte
+            let devicePixelRatio = window.devicePixelRatio || 1; // Gerätepixelverhältnis
+            let widthInPixels = screen.width; // Bildschirmbreite in Pixel
+            let widthInInches = widthInPixels / (dpi * devicePixelRatio); // Umrechnung in Zoll
+            let widthInCm = widthInInches * 2.54;
+            if (widthInCm >= 12) {
                 history.pushState({ path: window.location.pathname }, "", window.location.pathname)
                 localStorage["last_scroll"] = document.querySelector(".center").scrollTop
                 window.location.replace(url)
-
+            }
+            else {
+                
+                window.open(url, "_blank")
             }
         }
 
