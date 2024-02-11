@@ -109,7 +109,9 @@ def page_shares():
         result.append(row[2].replace(f"./drive/{user_id}/", ""))
         tokens.append(database.get_token_by_element(row[2]))
 
-    return render_template("share.html", directory=result, tokens=tokens)
+    process = subprocess.run(["du", "-h", f"./drive/{user_id}"], capture_output=True, text=True)
+    size = process.stdout.split()[len(process.stdout.split()) - 2]
+    return render_template("share.html", directory=result, tokens=tokens, size=size)
 
 
 @app.route("/drive/getfile", methods=["GET"])
