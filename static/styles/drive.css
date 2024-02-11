@@ -2,6 +2,10 @@ html {
     background-color: #1b1a22;
 }
 
+img {
+    image-orientation: from-image;
+}
+
 body {
     width: 100vw;
     height: 100vh;
