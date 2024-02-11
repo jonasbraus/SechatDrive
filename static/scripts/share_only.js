@@ -1,21 +1,18 @@
-function on_click_edit_share(element, token)
-{
+function on_click_edit_share(element, token) {
     let edit_menu = document.querySelector(".editMenu")
     edit_menu.style.display = "flex"
     let inner = `
     <div style="width: 90%; display: flex; justify-content: flex-start; align-items: center; gap: 40px; margin-left: 40px;">
     `
 
-    if (element.split(".").length > 1)
-    {
+    if (element.split(".").length > 1) {
         inner += `
         <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff"
                  class="bi bi-file-earmark-fill folderIconSVG" viewBox="0 0 384 512">
                 <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/>
             </svg>
         `
-    } else
-    {
+    } else {
         inner += `
         <svg xmlns="http://www.w3.org/2000/svg" fill="#18a8ff" class="bi bi-folder-fill folderIconSVG"
                  viewBox="0 0 512 512">
@@ -40,8 +37,7 @@ function on_click_edit_share(element, token)
     edit_menu.innerHTML = inner
 }
 
-async function stop_share(element)
-{
+async function stop_share(element) {
     await fetch(window.location.origin + "/drive/stopshare", {
         method: "POST",
         headers: {
@@ -55,37 +51,41 @@ async function stop_share(element)
     window.location.reload()
 }
 
-function on_click_folder(request_folder, folder_name, token)
-{
+function on_click_folder(request_folder, folder_name, token) {
 
-    history.pushState({ path: window.location.pathname }, "", window.location.pathname)
+    history.pushState({path: window.location.pathname}, "", window.location.pathname)
     window.location.replace(window.location.origin + "/sharefolder?folder=" + request_folder + "/" + folder_name + "&token=" + token)
     localStorage["last_scroll"] = document.querySelector(".center").scrollTop
 
 }
 
-function on_click_file(request_folder, file_name, token)
-{
+function on_click_file(request_folder, file_name, token) {
+    let dpi = 96; // Standard-Bildschirmdichte
+    let devicePixelRatio = window.devicePixelRatio || 1; // Gerätepixelverhältnis
+    let widthInPixels = screen.width; // Bildschirmbreite in Pixel
+    let widthInInches = widthInPixels / (dpi * devicePixelRatio); // Umrechnung in Zoll
+    let widthInCm = widthInInches * 2.54;
 
-    history.pushState({ path: window.location.path }, "", window.location.path)
-    // window.location.replace(window.location.origin + "/drive/sharefolder/file?file=" + request_folder + "/" + file_name + "&token=" + token)
-    localStorage["last_scroll"] = document.querySelector(".center").scrollTop
+    if (widthInCm >= 12) {
+        history.pushState({path: window.location.path}, "", window.location.path)
+        window.location.replace(window.location.origin + "/drive/sharefolder/file?file=" + request_folder + "/" + file_name + "&token=" + token)
+        localStorage["last_scroll"] = document.querySelector(".center").scrollTop
+    }
+    else {
+        let url = window.location.origin + "/drive/sharefolder/file?file=" + request_folder + "/" + file_name + "&token=" + token
 
-    let url = window.location.origin + "/drive/sharefolder/file?file=" + request_folder + "/" + file_name + "&token=" + token
-
-    window.open(url, "_blank")
+        window.open(url, "_blank")
+    }
 
 
 }
 
-async function on_click_download(token)
-{
+async function on_click_download(token) {
     document.querySelector("body").innerHTML = "<h1 style='font-size: 40px; color: white;'>Creating Zip...</h1>"
     await fetch(window.location.origin + "/drive/sharefolder/download?token=" + token)
     window.location.replace(window.location.origin + "/drive/sharefolder/download?token=" + token)
     document.querySelector("body").innerHTML = "<h1 style='font-size: 40px; color: white;'>Redirecting to shared folder...</h1>"
-    setTimeout(function ()
-    {
+    setTimeout(function () {
         window.location.reload()
     }, 10000)
 }
