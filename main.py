@@ -71,7 +71,7 @@ def page_drive():
     directory = sorted(directory)
 
     process = subprocess.run(["du", "-h", f"./drive/{user_id}"], capture_output=True, text=True)
-    size = process.stdout
+    size = process.stdout.split()[len(process.stdout.split()) - 2]
     print(size)
 
     return render_template("drive.html", directory=directory, request_folder=request_folder)
