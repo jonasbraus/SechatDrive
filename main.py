@@ -168,6 +168,13 @@ def drive_newfile():
 
         file.save(f"./drive/{user_id}{path_folder}/{file_name}")
 
+        if ".png" in file_name.lower() or ".jpg" in file_name.lower() or ".jpeg" in file_name.lower():
+            try:
+                with Image.open(f"./drive/{user_id}{path_folder}/{file_name}") as img:
+                    img.save(f"./drive/{user_id}{path_folder}/{file_name}", quality=60, optimize=True)
+            except:
+                pass
+
     return "success"
 
 
