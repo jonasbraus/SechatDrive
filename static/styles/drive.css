@@ -238,8 +238,6 @@ body {
     min-width: 170px;
     min-height: 170px;
     border-radius: 30px;
-    image-rendering: auto;
-    image-orientation: 90deg;
 }
 
 .higherElement {
