@@ -123,7 +123,28 @@ def drive_get_file():
     # if scale_down == "true":
     try:
         with Image.open(path) as img:
-            img = ImageOps.exif_transpose(img)
+            exif = img.getexif()
+            if not exif:
+                return img
+
+            orientation_key = 274  # Dezimalwert für 0x0112
+            if orientation_key in exif:
+                orientation = exif[orientation_key]
+
+                if orientation == 3:
+                    img = img.rotate(180, expand=True)
+                elif orientation == 6:
+                    img = img.rotate(270, expand=True)
+                elif orientation == 8:
+                    img = img.rotate(90, expand=True)
+                elif orientation == 2:
+                    img = img.transpose(Image.FLIP_LEFT_RIGHT)
+                elif orientation == 4:
+                    img = img.rotate(180).transpose(Image.FLIP_LEFT_RIGHT)
+                elif orientation == 5:
+                    img = img.rotate(-90, expand=True).transpose(Image.FLIP_LEFT_RIGHT)
+                elif orientation == 7:
+                    img = img.rotate(90, expand=True).transpose(Image.FLIP_LEFT_RIGHT)
             img.save(path)
     except:
         pass
