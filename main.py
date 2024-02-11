@@ -123,7 +123,7 @@ def drive_get_file():
     # if scale_down == "true":
     try:
         with Image.open(path) as img:
-            exif = img.getexif()
+            exif = img._getexif()
             if not exif:
                 return img
 
