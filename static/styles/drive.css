@@ -3,7 +3,7 @@ html {
 }
 
 img {
-    image-orientation: from-image;
+    image-orientation: unset;
 }
 
 body {
