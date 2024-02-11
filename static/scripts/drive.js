@@ -472,3 +472,8 @@ async function on_click_delete_perm(element) {
 
     window.location.reload()
 }
+
+function on_click_trash() {
+    history.pushState({ path: window.location.pathname }, "", window.location.pathname)
+    window.location.replace(window.location.origin + "/drive?folder=/~trash")
+}
