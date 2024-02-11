@@ -119,13 +119,13 @@ def drive_get_file():
     request_file = request.args.get("file")
     path = f"./drive/{user_id}/{request_file}"
 
-    scale_down = request.args.get("scale_down")
-    if scale_down == "true":
-        try:
-            with Image.open(path) as img:
-                img.save(path, quality=60, optimize=True)
-        except:
-            pass
+    # scale_down = request.args.get("scale_down")
+    # if scale_down == "true":
+    #     try:
+    #         with Image.open(path) as img:
+    #             img.save(path, quality=60, optimize=True)
+    #     except:
+    #         pass
 
     return send_file(path)
 
