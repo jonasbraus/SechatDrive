@@ -64,6 +64,7 @@ function on_click_file(request_folder, file_name) {
             <iframe src='${url}' style="display:block; margin:auto; max-width: 100%; max-height: 80vh; width: 100%; height: 80vh;">
             `
         } else {
+            let userAgent = navigator.userAgent;
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)) {
                 window.open(url, "_blank")
             }
