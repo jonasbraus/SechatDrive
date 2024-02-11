@@ -53,6 +53,10 @@ body {
     font-size: 40px;
 }
 
+.folderPathFont-Big {
+    font-size: 60px;
+}
+
 .center {
     background-color: #1b1a22;
     width: 100%;
@@ -317,6 +321,10 @@ body {
 
     .folderPathFont {
         font-size: 16px;
+    }
+
+    .folderPathFont-Big {
+        font-size: 25px;
     }
 
     .folderIconSVG {
