@@ -330,7 +330,7 @@ body {
     }
 
     .element {
-        min-height: 50px;
+        min-height: 10px;
         margin-top: 10px;
     }
 
