@@ -3,6 +3,7 @@ import json
 import os
 import shutil
 import re
+import subprocess
 import threading
 import threading
 
@@ -68,6 +69,10 @@ def page_drive():
 
     directory = os.listdir(path)
     directory = sorted(directory)
+
+    process = subprocess.run(["du", "-h", f"./drive/{user_id}"], capture_output=True, text=True)
+    size = process.stdout.split()[0]
+    print(size)
 
     return render_template("drive.html", directory=directory, request_folder=request_folder)
 
