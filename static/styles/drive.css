@@ -267,6 +267,10 @@ body {
         display: none;
     }
 
+    .press-hover:hover {
+        border-radius: 10px;
+    }
+
     .editButtonDesktop {
         min-width: 50px;
         max-width: 50px;
@@ -292,6 +296,7 @@ body {
 
     .modalContentInput {
         padding: 10px;
+        border-radius: 10px;
     }
 
     .bottomNavButton svg {
@@ -367,6 +372,7 @@ body {
     .modalContent {
         padding: 20px;
         width: 20%;
+        border-radius: 10px;
     }
 
     .sideBar {
@@ -377,5 +383,6 @@ body {
     .buttonSideBar {
         margin-top: 0;
         padding: 10px;
+        border-radius: 10px;
     }
 }
