@@ -158,15 +158,15 @@ def drive_newfile():
         #     file_name = file_name.split(
         #         ".")[0] + "1." + file_name.split(".")[1]
 
-        file.save(f"./drive/{user_id}{path_folder}/{file_name}")
+        file.save(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/"))
 
         max_size_bytes = 3 * 1024 * 1024
-        if os.path.getsize(f"./drive/{user_id}{path_folder}/{file_name}") > max_size_bytes and (
+        if os.path.getsize(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/")) > max_size_bytes and (
                 ".png" in file_name.lower() or ".jpg" in file_name.lower() or ".jpeg" in file_name.lower()):
             try:
-                with Image.open(f"./drive/{user_id}{path_folder}/{file_name}") as img:
+                with Image.open(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/")) as img:
                     img = ImageOps.exif_transpose(img)
-                    img.save(f"./drive/{user_id}{path_folder}/{file_name}", quality=60, optimize=True)
+                    img.save(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/"), quality=60, optimize=True)
             except:
                 pass
 
@@ -184,14 +184,14 @@ def drive_delete():
     js = request.json
     path_element = js["path_element"]
 
-    path = f"./drive/{user_id}{path_element}"
+    path = f"./drive/{user_id}/{path_element}"
 
     test = path_element.replace("/", "|")
 
-    if not os.path.isdir(f"./drive/{user_id}/~trash"):
-        os.mkdir(f"./drive/{user_id}/~trash")
+    if not os.path.isdir(f"./drive/{user_id}/~trash".replace("//", "/")):
+        os.mkdir(f"./drive/{user_id}/~trash".replace("//", "/"))
 
-    shutil.move(path, f"./drive/{user_id}/~trash/{test}")
+    shutil.move(path, f"./drive/{user_id}/~trash/{test}".replace("//", "/"))
 
     return "success"
 
@@ -208,12 +208,12 @@ def drive_deleteperm():
 
     element = js["element"]
 
-    base_path = f"./drive/{user_id}/~trash"
+    base_path = f"./drive/{user_id}/~trash/"
 
     if "." in element:
-        os.remove(f"{base_path}/{element}")
+        os.remove(f"{base_path}/{element}".replace("//", "/"))
     else:
-        shutil.rmtree(f"{base_path}/{element}")
+        shutil.rmtree(f"{base_path}/{element}".replace("//", "/"))
 
     return "success"
 
@@ -231,7 +231,7 @@ def drive_restore():
     base = f"./drive/{user_id}/~trash"
     path = f"{base}/{element}"
 
-    restore_path = f"./drive/{user_id}{element.replace('|', '/')}"
+    restore_path = f"./drive/{user_id}/{element.replace('|', '/')}".replace("//", "/")
 
     shutil.move(path, restore_path)
 
