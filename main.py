@@ -6,7 +6,7 @@ import re
 import threading
 import threading
 
-from PIL import Image
+from PIL import Image, ImageOps
 from flask import Flask, render_template, send_file, request, redirect, Response
 
 import database
@@ -121,12 +121,12 @@ def drive_get_file():
 
     # scale_down = request.args.get("scale_down")
     # if scale_down == "true":
-    #     try:
-    #         with Image.open(path) as img:
-    #             img.save(path, quality=60, optimize=True)
-    #     except:
-    #         pass
-
+    try:
+        with Image.open(path) as img:
+            img = ImageOps.exif_transpose(img)
+            img.save(path)
+    except:
+        pass
     return send_file(path)
 
 
@@ -168,9 +168,12 @@ def drive_newfile():
 
         file.save(f"./drive/{user_id}{path_folder}/{file_name}")
 
-        if ".png" in file_name.lower() or ".jpg" in file_name.lower() or ".jpeg" in file_name.lower():
+        max_size_bytes = 3 * 1024 * 1024
+        if os.path.getsize(f"./drive/{user_id}{path_folder}/{file_name}") > max_size_bytes and (
+                ".png" in file_name.lower() or ".jpg" in file_name.lower() or ".jpeg" in file_name.lower()):
             try:
                 with Image.open(f"./drive/{user_id}{path_folder}/{file_name}") as img:
+                    img = ImageOps.exif_transpose(img)
                     img.save(f"./drive/{user_id}{path_folder}/{file_name}", quality=60, optimize=True)
             except:
                 pass
