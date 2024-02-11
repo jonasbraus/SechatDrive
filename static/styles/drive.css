@@ -217,7 +217,16 @@ body {
 }
 
 .buttonSideBar {
-    padding: 40px;
+    margin-top: 40px;
+    background-color: #6752d1;
+    color: white;
+    border: 0;
+    border-radius: 30px;
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
 }
 
 .element img {
@@ -343,6 +352,7 @@ body {
         width: 50%;
         left: auto;
     }
+
     .editMenu2 {
         height: 20%;
         width: 50%;
@@ -365,6 +375,6 @@ body {
     }
 
     .buttonSideBar {
-        padding: 10px;
+        margin-top: 10px;
     }
 }
