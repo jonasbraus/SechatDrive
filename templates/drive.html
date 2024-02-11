@@ -112,6 +112,7 @@
             </div>
         </div>
         {% else %}
+        {% if "~trash" not in element %}
         <div class="element">
             <div onclick="on_click_folder('{{request_folder}}', '{{element}}')"
                  style="display: flex; justify-content: flex-start; align-items: center; gap: 20px; padding: 20px; max-width: 80%; width: 80%">
@@ -142,8 +143,9 @@
                     </svg>
                 </button>
             </div>
-            {% endif %}
+
         </div>
+        {% endif %}
         {% endif %}
         {% endfor %}
     </div>
