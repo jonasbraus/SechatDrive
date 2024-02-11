@@ -363,20 +363,6 @@ def drive_get_share_file():
 
         path = f"{base}/{file}".replace("//", "/")
 
-        scale_down = request.args.get("scale_down")
-        if scale_down == "true":
-            try:
-                with Image.open(path) as img:
-                    img = img.resize((100, 100), Image.BILINEAR)
-                    image_byte_arr = io.BytesIO()
-                    img_format = img.format if img.format else "PNG"
-                    img.save(image_byte_arr, format=img_format)
-                    image_byte_arr = image_byte_arr.getvalue()
-
-                    return send_file(io.BytesIO(image_byte_arr), mimetype=f"image/{img_format.lower()}")
-            except:
-                pass
-
         return send_file(path)
     except:
         return "not valid"
