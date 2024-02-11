@@ -72,9 +72,8 @@ def page_drive():
 
     process = subprocess.run(["du", "-h", f"./drive/{user_id}"], capture_output=True, text=True)
     size = process.stdout.split()[len(process.stdout.split()) - 2]
-    print(size)
 
-    return render_template("drive.html", directory=directory, request_folder=request_folder)
+    return render_template("drive.html", directory=directory, request_folder=request_folder, size=size)
 
 
 @app.route("/sharefolder", methods=["GET"])
