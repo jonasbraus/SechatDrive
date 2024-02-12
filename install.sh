@@ -3,7 +3,6 @@ sudo apt install python3-psycopg2 -y
 sudo apt install python3-flask -y
 sudo apt install python3-pillow -y
 sudo apt install python3-waitress -y
-sudo apt install git-core -y
 sudo apt install postgresql -y
 sudo -u postgres psql -c "alter user postgres with encrypted password 'XHJUtz6723Lop!';"
 sudo -u postgres psql -c "create database sechat;"
