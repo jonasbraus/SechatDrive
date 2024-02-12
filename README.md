@@ -4,14 +4,14 @@ any CAPSLOCK text must be replaced with your own information!
 
 To install:
 1. Connect to your ubuntu server and run followings:
-2. <code style="color : darkorange">sudo su</code>.
-3. run "sudo apt update"
-4. run "sudo apt install git-core"
+2. <code>sudo su</code>
+3. <code>sudo apt update</code>
+4. <code>sudo apt install git-core</code>
 5. press "y" to continue
-6. run "git clone https://github.com/jonasbraus/Sechat.git"
-7. run "cd Sechat"
-8. run "sudo chmod +x install.sh"
-9. run "./install.sh"
+6. <code>git clone https://github.com/jonasbraus/Sechat.git</code>
+7. <code>cd Sechat</code>
+8. <code>sudo chmod +x install.sh</code>
+9. <code>./install.sh</code>
 10. Your server is running on http://YOURUBUNTUSERVERIP
 
 !Adding an user for login:
