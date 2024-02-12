@@ -7,18 +7,18 @@ any CAPSLOCK text must be replaced with your own information!
 2. <code>sudo su</code><br/>
 3. <code>sudo apt update</code><br/>
 4. <code>sudo apt install git-core</code><br/>
-5. press "y" to continue<br/>
+5. press <code>y</code> to continue<br/>
 6. <code>git clone https://github.com/jonasbraus/Sechat.git</code><br/>
 7. <code>cd Sechat</code><br/>
 8. <code>sudo chmod +x install.sh</code><br/>
 9. <code>./install.sh</code><br/>
 10. Your server is running on http://YOURUBUNTUSERVERIP<br/>
 
-!Adding an user for login:
-1. run "sudo -u postgres psql sechat"
-2. run "insert into users (mail, password) values ('YOURMAIL', 'YOUPASSWORD');"
-3. type "exit" to leave
-4. login with YOURMAIL and YOURPASSWORD
+<h1>Adding an user for login:</h1>
+1. <code>sudo -u postgres psql sechat"</code><br/>
+2. <code>insert into users (mail, password) values ('YOURMAIL', 'YOUPASSWORD');</code><br/>
+3. type <code>exit</code> to leave<br/>
+4. login with YOURMAIL and YOURPASSWORD<br/>
 
 (Stop server):
 1. run "screen -r sechat"
