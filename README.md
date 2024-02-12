@@ -4,7 +4,7 @@ A simple drive application for self hosting on linux<br/>
 <h1>Please note that:</h1>
 - <code>''</code> are mendatory to use. <br/>
 - any CAPSLOCK text must be replaced with your own information!
-
+- the install script will only work on linux distros supporting apt
 
 <h1>To install:</h1>
 1. Connect to your ubuntu server and run the following:<br/>
