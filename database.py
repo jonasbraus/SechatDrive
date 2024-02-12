@@ -7,7 +7,7 @@ def execute_database_command(command):
     conn = psycopg2.connect(
         dbname='sechat',
         user='postgres',
-        password='y0gcypM9JrzjPXasUn',
+        password='',
         host='localhost',
         port='5432',
     )
