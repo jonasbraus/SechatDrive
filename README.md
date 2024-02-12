@@ -1,3 +1,6 @@
+<h1>What is Sechat Drive?</h1>
+A simple drive application for self hosting on linux<br/>
+
 <h1>Please note that:</h1>
 - <code>''</code> are mendatory to use. <br/>
 - any CAPSLOCK text must be replaced with your own information!
