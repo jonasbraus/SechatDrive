@@ -2,7 +2,7 @@
 any CAPSLOCK text must be replaced with your own information!
 
 
-To install:
+<strong>To install:</strong>
 1. Connect to your ubuntu server and run followings:
 2. <code>sudo su</code>
 3. <code>sudo apt update</code>
