@@ -19,7 +19,7 @@ A simple drive application for self hosting on linux<br/>
 10. Your server is running on http://YOURUBUNTUSERVERIP<br/>
 
 <h1>Adding an user for login:</h1>
-1. <code>sudo -u postgres psql sechat"</code><br/>
+1. <code>sudo -u postgres psql sechat</code><br/>
 2. <code>insert into users (mail, password) values ('YOURMAIL', 'YOUPASSWORD');</code><br/>
 3. type <code>exit</code> to leave<br/>
 4. login with YOURMAIL and YOURPASSWORD<br/>
