@@ -2,6 +2,7 @@ commands with "" should be written without "" in linux terminal.
 '' are mendatory to use.
 any CAPSLOCK text must be replaced with your own information!
 
+```diff
 !To install:
 1. Connect to your ubuntu server
 2. run "$${\color{lightblue}sudo su}$$"
@@ -29,3 +30,4 @@ any CAPSLOCK text must be replaced with your own information!
 1. run "screen -r sechat" (or "screen -S sechat" if error)
 2. run "cd Sechat" (if not already in this folder)
 3. run "waitress-serve --host 0.0.0.0 --port=80 --threads=50 main:app"
+```
