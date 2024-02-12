@@ -8,3 +8,4 @@ To install:
 7. run "cd Sechat"
 8. run "sudo chmod +x install.sh"
 9. run "./install.sh"
+10. Your server is running on http://yourubuntuserverip
