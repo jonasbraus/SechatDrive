@@ -1,3 +1,7 @@
+commands with "" should be written without "" in linux terminal.
+'' are mendatory to use.
+any CAPSLOCK text must be replaced with your own information!
+
 To install:
 1. Connect to your ubuntu server
 2. run "sudo su"
@@ -8,7 +12,7 @@ To install:
 7. run "cd Sechat"
 8. run "sudo chmod +x install.sh"
 9. run "./install.sh"
-10. Your server is running on http://yourubuntuserverip
+10. Your server is running on http://YOURUBUNTUSERVERIP
 
 Adding an user for login:
 1. run "sudo -u postgres psql sechat"
