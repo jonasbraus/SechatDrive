@@ -12,6 +12,6 @@ To install:
 
 Adding an user for login:
 1. run "sudo -u postgres psql sechat"
-2. run "insert into users (mail, password) values ('YOURMAIL', 'YOUPASSWORD');
+2. run "insert into users (mail, password) values ('YOURMAIL', 'YOUPASSWORD');"
 3. type "exit" to leave
 4. login with YOURMAIL and YOURPASSWORD
