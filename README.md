@@ -6,5 +6,5 @@ To install:
 5. press "y" to continue
 6. run "git clone https://github.com/jonasbraus/Sechat.git"
 7. run "cd Sechat"
-8. run "chmod +x install.sh"
+8. run "sudo chmod +x install.sh"
 9. run "./install.sh"
