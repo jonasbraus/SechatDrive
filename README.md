@@ -5,7 +5,7 @@ any CAPSLOCK text must be replaced with your own information!
 ```diff
 !To install:
 1. Connect to your ubuntu server
-2. run <span style='color: lightblue'>sudo su</span>
+2. run $${\color{red}sudo su}$$
 3. run "sudo apt update"
 4. run "sudo apt install git-core"
 5. press "y" to continue
