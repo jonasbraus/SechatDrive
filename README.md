@@ -3,16 +3,16 @@ any CAPSLOCK text must be replaced with your own information!
 
 
 To install:
-Connect to your ubuntu server and run followings:
-<p style="color:blue">some *blue* text</p>.
-run "sudo apt update"
-run "sudo apt install git-core"
-press "y" to continue
-run "git clone https://github.com/jonasbraus/Sechat.git"
-run "cd Sechat"
-run "sudo chmod +x install.sh"
-run "./install.sh"
-Your server is running on http://YOURUBUNTUSERVERIP
+1. Connect to your ubuntu server and run followings:
+2. <code style="color : darkorange">sudo su</code>.
+3. run "sudo apt update"
+4. run "sudo apt install git-core"
+5. press "y" to continue
+6. run "git clone https://github.com/jonasbraus/Sechat.git"
+7. run "cd Sechat"
+8. run "sudo chmod +x install.sh"
+9. run "./install.sh"
+10. Your server is running on http://YOURUBUNTUSERVERIP
 
 !Adding an user for login:
 1. run "sudo -u postgres psql sechat"
