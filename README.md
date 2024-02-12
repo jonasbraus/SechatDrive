@@ -20,6 +20,7 @@ Adding an user for login:
 3. type "exit" to leave
 4. login with YOURMAIL and YOURPASSWORD
 
+OPTIONAL FROM NOW ON:
 Stop server:
 1. run "screen -r sechat"
 2. press "ctrl+c"
