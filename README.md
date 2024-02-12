@@ -9,3 +9,9 @@ To install:
 8. run "sudo chmod +x install.sh"
 9. run "./install.sh"
 10. Your server is running on http://yourubuntuserverip
+
+Adding an user for login:
+1. run "sudo -u postgres psql sechat"
+2. run "insert into users (mail, password) values ('YOURMAIL', 'YOUPASSWORD');
+3. type "exit" to leave
+4. login with YOURMAIL and YOURPASSWORD
