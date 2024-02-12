@@ -7,11 +7,7 @@ def execute_database_command(command):
     conn = psycopg2.connect(
         dbname='sechat',
         user='postgres',
-<<<<<<< Updated upstream
-        password='',
-=======
         password='XHJUtz6723Lop!',
->>>>>>> Stashed changes
         host='localhost',
         port='5432',
     )
