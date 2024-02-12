@@ -7,7 +7,7 @@ A simple drive application for self hosting on linux<br/>
 
 
 <h1>To install:</h1>
-1. Connect to your ubuntu server and run followings:<br/>
+1. Connect to your ubuntu server and run the following:<br/>
 2. <code>sudo su</code><br/>
 3. <code>sudo apt update</code><br/>
 4. <code>sudo apt install git-core</code><br/>
