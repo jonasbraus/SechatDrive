@@ -20,13 +20,13 @@ any CAPSLOCK text must be replaced with your own information!
 3. type <code>exit</code> to leave<br/>
 4. login with YOURMAIL and YOURPASSWORD<br/>
 
-(Stop server):
-1. run "screen -r sechat"
-2. press "ctrl+c"
-3. press "ctrl+a" then "ctrl+d" to leave screen
+<h1>(Stop server):</h1>
+1. <code>screen -r sechat</code><br/>
+2. press <code>ctrl+c</code><br/>
+3. press <code>ctrl+a</code> then <code>ctrl+d</code> to leave screen<br/>
 
-(Start server again):
-1. run "screen -r sechat" (or "screen -S sechat" if error)
-2. run "cd Sechat" (if not already in this folder)
-3. run "waitress-serve --host 0.0.0.0 --port=80 --threads=50 main:app"
+<h1>(Start server again):</h1>
+1. <code>screen -r sechat</code> (or <code>screen -S sechat</code> if error)<br/>
+2. <code>cd Sechat</code> (if not already in this folder)<br/>
+3. <code>waitress-serve --host 0.0.0.0 --port=80 --threads=50 main:app</code><br/>
 
