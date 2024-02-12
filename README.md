@@ -2,10 +2,10 @@ commands with "" should be written without "" in linux terminal.
 '' are mendatory to use.
 any CAPSLOCK text must be replaced with your own information!
 
-```diff
+
 !To install:
 1. Connect to your ubuntu server
-2. run $${\color{red}sudo su}$$
+2. run <span style="color: red">sudo su</span>
 3. run "sudo apt update"
 4. run "sudo apt install git-core"
 5. press "y" to continue
@@ -30,4 +30,4 @@ any CAPSLOCK text must be replaced with your own information!
 1. run "screen -r sechat" (or "screen -S sechat" if error)
 2. run "cd Sechat" (if not already in this folder)
 3. run "waitress-serve --host 0.0.0.0 --port=80 --threads=50 main:app"
-```
+
