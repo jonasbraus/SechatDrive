@@ -4,7 +4,7 @@ any CAPSLOCK text must be replaced with your own information!
 
 !To install:
 1. Connect to your ubuntu server
-2. run "sudo su"
+2. run "$${\color{lightblue}sudo su}$$"
 3. run "sudo apt update"
 4. run "sudo apt install git-core"
 5. press "y" to continue
