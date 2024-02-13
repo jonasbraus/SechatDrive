@@ -14,7 +14,7 @@ A simple drive application for self hosting on linux<br/>
 4. <code>sudo apt install git-core</code><br/>
 5. press <code>y</code> to continue<br/>
 6. <code>git clone https://github.com/jonasbraus/SechatDrive.git</code><br/>
-7. <code>cd Sechat</code><br/>
+7. <code>cd SechatDrive</code><br/>
 8. <code>sudo chmod +x install.sh</code><br/>
 9. <code>./install.sh</code><br/>
 10. Your server is running on http://YOURUBUNTUSERVERIP<br/>
