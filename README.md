@@ -31,7 +31,7 @@ A simple drive application for self hosting on linux<br/>
 3. press <code>ctrl+a</code> then <code>ctrl+d</code> to leave screen<br/>
 
 <h1>(Start server again):</h1>
-1. <code>screen -r sechat</code> (or <code>screen -S sechat</code> if error)<br/>
+1. <code>screen -R sechat<br/>
 2. <code>cd Sechat</code> (if not already in this folder)<br/>
 3. <code>waitress-serve --host 0.0.0.0 --port=80 --threads=50 main:app</code><br/>
 
