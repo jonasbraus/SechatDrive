@@ -28,7 +28,7 @@ body {
     background-color: #1b1a22;
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     border-top: 1px solid #8992B0;
 }
 
