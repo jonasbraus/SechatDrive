@@ -149,6 +149,7 @@ body {
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     transition: all .5s ease;
+    padding-bottom: 40px;
 }
 
 .bottomNavButton span {
