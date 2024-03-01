@@ -111,7 +111,7 @@ body {
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 }
 
 .editMenu {
@@ -130,7 +130,7 @@ body {
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     transition: all .5s ease;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 }
 
 .editMenu2 {
