@@ -263,7 +263,7 @@ body {
 }
 
 .addButtonDesktop {
-    padding: 5px;
+    padding: 25px;
 }
 
 @media (min-device-width: 12cm) {
