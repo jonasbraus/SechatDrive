@@ -433,7 +433,7 @@ def connector_get_file():
         return Response(response=json.dumps({"message": "user login not valid!"}))
 
     base_dir = f"./drive/{user.user_id}".replace("//", "/").replace("..", "")
-    js = request.json()
+    js = request.json
     rel_path = js["rel_path"]
     return send_file(f"{base_dir}/{rel_path}".replace("//", "/").replace("..", ""))
 
