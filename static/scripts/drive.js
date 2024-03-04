@@ -315,6 +315,7 @@ function on_click_rename_element_in_edit_menu(request_folder, element_name) {
     let modal = document.querySelector(".modal")
     modal.style.display = "flex"
     let modal_content = document.querySelector(".modalContent")
+    document.querySelector(".editMenu").style.display = "none"
     modal_content.innerHTML = `
     <h1 style="color: white; margin-bottom: 40px" class="folderPathFont">Rename</h1>
     <input id="input_rename" type="text" value="${element_name}" class="folderPathFont modalContentInput"/>
