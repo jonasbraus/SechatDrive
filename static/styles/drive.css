@@ -29,7 +29,6 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding-top: 10px;
     border-top: 1px solid #8992B0;
 }
 
