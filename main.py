@@ -5,7 +5,7 @@ import shutil
 import re
 import subprocess
 import threading
-import threading
+from flask.ext.cors import CORS
 
 from PIL import Image, ImageOps
 from flask import Flask, render_template, send_file, request, redirect, Response
@@ -22,6 +22,7 @@ def home():
 
 
 @app.route("/login", methods=["GET"])
+@cross_origin()
 def page_login():
     token = request.cookies.get("token")
     user = login_handler.get_user_by_token(token)
@@ -385,6 +386,10 @@ def drive_get_share_folder_download():
         return send_file(f"./drive/{token}.zip", as_attachment=True)
     except:
         return "not valid"
+
+
+# local connector
+
 
 
 @app.route("/manifest.webmanifest", methods=["GET"])
