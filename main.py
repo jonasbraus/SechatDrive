@@ -388,6 +388,17 @@ def drive_get_share_folder_download():
 
 
 # local connector
+@app.route("/connector/checklogin", methods=["GET"])
+def checklogin():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+
+    if user is None:
+        resp = Response()
+        resp.response=json.dumps({
+            "success": False
+        })
+        return resp
 
 
 
