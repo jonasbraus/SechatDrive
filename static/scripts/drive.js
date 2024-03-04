@@ -284,7 +284,7 @@ function on_click_new_folder_in_add_menu(request_folder) {
     let modal = document.querySelector(".modal")
     modal.style.display = "flex"
     let modal_content = document.querySelector(".modalContent")
-    document.querySelector(".editMenu2").style.display = "none"
+    document.querySelector(".addMenu").style.display = "none"
     modal_content.innerHTML = `
     <h1 style="color: white; margin-bottom: 40px" class="folderPathFont">New Folder</h1>
     <input id="input_folder_name" type="text" placeholder="folder name" class="folderPathFont modalContentInput"/>
