@@ -412,12 +412,6 @@ def list_dir(directory):
     return result
 
 
-def get_full_dir(directory):
-    return {
-        directory: list_dir(directory)
-    }
-
-
 @app.route("/connector/structure", methods=["GET"])
 def connector_get_structure():
     token = request.cookies.get("token")
@@ -426,9 +420,22 @@ def connector_get_structure():
     if user is None:
         return Response(response=json.dumps({"message": "user login not valid!"}))
 
-    base_dir = f"./drive/{user.user_id}".replace("//", "/")
-    result = get_full_dir(base_dir)
+    base_dir = f"./drive/{user.user_id}".replace("//", "/").replace("..", "")
+    result = list_dir(base_dir)
     return Response(response=json.dumps(result))
+
+
+@app.route("/connector/getfile", methods=["POST"])
+def connector_get_file():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return Response(response=json.dumps({"message": "user login not valid!"}))
+
+    base_dir = f"./drive/{user.user_id}".replace("//", "/").replace("..", "")
+    js = request.json()
+    rel_path = js["rel_path"]
+    print(rel_path)
 
 
 @app.route("/manifest.webmanifest", methods=["GET"])
