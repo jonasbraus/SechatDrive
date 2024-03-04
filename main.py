@@ -172,7 +172,8 @@ def drive_newfile():
             try:
                 with Image.open(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/")) as img:
                     img = ImageOps.exif_transpose(img)
-                    img.save(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/"), quality=60, optimize=True)
+                    img.save(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/"), quality=60,
+                             optimize=True)
             except:
                 pass
 
@@ -393,13 +394,11 @@ def checklogin():
     token = request.cookies.get("token")
     user = login_handler.get_user_by_token(token)
 
-    if user is None:
-        resp = Response()
-        resp.response=json.dumps({
-            "success": False
-        })
-        return resp
-
+    resp = Response()
+    resp.response = json.dumps({
+        "success": user is not None
+    })
+    return resp
 
 
 @app.route("/manifest.webmanifest", methods=["GET"])
