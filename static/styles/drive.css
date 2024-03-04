@@ -251,11 +251,6 @@ body {
     transition: 0.3s;
 }
 
-.press-hover:hover {
-    border-radius: 30px;
-    background-color: #8992B0;
-}
-
 .no_scroll_bar::-webkit-scrollbar {
     display: none;
 }
@@ -274,9 +269,6 @@ body {
         display: none;
     }
 
-    .press-hover:hover {
-        border-radius: 10px;
-    }
 
     .editButtonDesktop {
         min-width: 50px;
