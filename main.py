@@ -41,6 +41,7 @@ def page_login_credentials():
     token = login_handler.login_user(user)
 
     resp = Response()
+    resp.headers["Access-Control-Allow-Origin"] = "*"
     resp.set_cookie("token", token, max_age=365 * 24 * 60 * 60)
     return resp
 
