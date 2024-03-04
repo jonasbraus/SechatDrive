@@ -5,7 +5,6 @@ import shutil
 import re
 import subprocess
 import threading
-from flask.ext.cors import CORS
 
 from PIL import Image, ImageOps
 from flask import Flask, render_template, send_file, request, redirect, Response
@@ -22,7 +21,6 @@ def home():
 
 
 @app.route("/login", methods=["GET"])
-@cross_origin()
 def page_login():
     token = request.cookies.get("token")
     user = login_handler.get_user_by_token(token)
