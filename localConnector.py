@@ -72,7 +72,7 @@ def download_drive_content(base, struct):
                 os.mkdir(abs_path)
                 print("created folder:", abs_path)
 
-            if is_file and not os.path.exists(abs_path):
+            if is_file and not os.path.exists(abs_path) and "~" not in abs_path:
                 with open(abs_path, "wb") as file:
                     file.write(get_file(rel_path))
                     print(rel_path, "downloaded")
