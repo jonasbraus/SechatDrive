@@ -401,6 +401,36 @@ def checklogin():
     return resp
 
 
+def list_dir(directory):
+    result = {
+    }
+    for folder in os.listdir(directory):
+        if os.path.isdir(f"{directory}/{folder}"):
+            result[f"{folder}"] = list_dir(f"{directory}/{folder}")
+        else:
+            result[f"{folder}"] = folder
+    return result
+
+
+def get_full_dir(directory):
+    return {
+        directory: list_dir(directory)
+    }
+
+
+@app.route("/connector/structure", methods=["GET"])
+def connector_get_structure():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+
+    if user is None:
+        return Response(response=json.dumps({"message": "user login not valid!"}))
+
+    base_dir = f"./drive/{user.user_id}".replace("//", "/")
+    result = get_full_dir(base_dir)
+    return Response(response=json.dumps(result))
+
+
 @app.route("/manifest.webmanifest", methods=["GET"])
 def get_manifest():
     return send_file("manifest.webmanifest", mimetype="application/manifest+json")
