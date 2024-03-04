@@ -435,7 +435,7 @@ def connector_get_file():
     base_dir = f"./drive/{user.user_id}".replace("//", "/").replace("..", "")
     js = request.json()
     rel_path = js["rel_path"]
-    print(rel_path)
+    return send_file(f"{base_dir}/{rel_path}".replace("//", "/").replace("..", ""))
 
 
 @app.route("/manifest.webmanifest", methods=["GET"])
