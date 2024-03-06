@@ -261,7 +261,8 @@ body {
 }
 
 .addButtonDesktop {
-
+    max-width: 20%;
+    min-width: 20%;
 }
 
 @media (min-device-width: 12cm) {
