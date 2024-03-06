@@ -362,13 +362,22 @@ function on_click_share_element_in_edit_menu(request_folder, element_name) {
 }
 
 async function on_click_save_in_folder_naming_menu(request_folder) {
+    let name = document.querySelector("#input_folder_name").value
+    if (name.includes(".") || name.includes("#") || name.includes("/") ||
+    name.includes("\\") || name.includes("*") || name.includes("<") || name.includes(">") ||
+    name.includes("~"))
+    {
+        window.location.reload()
+        return
+    }
+
     await fetch(window.location.origin + "/drive/newfolder", {
         method: "POST",
         headers: {
             "content-type": "application/json"
         },
         body: JSON.stringify({
-            "new_folder": request_folder + "/" + document.querySelector("#input_folder_name").value
+            "new_folder": request_folder + "/" + name
         })
     })
 
