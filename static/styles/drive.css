@@ -42,6 +42,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0;
 }
 
 .addButtonSVG {
@@ -277,6 +278,7 @@ body {
     }
 
     .addButtonDesktop {
+        min-width: 50px;
         max-width: 50px;
         max-height: 50px;
     }
