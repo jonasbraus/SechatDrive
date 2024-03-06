@@ -68,6 +68,7 @@ body {
     align-items: center;
     gap: 50px;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .folderIconSVG {
