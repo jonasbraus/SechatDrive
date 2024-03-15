@@ -2,6 +2,7 @@ import json
 import os
 import requests
 
+os.chdir(os.path.dirname(__file__))
 config = json.loads(open("./config.json").read())
 
 
@@ -82,6 +83,7 @@ def download_drive_content(base, struct):
 
 if not check_login():
     login()
+
 
 structure = get_structure()
 download_drive_content("remote/", structure)
