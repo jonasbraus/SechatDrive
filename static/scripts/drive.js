@@ -56,7 +56,7 @@ function on_click_file(request_folder, file_name) {
         if (file_name.toLowerCase().includes(".png") || file_name.toLowerCase().includes(".jpg") || file_name.toLowerCase().includes(".jpeg")) {
             document.querySelector(".modal").style.display = "flex"
             document.querySelector(".modalContent").innerHTML = `
-            <img src='${url}' style="display:block; margin:auto; max-width: 100%; max-height: 80vh; border-radius: 30px;">
+            <img src='${url}' style="display:block; margin:auto; max-width: 100%; border-radius: 30px; overflow: hidden">
             `
         } else if (file_name.toLowerCase().includes(".mp4") || file_name.toLowerCase().includes(".mpeg-4") || file_name.toLowerCase().includes(".avi") || file_name.toLowerCase().includes(".mov")) {
             document.querySelector(".modal").style.display = "flex"
