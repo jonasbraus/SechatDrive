@@ -166,16 +166,16 @@ def drive_newfile():
 
         file.save(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/"))
 
-        max_size_bytes = 3 * 1024 * 1024
-        if os.path.getsize(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/")) > max_size_bytes and (
-                ".png" in file_name.lower() or ".jpg" in file_name.lower() or ".jpeg" in file_name.lower()):
-            try:
-                with Image.open(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/")) as img:
-                    img = ImageOps.exif_transpose(img)
-                    img.save(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/"), quality=60,
-                             optimize=True)
-            except:
-                pass
+        # max_size_bytes = 3 * 1024 * 1024
+        # if os.path.getsize(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/")) > max_size_bytes and (
+        #         ".png" in file_name.lower() or ".jpg" in file_name.lower() or ".jpeg" in file_name.lower()):
+        #     try:
+        #         with Image.open(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/")) as img:
+        #             img = ImageOps.exif_transpose(img)
+        #             img.save(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/"), quality=60,
+        #                      optimize=True)
+        #     except:
+        #         pass
 
     return "success"
 
