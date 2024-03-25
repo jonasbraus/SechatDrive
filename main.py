@@ -202,7 +202,7 @@ def drive_delete():
 
     shutil.move(path, f"./drive/{user_id}/~trash/{test}".replace("//", "/"))
 
-    versionhandler.add_local_change(user_id, f"/{path_element}", versionhandler.change_types.deleted)
+    versionhandler.add_local_change(user_id, f"/{path_element}".replace("//", "/"), versionhandler.change_types.deleted)
 
     return "success"
 
