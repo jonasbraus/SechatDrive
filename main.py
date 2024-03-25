@@ -5,6 +5,7 @@ import shutil
 import re
 import subprocess
 import threading
+import versionhandler
 
 from PIL import Image, ImageOps
 from flask import Flask, render_template, send_file, request, redirect, Response
@@ -436,6 +437,15 @@ def connector_get_file():
     js = request.json
     rel_path = js["rel_path"]
     return send_file(f"{base_dir}/{rel_path}".replace("//", "/").replace("..", ""))
+
+@app.route("/connector/changes", methods=["GET"])
+def connector_get_changes():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return {"message": "user login not valid!"}
+    
+    return {"changes": versionhandler.get_change_log(user.user_id)}
 
 
 @app.route("/manifest.webmanifest", methods=["GET"])
