@@ -46,7 +46,7 @@ x. Buy a domain online and create an A record to your server. <br/>
 </code>
 PATH_TO_FULLCHAIN.PEM and PATH_TO_PRIVATEKEY.PEM should be the path you saved your certbot keyfiles to.<br/>
 By default it should be in <code>/etc/letsencrypt</code><br/>
-7. sudo systemctl restart nginx.service
+7. <code>sudo systemctl restart nginx.service</code>
 
 
 <h1>Adding an user for login:</h1>
