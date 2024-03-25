@@ -12,6 +12,6 @@ sudo -u postgres psql sechat -c "create table logins (login_id serial primary ke
 sudo -u postgres psql sechat -c "create table shares (share_id serial primary key, token varchar(500), element varchar(500), user_id int);"
 sudo systemctl restart postgresql.service
 sudo mkdir drive
-screen -dmS sechat waitress-serve --host 0.0.0.0 --port=80 --threads=50 main:app
+screen -dmS sechat waitress-serve --host 0.0.0.0 --port=5000 --threads=50 main:app
 
 
