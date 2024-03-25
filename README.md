@@ -41,5 +41,5 @@ For setup you need to enter your credentials in <code>config.json</code>:<br/>
 1. <code>username</code>: Your username for drive login.<br/>
 2. <code>password</code>: Your password for drive login.<br/>
 3. <code>weburl</code>: The URL that you use to access your drive online.<br/>
-4. <code>localpath</code>: The path, that the files should be stored on your local PC. (The folder must be empty)<br/>.
+4. <code>localpath</code>: The path, that the files should be stored on your local PC. (The folder must be empty).<br/>
 
