@@ -23,7 +23,7 @@ A simple drive application for self hosting on linux<br/>
 If you want to use https you should install nginx.<br/>
 1. <code>sudo apt install nginx</code><br/>
 x. Buy a domain online and create an A record to your server. <br/>
-2. <code>sudo apt install certbot</code>
+2. <code>sudo apt install certbot</code><br/>
 3. <code>certbot certonly</code> follow the certbot steps for your domain<br/>
 4. <code>cd /etc/nginx</code><br/>
 5. <code>sudo nano nginx.conf</code><br/>
