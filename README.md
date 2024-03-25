@@ -17,7 +17,7 @@ A simple drive application for self hosting on linux<br/>
 7. <code>cd SechatDrive</code><br/>
 8. <code>sudo chmod +x install.sh</code><br/>
 9. <code>./install.sh</code><br/>
-10. Your server is running on http://YOURUBUNTUSERVERIP<br/>
+10. Your server is running on http://YOURUBUNTUSERVERIP:5000<br/>
 
 <h1>Adding an user for login:</h1>
 1. <code>sudo -u postgres psql sechat</code><br/>
