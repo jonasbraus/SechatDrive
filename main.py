@@ -166,6 +166,7 @@ def drive_newfile():
         #         ".")[0] + "1." + file_name.split(".")[1]
 
         file.save(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/"))
+        versionhandler.add_local_change(user_id, f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/"), versionhandler.change_types.created)
 
         # max_size_bytes = 3 * 1024 * 1024
         # if os.path.getsize(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/")) > max_size_bytes and (

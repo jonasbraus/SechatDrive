@@ -7,6 +7,8 @@ class change_types:
     created = 0
     updated = 1
     deleted = 3
+    moved = 4
+    rename = 5
     
 def add_local_change(user_id, file, change_type):
     path = f"{base_path}/{user_id}.json"
