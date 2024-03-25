@@ -95,13 +95,13 @@ class change_types:
     rename = 5      
 
 def set_last_change_check():
-    config["last_change_check"] = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    config["last_change_check"] = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
     with open("./config.json", "w") as file:
         file.write(json.dumps(config, indent="\t"))
         
 def get_last_change_check():
     if "last_change_check" in config:
-        return datetime.datetime.strptime(config["last_change_check"], "%Y-%m-%d-%H-%M-%S")
+        return datetime.datetime.strptime(config["last_change_check"], "%Y-%m-%d-%H-%M-%S-%f")
     return datetime.datetime(2000, 1, 1)
 
 def create_single_file(rel_path):
@@ -120,10 +120,13 @@ def delete_single_file(rel_path):
     print(rel_path, "deleted")
 
 def apply_changes(changes):
+    if changes is None:
+        return
+    
     all_changes = []
     for key in changes:
         change = changes[key]
-        all_changes.append(Change(datetime.datetime.strptime(key, "%Y-%m-%d-%H-%M-%S"), change["file"], change["change_type"]))
+        all_changes.append(Change(datetime.datetime.strptime(key, "%Y-%m-%d-%H-%M-%S-%f"), change["file"], change["change_type"]))
     all_changes = sorted(all_changes, key=lambda x: x.date)
     
     change_type_function_mapping = {

@@ -16,7 +16,7 @@ def add_local_change(user_id, file, change_type):
     if os.path.exists(path):
         js = json.loads(open(path, "r").read())
         
-    current_time = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
     js[current_time] = {
         "file": file,
         "change_type": change_type

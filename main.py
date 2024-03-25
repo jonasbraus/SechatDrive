@@ -298,6 +298,9 @@ def drive_move():
         f"{base}/{original_location}", f"{base}/{target_location}")
 
     shutil.move(f"{base}/{original_location}", f"{base}/{target_location}")
+    
+    versionhandler.add_local_change(user_id, original_location, versionhandler.change_types.deleted)
+    versionhandler.add_local_change(user_id, target_location, versionhandler.change_types.created)
     return "success"
 
 
