@@ -28,8 +28,7 @@ x. Buy a domain online and create an A record to your server. <br/>
 4. <code>cd /etc/nginx</code><br/>
 5. <code>sudo nano nginx.conf</code><br/>
 6. Below <code>include /etc/nginx/sites-enabled/*</code> add:<br/>
-<code>
-  server {
+<code>server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
     server_name YOURDOMAIN;
@@ -46,8 +45,8 @@ x. Buy a domain online and create an A record to your server. <br/>
   }
 </code>
 PATH_TO_FULLCHAIN.PEM and PATH_TO_PRIVATEKEY.PEM should be the path you saved your certbot keyfiles to.<br/>
-By default it should be in <code>/etc/letsencrypt</code>
-
+By default it should be in <code>/etc/letsencrypt</code><br/>
+7. sudo systemctl restart nginx.service
 
 
 <h1>Adding an user for login:</h1>
