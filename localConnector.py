@@ -84,6 +84,8 @@ def download_drive_content(base, struct):
 if not check_login():
     login()
 
+    
 
 structure = get_structure()
-download_drive_content("remote/", structure)
+if len(os.listdir(config["localpath"])) <= 0:
+    download_drive_content("remote/", structure)
