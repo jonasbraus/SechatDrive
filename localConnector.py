@@ -1,5 +1,6 @@
 import json
 import os
+import time
 import requests
 import datetime
 
@@ -139,17 +140,19 @@ def apply_changes(changes):
             
     set_last_change_check()
 
-if not check_login():
-    login()
+while True:
+    if not check_login():
+        login()
 
+    structure = get_structure()
+    if len(os.listdir(config["localpath"])) <= 0:
+        download_drive_content("remote/", structure)
+    else:
+        apply_changes(requests.request(
+            method="GET",
+            url=f"{config['weburl']}/connector/changes",
+            cookies=config["cookies"]
+        ).json()["changes"])
+        
+    time.sleep(10)
     
-
-structure = get_structure()
-if len(os.listdir(config["localpath"])) <= 0:
-    download_drive_content("remote/", structure)
-else:
-    apply_changes(requests.request(
-        method="GET",
-        url=f"{config['weburl']}/connector/changes",
-        cookies=config["cookies"]
-    ).json()["changes"])
