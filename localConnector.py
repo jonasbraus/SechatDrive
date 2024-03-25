@@ -82,17 +82,16 @@ def download_drive_content(base, struct):
             download_drive_content(f"{base}/{key}".replace("//", "/"), struct[key])
 
 class Change:
-    def __init__(self, date, rel_path, change_type):
+    def __init__(self, date, rel_path, change_type, local):
         self.date = date
         self.rel_path = rel_path
         self.change_type = change_type
+        self.local = local
 
 class change_types:
     created = 0
     updated = 1
     deleted = 3
-    moved = 4
-    rename = 5      
 
 def set_last_change_check():
     config["last_change_check"] = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
@@ -126,7 +125,7 @@ def apply_changes(changes):
     all_changes = []
     for key in changes:
         change = changes[key]
-        all_changes.append(Change(datetime.datetime.strptime(key, "%Y-%m-%d-%H-%M-%S-%f"), change["file"], change["change_type"]))
+        all_changes.append(Change(datetime.datetime.strptime(key, "%Y-%m-%d-%H-%M-%S-%f"), change["file"], change["change_type"], False))
     all_changes = sorted(all_changes, key=lambda x: x.date)
     
     change_type_function_mapping = {

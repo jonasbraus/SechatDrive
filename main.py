@@ -142,6 +142,7 @@ def drive_newfolder():
 
     path = f"./drive/{user_id}/{new_folder}"
     os.mkdir(path)
+    versionhandler.add_local_change(user_id, f"/{new_folder}".replace("//", "/"), versionhandler.change_types.created)
 
     return "success"
 
@@ -160,24 +161,9 @@ def drive_newfile():
     for name in files:
         file = files[name]
         file_name = file.filename
-
-        # while os.path.exists(f"./drive/{user_id}{path_folder}/{file_name}"):
-        #     file_name = file_name.split(
-        #         ".")[0] + "1." + file_name.split(".")[1]
-
         file.save(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/"))
         versionhandler.add_local_change(user_id, f"/{path_folder}/{file_name}".replace("//", "/"), versionhandler.change_types.created)
 
-        # max_size_bytes = 3 * 1024 * 1024
-        # if os.path.getsize(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/")) > max_size_bytes and (
-        #         ".png" in file_name.lower() or ".jpg" in file_name.lower() or ".jpeg" in file_name.lower()):
-        #     try:
-        #         with Image.open(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/")) as img:
-        #             img = ImageOps.exif_transpose(img)
-        #             img.save(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/"), quality=60,
-        #                      optimize=True)
-        #     except:
-        #         pass
 
     return "success"
 
@@ -245,6 +231,7 @@ def drive_restore():
     restore_path = f"./drive/{user_id}/{element.replace('|', '/')}".replace("//", "/")
 
     shutil.move(path, restore_path)
+    versionhandler.add_local_change(user_id, f"/{element.replace('|', '/')}".replace("//", "/"), versionhandler.change_types.created)
 
     return "success"
 
@@ -276,6 +263,8 @@ def drive_rename():
 
     os.rename(f"{base_path}/{request_folder}/{old_name}",
               f"{base_path}/{request_folder}/{new_name}")
+    versionhandler.add_local_change(user_id, f"/{request_folder}/{old_name}".replace("//", "/"), versionhandler.change_types.deleted)
+    versionhandler.add_local_change(user_id, f"/{request_folder}/{new_name}".replace("//", "/"), versionhandler.change_types.created)
     return "success"
 
 
