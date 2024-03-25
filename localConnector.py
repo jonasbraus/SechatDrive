@@ -1,6 +1,7 @@
 import json
 import os
 import requests
+import datetime
 
 os.chdir(os.path.dirname(__file__))
 config = json.loads(open("./config.json").read())
@@ -80,6 +81,61 @@ def download_drive_content(base, struct):
 
             download_drive_content(f"{base}/{key}".replace("//", "/"), struct[key])
 
+class Change:
+    def __init__(self, date, rel_path, change_type):
+        self.date = date
+        self.rel_path = rel_path
+        self.change_type = change_type
+
+class change_types:
+    created = 0
+    updated = 1
+    deleted = 3
+    moved = 4
+    rename = 5      
+
+def set_last_change_check():
+    config["last_change_check"] = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    with open("./config.json", "w") as file:
+        file.write(json.dumps(config, indent="\t"))
+        
+def get_last_change_check():
+    if "last_change_check" in config:
+        return datetime.datetime.strptime(config["last_change_check"], "%Y-%m-%d-%H-%M-%S")
+    return datetime.datetime(2000, 1, 1)
+
+def create_single_file(rel_path):
+    abs_path = f"{config['localpath']}/{rel_path}"
+    if "." in rel_path.split("/")[len(rel_path.split("/"))-1]:
+        with open(abs_path, "wb") as file:
+            file.write(get_file(rel_path))
+            print(rel_path, "downloaded")
+    else:
+        os.mkdir(abs_path)
+        print("folder", rel_path, "created")
+
+def delete_single_file(rel_path):
+    abs_path = f"{config['localpath']}/{rel_path}"
+    os.remove(abs_path)
+    print(rel_path, "deleted")
+
+def apply_changes(changes):
+    all_changes = []
+    for key in changes:
+        change = changes[key]
+        all_changes.append(Change(datetime.datetime.strptime(key, "%Y-%m-%d-%H-%M-%S"), change["file"], change["change_type"]))
+    all_changes = sorted(all_changes, key=lambda x: x.date)
+    
+    change_type_function_mapping = {
+        change_types.created: lambda x: create_single_file(x),
+        change_types.deleted: lambda x: delete_single_file(x)
+    }
+    
+    for change in all_changes:
+        if change.date > get_last_change_check():
+            change_type_function_mapping[change.change_type](change.rel_path)
+            
+    set_last_change_check()
 
 if not check_login():
     login()
@@ -89,3 +145,9 @@ if not check_login():
 structure = get_structure()
 if len(os.listdir(config["localpath"])) <= 0:
     download_drive_content("remote/", structure)
+else:
+    apply_changes(requests.request(
+        method="GET",
+        url=f"{config['weburl']}/connector/changes",
+        cookies=config["cookies"]
+    ).json()["changes"])
