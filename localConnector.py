@@ -221,8 +221,8 @@ def process_changes(changes):
             )
             print("deleted", change.rel_path, "online")
             
-    # with open("./changelog.json", "w") as file:
-    #         file.write(json.dumps(list_dir(config["localpath"]), indent="\t"))
+    with open("./changelog.json", "w") as file:
+            file.write(json.dumps(list_dir(config["localpath"]), indent="\t"))
     all_changes = []
 
 while True:
