@@ -456,6 +456,7 @@ def connector_create():
         files = request.files
         for name in files:
             file = files[name]
+            print(file)
             file.save(path)
     else:
         try:
