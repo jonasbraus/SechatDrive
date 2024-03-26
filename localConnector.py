@@ -193,18 +193,18 @@ def process_changes(changes):
     for change in changes:
         sys_path = f"{config['localpath']}/{change.rel_path}".replace("//", "/")
         if change.change_type == change_types.created:
-            print(sys_path)
-            requests.post(
-                url=f"{config['weburl']}/connector/create",
-                headers={
-                    "content-type": "application/json"
-                },
-                json={
-                    "rel_path": change.rel_path,
-                    "data": open(sys_path, "rb")
-                },
-                cookies=config["cookies"],
-            )
+            if not os.path.isdir(sys_path):
+                requests.post(
+                    url=f"{config['weburl']}/connector/create/file",
+                    files={f"{change.rel_path}": open(sys_path, "rb")},
+                    cookies=config["cookies"]
+                )
+            else:
+                requests.post(
+                    url=f"{config['weburl']}/connector/create/folder",
+                    json={"rel_path": change.rel_path},
+                    cookies=config["cookies"]
+                )
             print("create", change.rel_path, "online")
         if change.change_type == change_types.deleted:
             
@@ -221,21 +221,22 @@ def process_changes(changes):
             )
             print("deleted", change.rel_path, "online")
             
-    with open("./changelog.json", "w") as file:
-            file.write(json.dumps(list_dir(config["localpath"]), indent="\t"))
+    # with open("./changelog.json", "w") as file:
+    #         file.write(json.dumps(list_dir(config["localpath"]), indent="\t"))
     all_changes = []
 
 while True:
     if not check_login():
         login()
 
-    old_changes = None
-    with open("./changelog.json", "r") as file:
-        old_changes = json.loads(file.read())
-        
-    new_changes = list_dir(config["localpath"])
+    
 
     if os.path.exists("./changelog.json"):
+        old_changes = None
+        with open("./changelog.json", "r") as file:
+            old_changes = json.loads(file.read())
+            
+        new_changes = list_dir(config["localpath"])
         get_changes_in_dir(old_changes, new_changes, "/", config["localpath"])
     else:
         with open("./changelog.json", "w") as file:

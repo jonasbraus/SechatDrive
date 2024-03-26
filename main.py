@@ -456,6 +456,20 @@ def connector_create():
         
     return {"message": "created"}
 
+@app.route("/connector/create/folder", methods=["POST"])
+def connector_create_folder():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return {"message": "user login not valid!"}
+    
+    rel_path = request.json["rel_path"]
+    path = f"./drive/{user.user_id}/{rel_path}".replace("//", "/").replace("..", "")
+    os.mkdir(path)
+        
+    return {"message": "created"}
+
+
 @app.route("/connector/delete", methods=["POST"])
 def connector_delete():
     token = request.cookies.get("token")
