@@ -189,22 +189,27 @@ def get_changes_in_dir(old_changes, new_changes, rel_path, system_path):
             get_changes_in_dir(old_changes[key], new_changes[key], f"{rel_path}/{key}".replace("//","/"), f"{system_path}/{key}".replace("//", "/"))
     
 def process_changes(changes):
+    global all_changes
     for change in changes:
         sys_path = f"{config['localpath']}/{change.rel_path}".replace("//", "/")
         if change.change_type == change_types.created:
             
-            requests.request(
-                method="POST",
-                url=f"{config['weburl']}/connector/create",
-                headers={
-                    "content-type": "application/json"
-                },
-                json={
-                    "rel_path": change.rel_path,
-                    "data": open(sys_path, "r").read() if not os.path.isdir(sys_path) else None
-                },
-                cookies=config["cookies"]
-            )
+            try:
+                requests.request(
+                    method="POST",
+                    url=f"{config['weburl']}/connector/create",
+                    headers={
+                        "content-type": "application/json"
+                    },
+                    json={
+                        "rel_path": change.rel_path,
+                        "data": open(sys_path, "rb").read() if not os.path.isdir(sys_path) else None
+                    },
+                    cookies=config["cookies"]
+                )
+                print("create", change.rel_path, "online")
+            except:
+                pass
         if change.change_type == change_types.deleted:
             
             requests.request(
@@ -218,9 +223,11 @@ def process_changes(changes):
                 },
                 cookies=config["cookies"]
             )
+            print("deleted", change.rel_path, "online")
             
     with open("./changelog.json", "w") as file:
             file.write(json.dumps(list_dir(config["localpath"]), indent="\t"))
+    all_changes = []
 
 while True:
     if not check_login():
