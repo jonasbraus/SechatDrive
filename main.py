@@ -442,33 +442,17 @@ def connector_get_changes():
     
     return {"changes": versionhandler.get_change_log(user.user_id)}
 
-@app.route("/connector/create", methods=["POST"])
+@app.route("/connector/create/file", methods=["POST"])
 def connector_create():
     token = request.cookies.get("token")
     user = login_handler.get_user_by_token(token)
     if user is None:
         return {"message": "user login not valid!"}
     
-    js = request.json
-    rel_path = js["rel_path"]
-    path = f"./drive/{user.user_id}/{rel_path}".replace("//", "/").replace("..", "")
-    print(rel_path)
-    if "." in rel_path.split("/")[len(rel_path.split("/"))-1]:
-        # files = request.files
-        # print("test")
-        # for name in files:
-        #     file = files[name]
-        #     print(file)
-        #     file.save(path)
-        with open(path, "w") as file:
-            file.write(js["data"])
-    else:
-        try:
-            os.mkdir(path)
-        except:
-            pass
+    files = request.files
+    print(files)
         
-    return {"message": "deleted"}
+    return {"message": "created"}
 
 @app.route("/connector/delete", methods=["POST"])
 def connector_delete():
@@ -487,7 +471,7 @@ def connector_delete():
         os.mkdir(f"./drive/{user_id}/~trash".replace("//", "/"))
 
     shutil.move(path, f"./drive/{user_id}/~trash/{test}".replace("//", "/"))
-    return {"message": "created"}
+    return {"message": "deleted"}
 
 @app.route("/manifest.webmanifest", methods=["GET"])
 def get_manifest():
