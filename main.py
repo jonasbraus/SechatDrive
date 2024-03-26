@@ -451,7 +451,8 @@ def connector_create():
     
     files = request.files
     for key in files:
-        print(key)
+        file = files[key]
+        file.save(f"./drive/{user.user_id}/{key}".replace("//", "/").replace("..", ""))
         
     return {"message": "created"}
 
