@@ -452,18 +452,19 @@ def connector_create():
     js = request.json
     rel_path = js["rel_path"]
     path = f"./drive/{user.user_id}/{rel_path}".replace("//", "/").replace("..", "")
-    if "." in rel_path.split("/")[len(rel_path.split("/"))-1]:
-        files = request.files
-        print("test")
-        for name in files:
-            file = files[name]
-            print(file)
-            file.save(path)
-    else:
-        try:
+
+    files = request.files
+    print("test")
+    for name in files:
+        file = files[name]
+        print(file)
+        file.save(path)
+
+    try:
+        if len(files) <= 0:
             os.mkdir(path)
-        except:
-            pass
+    except:
+        pass
         
     return {"message": "deleted"}
 
