@@ -17,7 +17,37 @@ A simple drive application for self hosting on linux<br/>
 7. <code>cd SechatDrive</code><br/>
 8. <code>sudo chmod +x install.sh</code><br/>
 9. <code>./install.sh</code><br/>
-10. Your server is running on http://YOURUBUNTUSERVERIP<br/>
+10. Your server is running on http://YOURUBUNTUSERVERIP:5000<br/>
+
+<h1>Use NGINX and certbot for https</h1>
+If you want to use https you should install nginx.<br/>
+1. <code>sudo apt install nginx</code><br/>
+x. Buy a domain online and create an A record to your server. <br/>
+2. <code>sudo apt install certbot</code><br/>
+3. <code>certbot certonly</code> follow the certbot steps for your domain<br/>
+4. <code>cd /etc/nginx</code><br/>
+5. <code>sudo nano nginx.conf</code><br/>
+6. Below <code>include /etc/nginx/sites-enabled/*</code> add:<br/>
+<code>server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name YOURDOMAIN;
+    ssl_certificate PATH_TO_FULLCHAIN.PEM;
+    ssl_certificate_key PATH_TO_PRIVATEKEY.PEM;
+    ssl_protocols TLSv1.3;
+    ssl_session_timeout 1d;
+    client_max_body_size 20000M;
+    keepalive_timeout 65;
+    keepalive_requests 1000;
+    location / {
+      proxy_pass http://127.0.0.1:5000/;
+    }
+  }
+</code>
+PATH_TO_FULLCHAIN.PEM and PATH_TO_PRIVATEKEY.PEM should be the path you saved your certbot keyfiles to.<br/>
+By default it should be in <code>/etc/letsencrypt</code><br/>
+7. <code>sudo systemctl restart nginx.service</code>
+
 
 <h1>Adding an user for login:</h1>
 1. <code>sudo -u postgres psql sechat</code><br/>
