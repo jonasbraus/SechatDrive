@@ -239,7 +239,6 @@ while True:
             file.write(json.dumps(list_dir(config["localpath"]), indent="\t"))
             
     process_changes(all_changes)
-    break
             
     structure = get_structure()
     if len(os.listdir(config["localpath"])) <= 0:
