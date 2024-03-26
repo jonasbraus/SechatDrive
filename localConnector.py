@@ -194,22 +194,20 @@ def process_changes(changes):
         sys_path = f"{config['localpath']}/{change.rel_path}".replace("//", "/")
         if change.change_type == change_types.created:
             
-            try:
-                requests.request(
-                    method="POST",
-                    url=f"{config['weburl']}/connector/create",
-                    headers={
-                        "content-type": "application/json"
-                    },
-                    json={
-                        "rel_path": change.rel_path,
-                        "data": open(sys_path, "rb").read() if not os.path.isdir(sys_path) else None
-                    },
-                    cookies=config["cookies"]
-                )
-                print("create", change.rel_path, "online")
-            except:
-                pass
+
+            requests.request(
+                method="POST",
+                url=f"{config['weburl']}/connector/create",
+                headers={
+                    "content-type": "application/json"
+                },
+                json={
+                    "rel_path": change.rel_path
+                },
+                cookies=config["cookies"],
+                files={"file": open(sys_path, "rb")}
+            )
+            print("create", change.rel_path, "online")
         if change.change_type == change_types.deleted:
             
             requests.request(
