@@ -442,6 +442,23 @@ def connector_get_changes():
     
     return {"changes": versionhandler.get_change_log(user.user_id)}
 
+@app.route("/connector/create", methods=["POST"])
+def connector_create():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return {"message": "user login not valid!"}
+    
+    js = request.json
+    rel_path = js["rel_path"]
+    path = f"./drive/{user.user_id}/{rel_path}".replace("//", "/").replace("..", "")
+    if "." in rel_path.split("/")[len(rel_path.split("/"))-1]:
+        print("file")
+    else:
+        os.mkdir(path)
+        print("folder")
+        
+    return {}
 
 @app.route("/manifest.webmanifest", methods=["GET"])
 def get_manifest():
