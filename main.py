@@ -482,11 +482,13 @@ def connector_delete():
     rel_path = js["rel_path"]
     path = f"./drive/{user.user_id}/{rel_path}".replace("//", "/").replace("..", "")
     
-    test = rel_path.replace("/", "|")
-    if not os.path.isdir(f"./drive/{user_id}/~trash".replace("//", "/")):
-        os.mkdir(f"./drive/{user_id}/~trash".replace("//", "/"))
-
-    shutil.move(path, f"./drive/{user_id}/~trash/{test}".replace("//", "/"))
+    element = rel_path.split("/")[len(rel_path.split("/"))-1]
+    
+    if "." in element:
+        os.remove(path)
+    else:
+        shutil.rmtree(path)
+        
     return {"message": "deleted"}
 
 @app.route("/manifest.webmanifest", methods=["GET"])

@@ -166,6 +166,12 @@ def list_dir(directory):
     return result
 
 all_changes = []
+def get_changes_in_new_folder(new_changes, rel_path, system_path):
+    for key in new_changes:
+        all_changes.append(Change(None, f"{rel_path}/{key}", change_types.created, True))
+        if os.path.isdir(f"{system_path}/{key}".replace("//", "/")):
+            get_changes_in_new_folder(new_changes[key], f"{rel_path}/{key}".replace("//","/"), f"{system_path}/{key}".replace("//", "/"))
+
 def get_changes_in_dir(old_changes, new_changes, rel_path, system_path):
     global all_changes
     
@@ -185,6 +191,8 @@ def get_changes_in_dir(old_changes, new_changes, rel_path, system_path):
         # check for new local folders
         if key not in old_changes:
             all_changes.append(Change(None, f"{rel_path}/{key}", change_types.created, True))
+            if os.path.isdir(f"{system_path}/{key}".replace("//", "/")):
+                get_changes_in_new_folder(new_changes[key], f"{rel_path}/{key}".replace("//","/"), f"{system_path}/{key}".replace("//", "/"))
         elif os.path.isdir(f"{system_path}/{key}".replace("//", "/")):
             get_changes_in_dir(old_changes[key], new_changes[key], f"{rel_path}/{key}".replace("//","/"), f"{system_path}/{key}".replace("//", "/"))
     
