@@ -460,7 +460,7 @@ def connector_create():
         #     file = files[name]
         #     print(file)
         #     file.save(path)
-        with open(path, "wb") as file:
+        with open(path, "w") as file:
             file.write(js["data"])
     else:
         try:
