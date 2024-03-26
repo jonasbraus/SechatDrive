@@ -452,6 +452,7 @@ def connector_create():
     js = request.json
     rel_path = js["rel_path"]
     path = f"./drive/{user.user_id}/{rel_path}".replace("//", "/").replace("..", "")
+    print(rel_path)
     if "." in rel_path.split("/")[len(rel_path.split("/"))-1]:
         files = request.files
         print("test")
