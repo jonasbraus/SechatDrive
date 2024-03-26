@@ -155,10 +155,92 @@ def apply_changes(changes):
             
     set_last_change_check()
 
+def list_dir(directory):
+    result = {
+    }
+    for folder in os.listdir(directory):
+        if os.path.isdir(f"{directory}/{folder}"):
+            result[f"{folder}"] = list_dir(f"{directory}/{folder}")
+        else:
+            result[f"{folder}"] = os.path.getmtime(f"{directory}/{folder}")
+    return result
+
+all_changes = []
+def get_changes_in_dir(old_changes, new_changes, rel_path, system_path):
+    global all_changes
+    
+    # check for updated files
+    for key in new_changes:
+        if not os.path.isdir(f"{system_path}/{key}") and key in old_changes:
+            if new_changes[key] > old_changes[key]:
+                # all_changes.append(Change(None, f"{rel_path}/{key}", change_types.deleted, True))
+                all_changes.append(Change(None, f"{rel_path}/{key}", change_types.created, True))
+    
+    # check for deleted local folders
+    for key in old_changes:
+        if key not in new_changes:
+            all_changes.append(Change(None, f"{rel_path}/{key}", change_types.deleted, True))
+    
+    for key in new_changes:
+        # check for new local folders
+        if key not in old_changes:
+            all_changes.append(Change(None, f"{rel_path}/{key}", change_types.created, True))
+        elif os.path.isdir(f"{system_path}/{key}".replace("//", "/")):
+            get_changes_in_dir(old_changes[key], new_changes[key], f"{rel_path}/{key}".replace("//","/"), f"{system_path}/{key}".replace("//", "/"))
+    
+def process_changes(changes):
+    for change in changes:
+        sys_path = f"{config['localpath']}/{change.rel_path}".replace("//", "/")
+        if change.change_type == change_types.created:
+            
+            requests.request(
+                method="POST",
+                url=f"{config['weburl']}/connector/create",
+                headers={
+                    "content-type": "application/json"
+                },
+                json={
+                    "rel_path": change.rel_path,
+                    "data": open(sys_path, "r").read() if not os.path.isdir(sys_path) else None
+                },
+                cookies=config["cookies"]
+            )
+        if change.change_type == change_types.deleted:
+            
+            requests.request(
+                method="POST",
+                url=f"{config['weburl']}/connector/delete",
+                headers={
+                    "content-type": "application/json"
+                },
+                json={
+                    "rel_path": change.rel_path
+                },
+                cookies=config["cookies"]
+            )
+            
+    with open("./changelog.json", "w") as file:
+            file.write(json.dumps(list_dir(config["localpath"]), indent="\t"))
+
 while True:
     if not check_login():
         login()
 
+    old_changes = None
+    with open("./changelog.json", "r") as file:
+        old_changes = json.loads(file.read())
+        
+    new_changes = list_dir(config["localpath"])
+
+    if os.path.exists("./changelog.json"):
+        get_changes_in_dir(old_changes, new_changes, "/", config["localpath"])
+    else:
+        with open("./changelog.json", "w") as file:
+            file.write(json.dumps(list_dir(config["localpath"]), indent="\t"))
+            
+    process_changes(all_changes)
+    break
+            
     structure = get_structure()
     if len(os.listdir(config["localpath"])) <= 0:
         download_drive_content("remote/", structure)
@@ -171,3 +253,6 @@ while True:
         
     time.sleep(10)
     
+# dir_list = list_dir(config["localpath"])
+# with open("./test.json", "w") as file:
+#     file.write(json.dumps(dir_list, indent="\t"))

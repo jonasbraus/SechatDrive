@@ -463,6 +463,25 @@ def connector_create():
         
     return {}
 
+@app.route("/connector/delete", methods=["POST"])
+def connector_delete():
+    token = request.cookies.get("token")
+    user = login_handler.get_user_by_token(token)
+    if user is None:
+        return {"message": "user login not valid!"}
+    user_id = user.user_id
+    
+    js = request.json
+    rel_path = js["rel_path"]
+    path = f"./drive/{user.user_id}/{rel_path}".replace("//", "/").replace("..", "")
+    
+    test = rel_path.replace("/", "|")
+    if not os.path.isdir(f"./drive/{user_id}/~trash".replace("//", "/")):
+        os.mkdir(f"./drive/{user_id}/~trash".replace("//", "/"))
+
+    shutil.move(path, f"./drive/{user_id}/~trash/{test}".replace("//", "/"))
+    return {}
+
 @app.route("/manifest.webmanifest", methods=["GET"])
 def get_manifest():
     return send_file("manifest.webmanifest", mimetype="application/manifest+json")
