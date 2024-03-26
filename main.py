@@ -453,7 +453,8 @@ def connector_create():
     rel_path = js["rel_path"]
     path = f"./drive/{user.user_id}/{rel_path}".replace("//", "/").replace("..", "")
     if "." in rel_path.split("/")[len(rel_path.split("/"))-1]:
-        print(js["data"])
+        with open(path, "w") as file:
+            file.write(js["data"])
     else:
         os.mkdir(path)
         
