@@ -454,12 +454,14 @@ def connector_create():
     path = f"./drive/{user.user_id}/{rel_path}".replace("//", "/").replace("..", "")
     print(rel_path)
     if "." in rel_path.split("/")[len(rel_path.split("/"))-1]:
-        files = request.files
-        print("test")
-        for name in files:
-            file = files[name]
-            print(file)
-            file.save(path)
+        # files = request.files
+        # print("test")
+        # for name in files:
+        #     file = files[name]
+        #     print(file)
+        #     file.save(path)
+        with open(path, "wb") as file:
+            file.write(js["data"])
     else:
         try:
             os.mkdir(path)

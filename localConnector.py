@@ -193,7 +193,6 @@ def process_changes(changes):
     for change in changes:
         sys_path = f"{config['localpath']}/{change.rel_path}".replace("//", "/")
         if change.change_type == change_types.created:
-            files = {"upload_file": open(sys_path, "rb")}
             print(sys_path)
             requests.post(
                 url=f"{config['weburl']}/connector/create",
@@ -201,9 +200,9 @@ def process_changes(changes):
                     "content-type": "application/json"
                 },
                 json={
-                    "rel_path": change.rel_path
+                    "rel_path": change.rel_path,
+                    "data": open(sys_path, "rb")
                 },
-                files=files,
                 cookies=config["cookies"],
             )
             print("create", change.rel_path, "online")
