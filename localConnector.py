@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 import time
 import requests
 import datetime
@@ -129,7 +130,7 @@ def delete_single_file(rel_path):
         if "." in rel_path.split("/")[len(rel_path.split("/"))-1]:
             os.remove(abs_path)
         else:
-            os.rmdir(abs_path)
+            shutil.rmtree(abs_path)
         print(rel_path, "deleted")
     except:
         pass
