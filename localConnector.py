@@ -48,20 +48,23 @@ def get_structure():
 
 
 def get_file(rel_path):
-    global config
-    url = f"{config['weburl']}/connector/getfile"
-    response = requests.request(
-        method="POST",
-        url=url,
-        headers={
-            "content-type": "application/json"
-        },
-        data=json.dumps({
-            "rel_path": rel_path
-        }),
-        cookies=config["cookies"]
-    )
-    return response.content
+    try:
+        global config
+        url = f"{config['weburl']}/connector/getfile"
+        response = requests.request(
+            method="POST",
+            url=url,
+            headers={
+                "content-type": "application/json"
+            },
+            data=json.dumps({
+                "rel_path": rel_path
+            }),
+            cookies=config["cookies"]
+        )
+        return response.content
+    except:
+        return None
 
 
 def download_drive_content(base, struct):
@@ -77,7 +80,10 @@ def download_drive_content(base, struct):
 
             if is_file and not os.path.exists(abs_path) and "~" not in abs_path:
                 with open(abs_path, "wb") as file:
-                    file.write(get_file(rel_path))
+                    try:
+                        file.write(get_file(rel_path))
+                    except:
+                        pass
                     print(rel_path, "downloaded")
 
             download_drive_content(f"{base}/{key}".replace("//", "/"), struct[key])
@@ -108,16 +114,25 @@ def create_single_file(rel_path):
     abs_path = f"{config['localpath']}/{rel_path}"
     if "." in rel_path.split("/")[len(rel_path.split("/"))-1]:
         with open(abs_path, "wb") as file:
-            file.write(get_file(rel_path))
+            try:
+                file.write(get_file(rel_path))
+            except:
+                pass
             print(rel_path, "downloaded")
     else:
         os.mkdir(abs_path)
         print("folder", rel_path, "created")
 
 def delete_single_file(rel_path):
-    abs_path = f"{config['localpath']}/{rel_path}"
-    os.remove(abs_path)
-    print(rel_path, "deleted")
+    try:
+        abs_path = f"{config['localpath']}/{rel_path}"
+        if "." in rel_path.split("/")[len(rel_path.split("/"))-1]:
+            os.remove(abs_path)
+        else:
+            os.rmdir(abs_path)
+        print(rel_path, "deleted")
+    except:
+        pass
 
 def apply_changes(changes):
     if changes is None:
