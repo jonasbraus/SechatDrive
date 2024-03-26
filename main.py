@@ -456,7 +456,10 @@ def connector_create():
         with open(path, "w") as file:
             file.write(js["data"])
     else:
-        os.mkdir(path)
+        try:
+            os.mkdir(path)
+        except:
+            pass
         
     return {}
 
