@@ -461,7 +461,7 @@ def connector_create():
         except:
             pass
         
-    return {}
+    return {"message": "deleted"}
 
 @app.route("/connector/delete", methods=["POST"])
 def connector_delete():
@@ -480,7 +480,7 @@ def connector_delete():
         os.mkdir(f"./drive/{user_id}/~trash".replace("//", "/"))
 
     shutil.move(path, f"./drive/{user_id}/~trash/{test}".replace("//", "/"))
-    return {}
+    return {"message": "created"}
 
 @app.route("/manifest.webmanifest", methods=["GET"])
 def get_manifest():
