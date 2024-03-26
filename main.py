@@ -450,7 +450,8 @@ def connector_create():
         return {"message": "user login not valid!"}
     
     files = request.files
-    print(files)
+    for key in files:
+        print(key)
         
     return {"message": "created"}
 
