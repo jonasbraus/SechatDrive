@@ -254,7 +254,7 @@ while True:
             cookies=config["cookies"]
         ).json()["changes"])
         
-    time.sleep(10)
+    time.sleep(5)
     
 # dir_list = list_dir(config["localpath"])
 # with open("./test.json", "w") as file:
