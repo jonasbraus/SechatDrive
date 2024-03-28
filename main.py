@@ -142,7 +142,7 @@ def drive_newfolder():
 
     path = f"./drive/{user_id}/{new_folder}"
     os.mkdir(path)
-    versionhandler.add_local_change(user_id, f"/{new_folder}".replace("//", "/"), versionhandler.change_types.created)
+    versionhandler.add_local_change_all(user_id, f"/{new_folder}".replace("//", "/"), versionhandler.change_types.created)
 
     return "success"
 
@@ -162,7 +162,7 @@ def drive_newfile():
         file = files[name]
         file_name = file.filename
         file.save(f"./drive/{user_id}/{path_folder}/{file_name}".replace("//", "/"))
-        versionhandler.add_local_change(user_id, f"/{path_folder}/{file_name}".replace("//", "/"), versionhandler.change_types.created)
+        versionhandler.add_local_change_all(user_id, f"/{path_folder}/{file_name}".replace("//", "/"), versionhandler.change_types.created)
 
 
     return "success"
@@ -188,7 +188,7 @@ def drive_delete():
 
     shutil.move(path, f"./drive/{user_id}/~trash/{test}".replace("//", "/"))
 
-    versionhandler.add_local_change(user_id, f"/{path_element}".replace("//", "/"), versionhandler.change_types.deleted)
+    versionhandler.add_local_change_all(user_id, f"/{path_element}".replace("//", "/"), versionhandler.change_types.deleted)
 
     return "success"
 
@@ -231,7 +231,7 @@ def drive_restore():
     restore_path = f"./drive/{user_id}/{element.replace('|', '/')}".replace("//", "/")
 
     shutil.move(path, restore_path)
-    versionhandler.add_local_change(user_id, f"/{element.replace('|', '/')}".replace("//", "/"), versionhandler.change_types.created)
+    versionhandler.add_local_change_all(user_id, f"/{element.replace('|', '/')}".replace("//", "/"), versionhandler.change_types.created)
 
     return "success"
 
@@ -263,8 +263,8 @@ def drive_rename():
 
     os.rename(f"{base_path}/{request_folder}/{old_name}",
               f"{base_path}/{request_folder}/{new_name}")
-    versionhandler.add_local_change(user_id, f"/{request_folder}/{old_name}".replace("//", "/"), versionhandler.change_types.deleted)
-    versionhandler.add_local_change(user_id, f"/{request_folder}/{new_name}".replace("//", "/"), versionhandler.change_types.created)
+    versionhandler.add_local_change_all(user_id, f"/{request_folder}/{old_name}".replace("//", "/"), versionhandler.change_types.deleted)
+    versionhandler.add_local_change_all(user_id, f"/{request_folder}/{new_name}".replace("//", "/"), versionhandler.change_types.created)
     return "success"
 
 
@@ -288,8 +288,8 @@ def drive_move():
 
     shutil.move(f"{base}/{original_location}", f"{base}/{target_location}")
     
-    versionhandler.add_local_change(user_id, original_location, versionhandler.change_types.deleted)
-    versionhandler.add_local_change(user_id, target_location, versionhandler.change_types.created)
+    versionhandler.add_local_change_all(user_id, original_location, versionhandler.change_types.deleted)
+    versionhandler.add_local_change_all(user_id, target_location, versionhandler.change_types.created)
     return "success"
 
 
@@ -433,14 +433,18 @@ def connector_get_file():
     rel_path = js["rel_path"]
     return send_file(f"{base_dir}/{rel_path}".replace("//", "/").replace("..", ""))
 
-@app.route("/connector/changes", methods=["GET"])
+@app.route("/connector/changes", methods=["POST"])
 def connector_get_changes():
     token = request.cookies.get("token")
     user = login_handler.get_user_by_token(token)
     if user is None:
         return {"message": "user login not valid!"}
     
-    return {"changes": versionhandler.get_change_log(user.user_id)}
+    js = request.json
+    
+    versionhandler.register_device_if_not_exist(user.user_id, js["device_name"])
+    
+    return {"changes": versionhandler.get_change_log(user.user_id, js["device_name"])}
 
 @app.route("/connector/create/file", methods=["POST"])
 def connector_create():
@@ -450,9 +454,12 @@ def connector_create():
         return {"message": "user login not valid!"}
     
     files = request.files
+    device_name = files["device_name"]
     for key in files:
         file = files[key]
-        file.save(f"./drive/{user.user_id}/{key}".replace("//", "/").replace("..", ""))
+        if key.lower() != "device_name":
+            file.save(f"./drive/{user.user_id}/{key}".replace("//", "/").replace("..", ""))
+            versionhandler.add_local_change_except(user.user_id, device_name, f"/{key}".replace("//", "/"), versionhandler.change_types.created)
         
     return {"message": "created"}
 
@@ -463,9 +470,12 @@ def connector_create_folder():
     if user is None:
         return {"message": "user login not valid!"}
     
-    rel_path = request.json["rel_path"]
+    js = request.json
+    rel_path = js["rel_path"]
     path = f"./drive/{user.user_id}/{rel_path}".replace("//", "/").replace("..", "")
     os.mkdir(path)
+    
+    versionhandler.add_local_change_except(user.user_id, js["device_name"], f"/{rel_path}".replace("//", "/"), versionhandler.change_types.created)
         
     return {"message": "created"}
 
@@ -476,7 +486,6 @@ def connector_delete():
     user = login_handler.get_user_by_token(token)
     if user is None:
         return {"message": "user login not valid!"}
-    user_id = user.user_id
     
     js = request.json
     rel_path = js["rel_path"]
@@ -489,6 +498,8 @@ def connector_delete():
     else:
         shutil.rmtree(path)
         
+        
+    versionhandler.add_local_change_except(user.user_id, js["device_name"], f"/{rel_path}".replace("//", "/"), versionhandler.change_types.deleted)
     return {"message": "deleted"}
 
 @app.route("/manifest.webmanifest", methods=["GET"])
