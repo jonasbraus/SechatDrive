@@ -453,6 +453,7 @@ def connector_create():
     for key in files:
         file = files[key]
         file.save(f"./drive/{user.user_id}/{key}".replace("//", "/").replace("..", ""))
+        versionhandler.add_local_change(user.user_id, key.replace("//", "/"), versionhandler.change_types.created)
         
     return {"message": "created"}
 
@@ -467,6 +468,7 @@ def connector_create_folder():
     path = f"./drive/{user.user_id}/{rel_path}".replace("//", "/").replace("..", "")
     os.mkdir(path)
         
+    versionhandler.add_local_change(user.user_id, rel_path.replace("//", "/"), versionhandler.change_types.created)
     return {"message": "created"}
 
 
@@ -488,6 +490,8 @@ def connector_delete():
         os.remove(path)
     else:
         shutil.rmtree(path)
+        
+    versionhandler.add_local_change(user_id, rel_path.replace("//", "/"), versionhandler.change_types.deleted)
         
     return {"message": "deleted"}
 
