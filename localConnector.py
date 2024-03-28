@@ -135,31 +135,23 @@ def delete_single_file(rel_path):
     except:
         pass
 
-all_changes = []
 def apply_changes(changes):
-    global all_changes
     if changes is None:
         return
     
-    all_remote_changes = []
+    all_changes = []
     for key in changes:
         change = changes[key]
-        all_remote_changes.append(Change(datetime.datetime.strptime(key, "%Y-%m-%d-%H-%M-%S-%f"), change["file"], change["change_type"], False))
-    all_remote_changes = sorted(all_remote_changes, key=lambda x: x.date)
+        all_changes.append(Change(datetime.datetime.strptime(key, "%Y-%m-%d-%H-%M-%S-%f"), change["file"], change["change_type"], False))
+    all_changes = sorted(all_changes, key=lambda x: x.date)
     
     change_type_function_mapping = {
         change_types.created: lambda x: create_single_file(x),
         change_types.deleted: lambda x: delete_single_file(x)
     }
     
-    def check_change_in_all_changes(change):        
-        for c in all_changes:
-            if c.rel_path.replace("//", "/") == change.rel_path.replace("//", "/") and c.change_type == change.change_type:
-                return True
-        return False
-    
-    for change in all_remote_changes:
-        if change.date > get_last_change_check() and not check_change_in_all_changes(change):
+    for change in all_changes:
+        if change.date > get_last_change_check():
             change_type_function_mapping[change.change_type](change.rel_path)
             
     set_last_change_check()
@@ -174,7 +166,7 @@ def list_dir(directory):
             result[f"{folder}"] = os.path.getmtime(f"{directory}/{folder}")
     return result
 
-
+all_changes = []
 def get_changes_in_new_folder(new_changes, rel_path, system_path):
     for key in new_changes:
         all_changes.append(Change(None, f"{rel_path}/{key}", change_types.created, True))
@@ -240,6 +232,7 @@ def process_changes(changes):
             
     with open("./changelog.json", "w") as file:
             file.write(json.dumps(list_dir(config["localpath"]), indent="\t"))
+    all_changes = []
 
 while True:
     if not check_login():
@@ -270,5 +263,8 @@ while True:
             cookies=config["cookies"]
         ).json()["changes"])
         
-    all_changes = []
     time.sleep(5)
+    
+# dir_list = list_dir(config["localpath"])
+# with open("./test.json", "w") as file:
+#     file.write(json.dumps(dir_list, indent="\t"))
