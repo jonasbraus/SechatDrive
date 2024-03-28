@@ -117,12 +117,15 @@ def create_single_file(rel_path):
         with open(abs_path, "wb") as file:
             try:
                 file.write(get_file(rel_path))
+                print(rel_path, "downloaded")
             except:
                 pass
-            print(rel_path, "downloaded")
     else:
-        os.mkdir(abs_path)
-        print("folder", rel_path, "created")
+        try:
+            os.mkdir(abs_path)
+            print("folder", rel_path, "created")
+        except:
+            pass
 
 def delete_single_file(rel_path):
     try:
