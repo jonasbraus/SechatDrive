@@ -139,7 +139,7 @@ def delete_single_file(rel_path):
         pass
 
 all_changes = []
-def apply_remote_changes(changes):
+def apply_changes(changes):
     global all_changes
     if changes is None:
         return
@@ -267,7 +267,7 @@ while True:
     if len(os.listdir(config["localpath"])) <= 0:
         download_drive_content("remote/", structure)
     else:
-        apply_remote_changes(requests.request(
+        apply_changes(requests.request(
             method="GET",
             url=f"{config['weburl']}/connector/changes",
             cookies=config["cookies"]
