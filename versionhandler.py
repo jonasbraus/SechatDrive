@@ -16,6 +16,9 @@ def register_device_if_not_exist(user_id, device_name):
     if os.path.exists(path):
         js = json.loads(open(path, "r").read())
     
+    if not os.path.exists(f"./version/{user_id}"):
+        os.mkdir(f"./version/{user_id}")
+    
     if not device_name in js:
         js[device_name] = device_name
         with open(path, "w") as file:
