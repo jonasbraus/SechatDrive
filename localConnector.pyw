@@ -274,4 +274,4 @@ while True:
         ).json()["changes"])
         
     all_changes = []
-    time.sleep(1)
+    time.sleep(5)
