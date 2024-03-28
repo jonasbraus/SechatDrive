@@ -205,13 +205,16 @@ def process_changes(changes):
             if not os.path.isdir(sys_path):
                 requests.post(
                     url=f"{config['weburl']}/connector/create/file",
-                    files={f"{change.rel_path}": open(sys_path, "rb")},
+                    files={
+                        "device_name": config["devicename"],
+                        f"{change.rel_path}": open(sys_path, "rb")
+                    },
                     cookies=config["cookies"]
                 )
             else:
                 requests.post(
                     url=f"{config['weburl']}/connector/create/folder",
-                    json={"rel_path": change.rel_path},
+                    json={"rel_path": change.rel_path, "device_name": config["devicename"]},
                     cookies=config["cookies"]
                 )
             print("create", change.rel_path, "online")
@@ -224,7 +227,8 @@ def process_changes(changes):
                     "content-type": "application/json"
                 },
                 json={
-                    "rel_path": change.rel_path
+                    "rel_path": change.rel_path,
+                    "device_name": config["devicename"]
                 },
                 cookies=config["cookies"]
             )
@@ -238,6 +242,21 @@ while True:
     if not check_login():
         login()
 
+    structure = get_structure()
+    if len(os.listdir(config["localpath"])) <= 0:
+        download_drive_content("remote/", structure)
+    else:
+        apply_changes(requests.request(
+            method="POST",
+            url=f"{config['weburl']}/connector/changes",
+            headers={
+                "content-type": "application/json"
+            },
+            json={
+                "device_name": config["devicename"]
+            },
+            cookies=config["cookies"]
+        ).json()["changes"])
     
 
     if os.path.exists("./changelog.json"):
@@ -253,15 +272,7 @@ while True:
             
     process_changes(all_changes)
             
-    structure = get_structure()
-    if len(os.listdir(config["localpath"])) <= 0:
-        download_drive_content("remote/", structure)
-    else:
-        apply_changes(requests.request(
-            method="GET",
-            url=f"{config['weburl']}/connector/changes",
-            cookies=config["cookies"]
-        ).json()["changes"])
+
         
     time.sleep(5)
     
