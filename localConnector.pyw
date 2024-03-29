@@ -4,6 +4,9 @@ import shutil
 import time
 import requests
 import datetime
+import urllib3
+
+urllib3.disable_warnings()
 
 os.chdir(os.path.dirname(__file__))
 config = json.loads(open("./config.json").read())
@@ -12,7 +15,7 @@ config = json.loads(open("./config.json").read())
 def check_login():
     global config
     url = f"{config['weburl']}/connector/checklogin"
-    response = requests.request(method="GET", url=url, cookies=config["cookies"] if "cookies" in config else {})
+    response = requests.request(method="GET", url=url, cookies=config["cookies"] if "cookies" in config else {}, verify=False)
     return response.json()["success"]
 
 
@@ -22,6 +25,7 @@ def login():
     response = requests.request(
         method="POST",
         url=url,
+        verify=False,
         headers={
             "content-type": "application/json"
         },
@@ -41,6 +45,7 @@ def get_structure():
     url = f"{config['weburl']}/connector/structure"
     response = requests.request(
         method="GET",
+        verify=False,
         url=url,
         cookies=config["cookies"]
     )
@@ -53,6 +58,7 @@ def get_file(rel_path):
         global config
         url = f"{config['weburl']}/connector/getfile"
         response = requests.request(
+            verify=False,
             method="POST",
             url=url,
             headers={
@@ -205,6 +211,7 @@ def process_changes(changes):
             if not os.path.isdir(sys_path):
                 requests.post(
                     url=f"{config['weburl']}/connector/create/file",
+                    verify=False,
                     files={
                         "device_name": config["devicename"],
                         f"{change.rel_path}": open(sys_path, "rb")
@@ -214,6 +221,7 @@ def process_changes(changes):
             else:
                 requests.post(
                     url=f"{config['weburl']}/connector/create/folder",
+                    verify=False,
                     json={"rel_path": change.rel_path, "device_name": config["devicename"]},
                     cookies=config["cookies"]
                 )
@@ -223,6 +231,7 @@ def process_changes(changes):
             requests.request(
                 method="POST",
                 url=f"{config['weburl']}/connector/delete",
+                verify=False,
                 headers={
                     "content-type": "application/json"
                 },
@@ -249,6 +258,7 @@ while True:
         apply_changes(requests.request(
             method="POST",
             url=f"{config['weburl']}/connector/changes",
+            verify=False,
             headers={
                 "content-type": "application/json"
             },
