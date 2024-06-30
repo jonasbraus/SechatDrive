@@ -1,0 +1,19 @@
+{
+    "name": "Sechat Drive",
+    "short_name": "Sechat Drive",
+    "description": "The Cloud Suite",
+    "start_url": "/",
+    "dir": "auto",
+    "lang": "en-US",
+    "display": "standalone",
+    "theme_color": "#1b1a22",
+    "background_color": "#1b1a22",
+    "icons": [
+        {
+            "src": "/static/Logo.png",
+            "sizes": "500x500",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}
